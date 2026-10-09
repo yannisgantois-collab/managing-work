@@ -35,7 +35,7 @@ Analyse des deux vidéos envoyées (Coca/McDo et GTA 6), puis tout ce qu'il faut
 - **Tutoiement et argot léger** : « t'as la dalle », « gratos », « on s'est mangés », « petit malin ».
 - **Concret avant abstrait** : on montre (le frigo, la clé branchée sur la télé) avant de nommer le concept.
 - **Chiffres précis** (5 milliards, 3 sur 4, 90 vidéos, 48 heures, 5 jours sur 5).
-- Environ **220 mots pour 75 s** (≈ 3 mots/s, débit rapide).
+- Environ **240 mots pour 75 s** (un peu plus de 3 mots/s, débit rapide).
 - La persona n'est **jamais neutre** : elle se met en scène (« moi je… ») 2 ou 3 fois par vidéo.
 
 ---

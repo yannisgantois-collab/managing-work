@@ -1,0 +1,1011 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Refaire le format doof_lab</title>
+<style>
+@font-face{font-family:'GInter';font-weight:400;src:url(fonts/inter-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'GInter';font-weight:500;src:url(fonts/inter-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'GInter';font-weight:600;src:url(fonts/inter-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'GInter';font-weight:700;src:url(fonts/inter-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter Tight';font-weight:700;src:url(fonts/inter-tight-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter Tight';font-weight:800;src:url(fonts/inter-tight-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-weight:500;src:url(fonts/jetbrains-mono-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-weight:700;src:url(fonts/jetbrains-mono-latin-700-normal.woff2) format('woff2')}
+
+:root{
+  --ink:#15152a; --text:#1b1b30; --muted:#5c5c76; --faint:#8b8ba0;
+  --violet:#5b4bff; --pink:#e8337f;
+  --lav:#f5f4ff; --card:#fbfbff; --line:#e5e3f3; --line2:#dcdce6;
+  --sans:'GInter','Inter',sans-serif; --tight:'Inter Tight','Inter Display','Inter',sans-serif; --mono:'JetBrains Mono','DejaVu Sans Mono',monospace;
+}
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:var(--sans);font-size:13.5px;line-height:1.5;color:var(--text);background:#fff}
+b,strong{font-weight:600;color:var(--ink)}
+.page{width:210mm;height:297mm;position:relative;overflow:hidden;padding:17mm 17mm 20mm;break-after:page;background:#fff}
+.page:last-child{break-after:auto}
+.footer{position:absolute;left:17mm;right:17mm;bottom:10.5mm;display:flex;justify-content:space-between;font:500 7.8px/1 var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--faint)}
+
+.label{font:600 9.5px/1 var(--sans);letter-spacing:.27em;text-transform:uppercase;color:var(--violet)}
+h1{font:800 35px/1.08 var(--tight);letter-spacing:-.04em;color:var(--ink);margin:11px 0 11px;text-wrap:balance}
+h2{font:700 19px/1.2 var(--tight);letter-spacing:-.03em;color:var(--ink);margin:24px 0 11px}
+h3{font:700 16.5px/1.2 var(--tight);letter-spacing:-.025em;color:var(--ink)}
+p{text-wrap:pretty}
+.lead{font-size:15px;line-height:1.5;color:var(--muted);text-wrap:pretty}
+.muted{color:var(--muted)}
+.small{font-size:11.5px;color:var(--muted);line-height:1.45}
+.pk{color:var(--pink);font-weight:600}
+.v{color:var(--violet);font-weight:600}
+.mono{font-family:var(--mono);font-weight:500}
+.paras p{margin:0 0 9px}
+.paras p:last-child{margin-bottom:0}
+.rule{border:0;border-top:1px solid var(--line);margin:22px 0 20px}
+
+/* Couverture */
+.hero{margin:-17mm -17mm 0;padding:10mm 17mm 9mm;color:#fff;position:relative;background:
+  radial-gradient(42% 95% at 40% -18%,#d68bf0 0%,rgba(214,139,240,0) 70%),
+  radial-gradient(38% 85% at -4% -6%,#f49595 0%,rgba(244,149,149,0) 70%),
+  radial-gradient(40% 90% at 14% 112%,#3fd2f3 0%,rgba(63,210,243,0) 72%),
+  radial-gradient(40% 80% at 104% -10%,#7a4dff 0%,rgba(122,77,255,0) 72%),
+  radial-gradient(45% 90% at 100% 110%,#2c93ea 0%,rgba(44,147,234,0) 72%),
+  linear-gradient(180deg,#5363f2 0%,#3d70ee 100%)}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#f6a7c6,#c9b2ff 60%,#efe2ff)}
+.hero-top{display:flex;justify-content:space-between;font:600 9.5px/1 var(--sans);letter-spacing:.3em;text-transform:uppercase}
+.hero h1{font-size:46px;color:#fff;margin:14px 0 9px;letter-spacing:-.045em}
+.hero p{font-size:15.5px;line-height:1.45;max-width:148mm;color:#fff}
+.banner{margin-top:16px;border-radius:12px;padding:13px 22px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:22px;background:
+  radial-gradient(45% 140% at 38% -30%,rgba(160,96,214,.9),rgba(160,96,214,0) 70%),
+  radial-gradient(40% 140% at 104% 110%,#2a8be0,rgba(42,139,224,0) 75%),
+  linear-gradient(90deg,#55396f 0%,#3a47a6 52%,#2d66c8 100%)}
+.banner p{font-size:13.5px;line-height:1.5}
+.banner b{color:#fff}
+.lk{font:700 12.5px/1 var(--mono);border-bottom:1.5px solid currentColor;padding-bottom:4px;white-space:nowrap}
+
+/* Cartes à ombre décalée */
+.card{position:relative;background:#fff;border:1.5px solid var(--ink);border-radius:11px;padding:14px 22px 12px;box-shadow:12px 12px 0 var(--violet);margin:16px 12px 25px 0}
+.card .label{margin-bottom:12px}
+.card .paras p{margin-bottom:6px}
+
+.prompt{position:relative;background:var(--card);border:1.5px solid var(--ink);border-radius:11px;padding:14px 19px 15px;box-shadow:12px 12px 0 var(--ink);margin:16px 12px 28px 0}
+.prompt.key{border-color:#8a7dff;box-shadow:12px 12px 0 var(--violet)}
+.ph{font:600 9.3px/1.3 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--violet);margin-bottom:9px}
+.ph b{font-family:var(--mono);font-weight:700;color:var(--ink);letter-spacing:.06em;margin-right:5px}
+.prompt pre{font:500 11.9px/1.62 var(--mono);color:var(--ink);white-space:pre-wrap;word-wrap:break-word}
+.prompt pre em{font-style:normal;color:var(--pink);font-weight:700}
+.prompt.sm pre{font-size:11.6px}
+.note{font-size:11.5px;color:var(--muted);margin:-14px 0 16px}
+
+.callout{background:var(--lav);border-left:3px solid var(--violet);border-radius:0 9px 9px 0;padding:13px 19px;margin:18px 0;font-size:13.5px;text-wrap:pretty}
+.callout .v{font-weight:600}
+
+/* Colonnes */
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.col{border-top:2px solid var(--ink);padding-top:14px}
+.col.on{border-top-color:var(--violet)}
+.col h3{margin:9px 0 7px}
+.col p{font-size:12.5px;color:var(--muted);line-height:1.5}
+.mini{font:500 8.3px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--faint);margin:10px 0 4px}
+.val{font-size:12.5px;color:var(--ink);line-height:1.45}
+.secthead{display:flex;align-items:baseline;gap:8px;margin:20px 0 12px}
+.secthead h2{font-size:27px;font-weight:800;letter-spacing:-.045em;margin:0}
+.secthead span{font-size:14px;color:var(--muted)}
+
+.listcard{border:1.5px solid var(--ink);border-radius:11px;padding:4px 20px;list-style:none}
+.listcard li{display:flex;gap:16px;padding:9px 0;border-bottom:1px dashed var(--line2);font-size:13.3px;line-height:1.45}
+.listcard li:last-child{border-bottom:0}
+.listcard.tight li{padding:6.3px 0}
+.listcard li::before{content:"";width:8px;height:8px;background:var(--violet);border-radius:1.5px;margin-top:6px;flex:none}
+
+.pill{display:inline-block;background:var(--pink);color:#fff;font:600 7.6px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;padding:5px 9px 4px;border-radius:99px;white-space:nowrap}
+.pill.vi{background:var(--violet)}
+
+/* Grille des étapes */
+.rowlabel{font:600 8.6px/1 var(--sans);letter-spacing:.27em;text-transform:uppercase;color:var(--faint);margin:20px 0 9px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.step{border:1.3px solid var(--line);border-radius:11px;padding:13px 16px 15px;position:relative}
+.step.decide{border:2px solid var(--pink)}
+.step .n{font:800 30px/1 var(--tight);color:var(--violet);letter-spacing:-.02em}
+.step h3{margin:8px 0 5px;font-size:15.5px}
+.step p{font-size:11.8px;color:var(--muted);line-height:1.5}
+.step .pill{position:absolute;top:13px;right:13px}
+
+/* Titre d'étape */
+.sh{display:flex;align-items:center;gap:13px;margin:12px 0 11px}
+.sh .n{font:800 46px/1 var(--tight);color:var(--violet);letter-spacing:-.03em;margin-top:-4px}
+.sh h1{font-size:25px;margin:0;letter-spacing:-.035em}
+.sh .pill{margin-top:-2px}
+
+/* Page 2 : écran */
+.screen{display:grid;grid-template-columns:66mm 1fr;gap:30px;margin-top:22px;align-items:start}
+.phone{position:relative;width:62mm;height:110mm;border:1.5px solid var(--ink);border-radius:22px;box-shadow:10px 10px 0 var(--ink);overflow:visible;
+  background-color:#f7f7fd;
+  background-image:linear-gradient(#e9e8f6 1px,transparent 1px),linear-gradient(90deg,#e9e8f6 1px,transparent 1px);
+  background-size:16px 16px}
+.phone .plan1{position:absolute;left:14px;top:300px;width:70px;height:60px;border:1px solid #dcdaf0;border-radius:2px}
+.phone .plan2{position:absolute;right:16px;top:330px;width:60px;height:42px;border:1px solid #dcdaf0;border-radius:2px}
+.url{position:absolute;left:12px;right:12px;top:16px;height:24px;background:#fff;border:1px solid #e0dfeb;border-radius:12px;display:flex;align-items:center;padding:0 9px;gap:5px;font:500 8.6px/1 var(--sans);color:#9a9ab0}
+.url b{color:var(--ink);font-weight:600}
+.url .lock{width:7px;height:8px;border-radius:1.5px;background:#20a35b;position:relative;margin-top:2px}
+.url .lock::before{content:"";position:absolute;left:1px;top:-4px;width:3px;height:4px;border:1.3px solid #20a35b;border-bottom:0;border-radius:3px 3px 0 0}
+.url .chap{margin-left:auto;font:700 6.4px/1 var(--mono);letter-spacing:.12em;color:var(--ink);text-transform:uppercase}
+.url .chap::before{content:"";display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--pink);margin-right:4px;vertical-align:1px}
+.board{position:absolute;left:104px;top:62px;width:116px;height:150px;background:#fff;border:1.5px solid var(--ink);border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.board .big{font:800 27px/1 var(--tight);letter-spacing:-.04em;color:var(--ink)}
+.board .cap{font:700 6.2px/1 var(--mono);letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.board .bars{display:flex;gap:3px;align-items:flex-end;height:26px;margin-top:4px}
+.board .bars i{display:block;width:9px;background:var(--violet);border-radius:2px}
+.avatar{position:absolute;left:8px;top:96px;width:104px;height:196px}
+.subs{position:absolute;left:0;right:0;top:300px;text-align:center;font:700 14px/1 var(--sans);color:var(--ink)}
+.subs span{color:#b0b0bf}
+.mk{position:absolute;width:19px;height:19px;border-radius:50%;background:var(--violet);color:#fff;font:700 10px/19px var(--sans);text-align:center;box-shadow:0 0 0 2.5px #fff}
+.legend{list-style:none;margin-top:2px}
+.legend li{display:grid;grid-template-columns:30px 1fr;padding:0 0 13px;font-size:12.6px;line-height:1.5;color:var(--muted)}
+.legend li b{display:block;font-size:13.5px;margin-bottom:1px}
+.legend .num{width:20px;height:20px;border-radius:50%;background:var(--violet);color:#fff;font:700 10.5px/20px var(--sans);text-align:center;margin-top:1px}
+code,.code{font:500 11.3px/1 var(--mono);color:var(--ink);background:#f0effa;border-radius:4px;padding:2px 5px;white-space:nowrap}
+
+/* Page 3 : frise et tableau */
+.tl{margin:22px 0 4px}
+.tlbar{display:flex;gap:2px;height:30px}
+.tlbar div{background:var(--violet);border-radius:4px;color:#fff;font:700 11px/30px var(--tight);text-align:center}
+.tlbar div.p{background:var(--pink)}
+.tlaxis{position:relative;height:16px;margin-top:6px;font:500 8.6px/1 var(--mono);color:var(--faint)}
+.tlaxis span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.tlaxis span:first-child{transform:none}
+.tlaxis span:last-child{transform:translateX(-100%)}
+.tllegend{font-size:11.3px;color:var(--muted);display:flex;gap:18px;margin:4px 0 0}
+.tllegend i{display:inline-block;width:9px;height:9px;border-radius:2px;background:var(--violet);margin-right:6px;vertical-align:-1px}
+.tllegend i.p{background:var(--pink)}
+table{border-collapse:collapse;width:100%}
+.beats th{font:600 8.3px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--faint);text-align:left;padding:0 10px 9px 0;border-bottom:1.5px solid var(--ink)}
+.beats td{vertical-align:top;padding:10px 10px 10px 0;border-bottom:1px solid var(--line);font-size:12px;line-height:1.45;color:var(--muted)}
+.beats td.n{font:800 15px/1.2 var(--tight);color:var(--violet);width:26px}
+.beats td.n.p{color:var(--pink)}
+.beats td.t{font:500 10px/1.6 var(--mono);color:var(--faint);width:58px;white-space:nowrap}
+.beats td.r{width:150px;color:var(--muted)}
+.beats td.r b{display:block;font-size:12.6px;color:var(--ink);margin-bottom:1px}
+.beats td.q{color:var(--ink)}
+
+/* Page 4 : storyboard */
+.strip{display:grid;grid-template-columns:1fr 16px 1fr 16px 1fr 16px 1fr;align-items:stretch;margin-top:14px}
+.strip .arr{display:flex;align-items:center;justify-content:center;color:var(--ink);font:400 15px/1 var(--sans)}
+.box{border:1.3px solid var(--ink);border-radius:10px;padding:11px 12px 12px;font-size:11.6px;line-height:1.45;color:var(--muted)}
+.box.dash{border-style:dashed}
+.box .mini:first-child{margin-top:0}
+.box code{font-size:9.6px;padding:2px 4px;line-height:1.9}
+.box .said{color:var(--ink);font-weight:600;font-size:12px}
+
+/* Avatars */
+.av .q{font-size:12.5px;color:var(--ink);font-style:italic}
+.av .head{display:flex;align-items:center;justify-content:space-between;height:19px}
+
+/* Poses */
+.poses{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:14px 0 4px}
+.poses div{border:1.2px solid var(--line);border-radius:9px;padding:8px 10px 9px;font-size:11.4px;line-height:1.35;color:var(--ink)}
+.poses div span{display:block;font:700 9.5px/1 var(--mono);color:var(--violet);margin-bottom:5px}
+
+/* Gabarit */
+.layers{margin-top:16px}
+.layer{display:grid;grid-template-columns:86px 190px 1fr;align-items:center;border:1.3px solid var(--ink);border-radius:9px;padding:10px 16px;margin-bottom:7px;background:#fff;font-size:12.3px;color:var(--muted)}
+.layer:first-child{background:var(--lav)}
+.layer .mono{font:700 9px/1 var(--mono);letter-spacing:.14em;color:var(--violet)}
+.layer b{font-size:13.3px}
+.kv{list-style:none}
+.kv li{display:grid;grid-template-columns:120px 1fr;gap:14px;padding:9px 0;border-bottom:1px dashed var(--line2);font-size:12.8px;line-height:1.45;color:var(--muted)}
+.kv li:last-child{border-bottom:0}
+.kv li b{font-size:13px}
+
+/* Recette du sujet */
+.recipe{display:grid;grid-template-columns:1fr 22px 1fr 22px 1fr 22px 1.1fr;align-items:stretch;margin:16px 0 6px}
+.recipe .op{display:flex;align-items:center;justify-content:center;font:800 20px/1 var(--tight);color:var(--violet)}
+.recipe .box b{display:block;font-size:13px;margin:2px 0 3px}
+
+/* Listes numérotées */
+.ideas{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.nl{list-style:none}
+.nl li{display:grid;grid-template-columns:28px 1fr;padding:7.5px 0;border-bottom:1px solid var(--line);font-size:12.6px;line-height:1.4;color:var(--ink)}
+.nl li span{font:700 12.5px/1.4 var(--tight);color:var(--violet)}
+.ol{list-style:none;counter-reset:o}
+.ol li{counter-increment:o;display:grid;grid-template-columns:30px 1fr;padding:8px 0;border-bottom:1px dashed var(--line2);font-size:13.2px;line-height:1.45;color:var(--text)}
+.ol li:last-child{border-bottom:0}
+.ol li::before{content:counter(o);font:800 15px/1.3 var(--tight);color:var(--violet)}
+
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.pair .prompt{margin-right:0}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0 4px}
+
+.check{list-style:none;border:1.5px solid var(--ink);border-radius:11px;padding:4px 20px}
+.check li{display:grid;grid-template-columns:26px 1fr;padding:8.5px 0;border-bottom:1px dashed var(--line2);font-size:13px;line-height:1.45}
+.check li:last-child{border-bottom:0}
+.check li::before{content:"";width:13px;height:13px;border:1.6px solid var(--violet);border-radius:3.5px;margin-top:2px}
+
+/* Scripts prêts */
+.meta{display:grid;grid-template-columns:repeat(4,auto);gap:4px 26px;justify-content:start;margin:10px 0 12px}
+.meta .val{white-space:nowrap}
+h1.ann{font-size:25px;letter-spacing:-.035em;margin:10px 0 8px}
+.meta .mini{margin:0 0 4px}
+.meta .val{font-size:12px}
+.sc th{font:600 8px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--faint);text-align:left;padding:0 8px 8px 0;border-bottom:1.5px solid var(--ink)}
+.sc td{vertical-align:top;padding:4px 8px 4px 0;border-bottom:1px solid var(--line);font-size:11px;line-height:1.36;color:var(--muted)}
+.sc td.i{font:700 9.5px/1.5 var(--mono);color:var(--faint);width:22px}
+.sc td.b{width:96px}
+.sc td.s{color:var(--ink);font-weight:500}
+.sc td.pz{font:500 9.8px/1.5 var(--mono);color:var(--ink);width:98px}
+.sc tr.ch td{border-top:1.3px solid var(--ink)}
+.chip{display:inline-block;font:700 7.4px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--violet);background:var(--lav);border:1px solid #dcd8ff;border-radius:4px;padding:3.5px 5px 3px;white-space:nowrap}
+
+/* Scripts d'origine */
+.orig{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:16px}
+.orig h3{font-size:16px;margin:7px 0 10px}
+.orig p{font-size:12.2px;line-height:1.55;color:var(--ink);margin:0 0 8px}
+.tag{display:inline-block;font:700 7.2px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--violet);border-radius:4px;padding:3.5px 5px 3px;margin-right:6px;vertical-align:1px}
+.tag.p{background:var(--pink)}
+
+/* Récap */
+.pr{display:grid;grid-template-columns:1fr 1fr;gap:0 34px;margin-top:4px}
+.pr div{display:grid;grid-template-columns:32px 1fr auto;padding:7.5px 0;border-bottom:1px solid var(--line);font-size:12.8px;color:var(--ink)}
+.pr div span:first-child{font:700 12.8px/1.4 var(--tight);color:var(--violet)}
+.pr div span:last-child{color:var(--faint);font-size:11.5px}
+.links{list-style:none}
+.links li{padding:7.5px 0;border-bottom:1px dashed var(--line2);font-size:12.8px;color:var(--ink)}
+.links li a{color:var(--violet);text-decoration:none}
+.final{margin-top:20px;border-radius:13px;padding:20px 26px 22px;color:#fff;background:
+  radial-gradient(45% 110% at 22% -20%,rgba(170,96,210,.95),rgba(170,96,210,0) 70%),
+  radial-gradient(45% 120% at 105% 115%,#2b8fe3,rgba(43,143,227,0) 75%),
+  linear-gradient(120deg,#5b3f88 0%,#3b49b0 50%,#2f6bd0 100%)}
+.final .label{color:#fff}
+.final h2{color:#fff;font-size:22px;margin:10px 0 9px;font-weight:800;letter-spacing:-.04em}
+.final p{font-size:13.3px;line-height:1.5}
+.final .lk{display:inline-block;margin-top:14px;font-size:12px;line-height:1.5;white-space:normal;padding-bottom:2px}
+.final .lk em{font-style:normal;color:#ffd0e3}
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1 : COUVERTURE ============ -->
+<section class="page">
+  <header class="hero">
+    <div class="hero-top"><span>Guide pas à pas · TikTok</span><span>Ton avatar · Tes sujets</span></div>
+    <h1>Refaire le format doof_lab</h1>
+    <p>Le décryptage des deux vidéos, puis la méthode en 9 étapes pour faire les tiennes, sur tes sujets et avec ton propre personnage. Tous les prompts, prêts à coller.</p>
+  </header>
+
+  <div class="banner">
+    <p>Une vidéo, c'est <b>un script d'environ 240 mots</b>, <b>une voix</b>, <b>15 poses</b> de ton perso et <b>un gabarit de montage</b>. Une fois le kit prêt, compte environ 1 h par vidéo.</p>
+    <span class="lk">La méthode, page 5 →</span>
+  </div>
+
+  <div class="card">
+    <div class="label">Mode d'emploi</div>
+    <div class="paras">
+      <p><b>Ce que c'est.</b> Le décryptage du format, puis la méthode en 9 étapes : 3 pour fabriquer ton kit une seule fois, 6 à refaire pour chaque vidéo.</p>
+      <p><b>Comment t'en servir.</b> Copie les prompts un par un, ou donne ce PDF à Claude en lui demandant de suivre la méthode. Remplace ce qui est <span class="pk">en rose</span> par tes infos.</p>
+      <p><b>À la fin.</b> Deux scripts prêts à tourner, les vidéos d'origine annotées et le récap de tous les prompts.</p>
+    </div>
+  </div>
+
+  <div class="secthead"><h2>Les 3 parties</h2><span>: comprendre, construire une fois, puis produire.</span></div>
+  <div class="cols3">
+    <div class="col">
+      <div class="label">Partie 1</div>
+      <h3>Le décryptage</h3>
+      <p>Ce qui fait marcher ces vidéos : l'écran, le script en 8 temps et le ton.</p>
+      <div class="mini">Quand</div><div class="val">Une fois, avant tout.</div>
+      <div class="mini">Où</div><div class="val">Pages 2 à 4.</div>
+    </div>
+    <div class="col on">
+      <div class="label">Partie 2</div>
+      <h3>Le kit</h3>
+      <p>Ton avatar, ses 15 poses et ton gabarit de montage.</p>
+      <div class="mini">Quand</div><div class="val">Une seule fois.</div>
+      <div class="mini">Où</div><div class="val">Pages 6 à 8.</div>
+    </div>
+    <div class="col">
+      <div class="label">Partie 3</div>
+      <h3>Chaque vidéo</h3>
+      <p>Le sujet, le script, la voix, les visuels, le montage et le contrôle.</p>
+      <div class="mini">Quand</div><div class="val">À chaque vidéo, environ 1 h.</div>
+      <div class="mini">Où</div><div class="val">Pages 9 à 13.</div>
+    </div>
+  </div>
+
+  <h2 style="margin-top:20px">Ce qu'il te faut</h2>
+  <ul class="listcard tight">
+    <li><span><b>Claude</b>, pour trouver tes sujets, écrire et vérifier tes scripts.</span></li>
+    <li><span><b>Un générateur d'images</b> (Midjourney, ChatGPT, Ideogram, Leonardo…) pour ton avatar, ou un illustrateur.</span></li>
+    <li><span><b>Une voix</b> : la tienne, ou une voix de synthèse originale (ElevenLabs).</span></li>
+    <li><span><b>CapCut</b>, gratuit, pour le montage et les sous-titres.</span></li>
+    <li><span><b>Des pictos</b> (Flaticon, Noun Project, Icons8) et <b>remove.bg</b> pour détourer.</span></li>
+  </ul>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>1</span></div>
+</section>
+
+<!-- ============ PAGE 2 : L'ÉCRAN ============ -->
+<section class="page">
+  <div class="label">Partie 1 · Le décryptage</div>
+  <h1>Ce qu'on voit à l'écran</h1>
+  <p class="lead">Les deux vidéos utilisent exactement le même écran. Seuls le décor, la tenue de l'avatar et les pictos changent : une fois ce gabarit monté, tu le réutilises pour toutes tes vidéos.</p>
+
+  <div class="screen">
+    <div class="phone">
+      <div class="plan1"></div><div class="plan2"></div>
+      <div class="url"><span class="lock"></span><span>https://<b>pub.inutile</b></span><span class="chap">1/3 Oubli</span></div>
+      <div class="board">
+        <div class="cap">Budget pub · 2025</div>
+        <div class="big">5 Md $</div>
+        <div class="bars"><i style="height:9px"></i><i style="height:14px"></i><i style="height:19px"></i><i style="height:26px"></i></div>
+      </div>
+      <svg class="avatar" viewBox="0 0 104 196" aria-hidden="true">
+        <ellipse cx="44" cy="190" rx="30" ry="4" fill="#15152a" opacity=".12"/>
+        <path d="M31 122 L29 186 L41 186 L45 132 L49 186 L61 186 L58 122 Z" fill="#15152a"/>
+        <path d="M25 182 h16 v6 h-18 z M49 182 h16 l3 6 h-19 z" fill="#0b0b18"/>
+        <path d="M26 66 Q44 56 63 66 L61 126 L28 126 Z" fill="#2a2950"/>
+        <path d="M40 62 L44.5 80 L49 62 Z" fill="#ffffff"/>
+        <path d="M43.4 66 L45.6 66 L47 84 L44.5 89 L42 84 Z" fill="#e8337f"/>
+        <path d="M58 72 Q78 72 96 58 L100 64 Q82 80 60 84 Z" fill="#2a2950"/>
+        <circle cx="99" cy="59" r="4.2" fill="#f4cfae"/>
+        <path d="M29 72 Q20 94 26 114 L33 112 Q29 95 36 78 Z" fill="#2a2950"/>
+        <circle cx="29.5" cy="115" r="4.2" fill="#f4cfae"/>
+        <rect x="40.5" y="48" width="8" height="12" fill="#f4cfae"/>
+        <ellipse cx="44.5" cy="34" rx="15" ry="17" fill="#f4cfae"/>
+        <path d="M29.5 32 Q30 14 46 14 Q61 14 61 28 Q50 20 39 24 Q33 26 29.5 36 Z" fill="#2f2440"/>
+        <circle cx="51" cy="32" r="2.2" fill="#15152a"/>
+        <path d="M46.5 26.5 L56 24.5" stroke="#15152a" stroke-width="2" stroke-linecap="round"/>
+        <path d="M48 43 Q53 46 57.5 42" stroke="#15152a" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="subs">plus de <span>5 milliards</span></div>
+
+      <div class="mk" style="left:-10px;top:18px">1</div>
+      <div class="mk" style="right:-10px;top:18px">2</div>
+      <div class="mk" style="left:-10px;top:170px">3</div>
+      <div class="mk" style="left:211px;top:52px">4</div>
+      <div class="mk" style="left:-10px;top:297px">5</div>
+      <div class="mk" style="left:-10px;top:372px">6</div>
+    </div>
+
+    <ol class="legend">
+      <li><span class="num">1</span><span><b>La barre d'URL</b>Un faux navigateur avec un jeu de mots sur le sujet : <code>pub.inutile</code>, <code>intranet.studio</code>. Elle change au moment de la réponse : <code>pub.inutile</code> devient <code>pub.utile</code>.</span></li>
+      <li><span class="num">2</span><span><b>Le badge de chapitre</b>En haut à droite : <code>POURQUOI ?</code> → <code>1/3 OUBLI</code> → <code>2/3 NOUVEAUX</code>… → <code>LA RÉPONSE</code> → <code>BONUS</code>. Le spectateur sait toujours où il en est.</span></li>
+      <li><span class="num">3</span><span><b>L'avatar</b>Un perso cartoon 2D en pied, à gauche. Pas de lip-sync : une image fixe par phrase, avec un fondu de 0,15 s environ entre deux poses.</span></li>
+      <li><span class="num">4</span><span><b>Le tableau</b>Un picto par phrase : un logo, un chiffre géant, un cerveau, un frigo, un cadenas… Le texte s'y limite à des étiquettes.</span></li>
+      <li><span class="num">5</span><span><b>Les sous-titres</b>Style karaoké, 2 à 5 mots par ligne, sous l'avatar. Les mots déjà dits en noir (ou blanc), les suivants en gris.</span></li>
+      <li><span class="num">6</span><span><b>Le décor</b>Un par vidéo, raccord avec le sujet : un salon sombre pour la pub, un plan d'architecte pour l'espionnage. La tenue de l'avatar change aussi.</span></li>
+    </ol>
+  </div>
+
+  <div class="callout" style="margin-top:24px"><span class="v">À retenir.</span> Une phrase = une pose + un picto + une ligne de sous-titres. Il y a une nouvelle image environ toutes les 2 secondes : c'est ce rythme qui retient le spectateur jusqu'au bout.</div>
+
+  <h2 style="margin-top:22px">Même écran, deux habillages</h2>
+  <div class="opts" style="margin-top:0">
+    <div class="box"><div class="mini" style="color:var(--violet)">Vidéo 1 · La pub</div>
+      <div class="mini">Décor et tenue</div>Un salon sombre bleu canard (étagère, lampe, plante, mug), un costard noir.
+      <div class="mini">URL</div><code>pub.inutile</code>, qui devient <code>pub.utile</code> à la réponse.
+      <div class="mini">Les badges</div><code>POURQUOI ?</code> → <code>1/3 OUBLI</code> → <code>2/3 NOUVEAUX</code> → <code>3/3 PLACE PRISE</code> → <code>LA RÉPONSE</code> → <code>BONUS MCDO</code></div>
+    <div class="box"><div class="mini" style="color:var(--violet)">Vidéo 2 · Les leaks</div>
+      <div class="mini">Décor et tenue</div>Un plan d'architecte blanc annoté (« Serveurs », « Réunion »), un sweat de hacker.
+      <div class="mini">URL</div><code>intranet.studio</code>, du début à la fin.
+      <div class="mini">Les badges</div><code>ANTI-LEAK</code> → <code>01 LE BUREAU</code> → <code>02 LES CLÉS</code> → <code>03 ATTENTION</code> → <code>04 LA VRAIE SÉCU</code></div>
+  </div>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>2</span></div>
+</section>
+
+<!-- ============ PAGE 3 : LE SCRIPT EN 8 TEMPS ============ -->
+<section class="page">
+  <div class="label">Partie 1 · Le décryptage</div>
+  <h1>Le script, en 8 temps</h1>
+  <p class="lead">Les deux vidéos suivent la même structure, à quelques secondes près. C'est elle que tu recopies, jamais les phrases.</p>
+
+  <div class="tl">
+    <div class="tlbar">
+      <div style="flex:5">1</div><div class="p" style="flex:4">2</div><div style="flex:16">3</div><div style="flex:2.4">4</div><div style="flex:22.6">5</div><div style="flex:3">6</div><div style="flex:12">7</div><div class="p" style="flex:15">8</div>
+    </div>
+    <div class="tlaxis"><span style="left:0">0 s</span><span style="left:12.5%">10 s</span><span style="left:25%">20 s</span><span style="left:37.5%">30 s</span><span style="left:50%">40 s</span><span style="left:62.5%">50 s</span><span style="left:75%">60 s</span><span style="left:87.5%">70 s</span><span style="left:100%">80 s</span></div>
+    <div class="tllegend"><span><i></i>Le fond : le fait, les points, la réponse</span><span><i class="p"></i>La persona parle d'elle</span></div>
+  </div>
+
+  <table class="beats" style="margin-top:20px">
+    <tr><th></th><th>Temps</th><th>Le rôle</th><th>Coca et McDo</th><th>GTA 6</th></tr>
+    <tr><td class="n">1</td><td class="t">0-5 s</td><td class="r"><b>L'accroche</b>Une question sur une grosse marque et son paradoxe.</td><td class="q">« Pourquoi des marques aussi connues font encore de la pub ? »</td><td class="q">« Comment Rockstar empêche ses employés de leaker GTA 6 ? »</td></tr>
+    <tr><td class="n p">2</td><td class="t">5-10 s</td><td class="r"><b>L'aparté</b>L'avatar se met en scène.</td><td class="q">« Moi, avec 5 milliards… j'arrêterais les cours direct. »</td><td class="q">« Moi, si je bossais dessus… je tiendrais même pas 48 heures. »</td></tr>
+    <tr><td class="n">3</td><td class="t">10-25 s</td><td class="r"><b>Le fait choc</b>Chiffré, ou raconté comme une histoire.</td><td class="q">5 milliards de dollars de pub ; l'expérience du scanner Coca contre Pepsi.</td><td class="q">2022 : un hacker, une chambre d'hôtel, 90 vidéos du jeu.</td></tr>
+    <tr><td class="n">4</td><td class="t">≈ 25 s</td><td class="r"><b>Le plan</b>On annonce combien de points.</td><td class="q">« 3 raisons. »</td><td class="q">« Deux règles. »</td></tr>
+    <tr><td class="n">5</td><td class="t">25-50 s</td><td class="r"><b>Les points</b>Une étiquette, une image concrète, une punchline.</td><td class="q">L'étagère blindée, le camion de Noël, Pepsi dans ton frigo.</td><td class="q">Fini le télétravail ; chacun ses clés.</td></tr>
+    <tr><td class="n">6</td><td class="t">≈ 50 s</td><td class="r"><b>Le jargon</b>Le vrai terme de pro, vulgarisé.</td><td class="q">« En marketing, ça s'appelle la disponibilité mentale. »</td><td class="q">« En sécu, ça s'appelle le moindre privilège. »</td></tr>
+    <tr><td class="n">7</td><td class="t">50-65 s</td><td class="r"><b>Le twist</b>« Sauf que… »</td><td class="q">McDo va plus loin : des affiches sans son logo.</td><td class="q">Même avec tout ça, des vidéos fuitent encore.</td></tr>
+    <tr><td class="n p">8</td><td class="t">65-80 s</td><td class="r"><b>La chute</b>Ironique, elle revient sur la persona.</td><td class="q">« Je viens de leur faire une minute de pub. Gratos. »</td><td class="q">« …plus de secrets volés que de secrets gardés. »</td></tr>
+  </table>
+
+  <div class="callout" style="margin-top:22px"><span class="v">Bon à savoir.</span> Les temps 2 et 3 peuvent s'inverser : la vidéo Coca donne d'abord le chiffre (5 milliards), puis l'aparté. Ce qui compte, c'est que la persona parle dans les 15 premières secondes.</div>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>3</span></div>
+</section>
+
+<!-- ============ PAGE 4 : LE TON ============ -->
+<section class="page">
+  <div class="label">Partie 1 · Le décryptage</div>
+  <h1>Le ton</h1>
+  <p class="lead">Le fond est sérieux : un vrai concept de pro. La forme, c'est un pote qui te raconte un truc au café.</p>
+
+  <ul class="listcard" style="margin-top:20px">
+    <li><span><b>Des phrases de 2 à 8 mots.</b> Une phrase = une image = une pose.</span></li>
+    <li><span><b>Le tutoiement et un argot léger</b> : « t'as la dalle », « gratos », « on s'est mangés », « petit malin ».</span></li>
+    <li><span><b>Le concret avant l'abstrait.</b> On montre le frigo ou la clé branchée sur la télé, puis on nomme le concept.</span></li>
+    <li><span><b>Des chiffres précis</b> : 5 milliards, 3 sur 4, 90 vidéos, 48 heures, 5 jours sur 5.</span></li>
+    <li><span><b>Environ 240 mots pour 75 secondes</b>, soit un peu plus de 3 mots par seconde : un débit rapide.</span></li>
+    <li><span><b>Une persona jamais neutre</b> : elle se met en scène (« moi, je… ») 2 ou 3 fois par vidéo.</span></li>
+  </ul>
+
+  <h2 style="margin-top:30px">Une phrase, une image</h2>
+  <p>Un extrait de la vidéo GTA 6 : chaque phrase arrive avec son picto et sa pose. C'est exactement ce que ton script devra prévoir, ligne par ligne.</p>
+
+  <div class="strip">
+    <div class="box">
+      <div class="mini">Plan 1</div>
+      <div class="said">« 2022. Un hacker entre dans leur messagerie interne… »</div>
+      <div class="mini">Au tableau</div>2022 en gros, une messagerie avec une alerte rouge.
+      <div class="mini">L'avatar</div>Montre le tableau du doigt.
+    </div>
+    <div class="arr">→</div>
+    <div class="box">
+      <div class="mini">Plan 2</div>
+      <div class="said">« …depuis une chambre d'hôtel, avec une clé branchée sur la télé. »</div>
+      <div class="mini">Au tableau</div>Un écran de télé et une porte d'hôtel.
+      <div class="mini">L'avatar</div>Tient son téléphone.
+    </div>
+    <div class="arr">→</div>
+    <div class="box">
+      <div class="mini">Plan 3</div>
+      <div class="said">« Résultat : 90 vidéos du jeu, sur internet. »</div>
+      <div class="mini">Au tableau</div>Un compteur qui monte jusqu'à 90, une grille de vignettes.
+      <div class="mini">L'avatar</div>Grimace, l'ordi sous le bras.
+    </div>
+    <div class="arr">→</div>
+    <div class="box dash">
+      <div class="mini">Plan 4</div>
+      <div class="said">« Le mec qui fait les animations voit les animations. »</div>
+      <div class="mini">Au tableau</div>Quatre portes : seule celle des animations s'ouvre.
+      <div class="mini">L'avatar</div>Ordi à la main, montre le tableau.
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:26px"><span class="v">Le détail en plus.</span> Les décors sont vivants : de la poussière qui flotte, une horloge à 07:00, une plante, un mug. C'est optionnel, mais ça fait pro.</div>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>4</span></div>
+</section>
+
+<!-- ============ PAGE 5 : LA MÉTHODE ============ -->
+<section class="page">
+  <div class="label">La méthode</div>
+  <h1>9 étapes, dont 3 une seule fois</h1>
+  <p class="lead">Les étapes 1 à 3 fabriquent ton kit : tu ne les fais qu'une fois. Les étapes 4 à 9, tu les refais pour chaque vidéo. Tu t'arrêtes aux moments où c'est toi qui décides.</p>
+
+  <div class="rowlabel">Le kit · une seule fois</div>
+  <div class="steps">
+    <div class="step decide"><span class="pill">Tu décides</span><div class="n">1</div><h3>L'avatar</h3><p>Ton perso et sa persona. Tu le choisis une fois pour toutes.</p></div>
+    <div class="step"><div class="n">2</div><h3>Les poses</h3><p>Une planche de référence, puis 15 poses du même perso, détourées.</p></div>
+    <div class="step"><div class="n">3</div><h3>Le gabarit</h3><p>Ta première vidéo, enregistrée comme modèle dans CapCut.</p></div>
+  </div>
+  <div class="rowlabel">Chaque vidéo · environ 1 h</div>
+  <div class="steps">
+    <div class="step decide"><span class="pill">Tu décides</span><div class="n">4</div><h3>Le sujet</h3><p>Une marque connue, un paradoxe et un vrai concept de pro.</p></div>
+    <div class="step decide"><span class="pill">Tu décides</span><div class="n">5</div><h3>Le script</h3><p>Claude l'écrit en 8 temps, plan par plan. Tu vérifies les chiffres.</p></div>
+    <div class="step"><div class="n">6</div><h3>La voix</h3><p>La tienne, ou une voix de synthèse originale. Débit rapide.</p></div>
+    <div class="step"><div class="n">7</div><h3>Les visuels</h3><p>Le décor du jour et un picto par phrase.</p></div>
+    <div class="step"><div class="n">8</div><h3>Le montage</h3><p>Tout dans le gabarit, en suivant le tableau du script.</p></div>
+    <div class="step decide"><span class="pill">Tu décides</span><div class="n">9</div><h3>Le contrôle</h3><p>La checklist avant de publier, et ta légende.</p></div>
+  </div>
+
+  <h2 style="margin-top:28px">Pourquoi ça marche</h2>
+  <div class="paras">
+    <p><b>Ce qui ne change jamais, tu le fais une fois.</b> L'avatar, les poses, le gabarit : ensuite, une vidéo ne demande qu'un script, une voix et des pictos.</p>
+    <p><b>Le script est découpé avant le montage.</b> Chaque ligne dit déjà la pose, le picto et le badge : au montage, tu n'inventes plus rien.</p>
+    <p><b>Les chiffres sont vérifiés avant la voix.</b> Corriger une phrase prend 10 secondes. Réenregistrer et remonter, beaucoup plus.</p>
+    <p><b>Le format est fixe, la persona fait la différence.</b> C'est elle que les gens reconnaissent, et qu'ils reviennent voir.</p>
+  </div>
+
+  <div class="callout" style="margin-top:22px"><span class="v">Comment t'en servir.</span> Fais les étapes 1 à 3 une fois. Ensuite, pour chaque vidéo, enchaîne les étapes 4 à 9 : chaque page te dit quoi faire et quoi coller.</div>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>5</span></div>
+</section>
+
+<!-- ============ PAGE 6 : ÉTAPE 1 L'AVATAR ============ -->
+<section class="page">
+  <div class="label">Partie 2 · Le kit</div>
+  <div class="sh"><span class="n">1</span><h1>L'avatar</h1><span class="pill">Tu décides</span></div>
+  <p>Ton perso, c'est ce que les gens vont reconnaître. Garde l'idée du modèle : un archétype fort, avec un peu de mauvaise foi. Il commente les stratégies des grandes marques comme quelqu'un qui aimerait bien les copier, ou qui s'y est déjà cassé les dents.</p>
+
+  <div class="callout"><span class="v">Pourquoi pas le même.</span> L'avatar d'origine est le Dr Doofenshmirtz (<i>Phinéas et Ferb</i>, Disney), un personnage protégé. Avec lui, tu risques des signalements pour droits d'auteur, et ta chaîne ne t'appartient jamais vraiment.</div>
+
+  <div class="cols3 av" style="margin-top:24px">
+    <div class="col on">
+      <div class="head"><span class="label">Avatar 1</span><span class="pill">Recommandé</span></div>
+      <h3>Max, l'ex-PDG viré</h3>
+      <p>A dirigé une boîte qui a coulé. Il connaît toutes les ficelles, et il est jaloux de ceux qui réussissent.</p>
+      <div class="mini">Son look</div><div class="val">Costume un peu trop grand, cravate desserrée, raie impeccable, sourcils en accent circonflexe.</div>
+      <div class="mini">Son aparté</div><div class="q">« Moi, quand j'étais PDG, mon budget pub, c'était un flyer. »</div>
+      <div class="mini">Ses sujets</div><div class="val">Business, marketing, marques.</div>
+      <div class="mini">Ses tenues</div><div class="val">Costard, chemise hawaïenne de PDG en vacances, gilet de chantier…</div>
+    </div>
+    <div class="col">
+      <div class="head"><span class="label">Avatar 2</span></div>
+      <h3>Nina, hackeuse à la retraite</h3>
+      <p>A tout vu en cybersécurité. Elle parle des failles comme de vieux souvenirs.</p>
+      <div class="mini">Son look</div><div class="val">Sweat oversize, lunettes rondes, mug « 404 » à la main, mèche colorée.</div>
+      <div class="mini">Son aparté</div><div class="q">« Moi, en 2009, je serais rentrée en 3 minutes. »</div>
+      <div class="mini">Ses sujets</div><div class="val">Tech, sécu, réseaux sociaux, IA.</div>
+      <div class="mini">Ses tenues</div><div class="val">Hoodie, blouse de labo, costume d'infiltrée…</div>
+    </div>
+    <div class="col">
+      <div class="head"><span class="label">Avatar 3</span></div>
+      <h3>Gérard, pigeon parisien</h3>
+      <p>A vu passer tous les touristes, toutes les pubs et toutes les arnaques de Paris.</p>
+      <div class="mini">Son look</div><div class="val">Pigeon gris en blouson de cuir, casquette, un œil à moitié fermé.</div>
+      <div class="mini">Son aparté</div><div class="q">« Moi, avec 5 milliards, j'achète toutes les baguettes de la ville. »</div>
+      <div class="mini">Ses sujets</div><div class="val">Société, conso, vie quotidienne.</div>
+      <div class="mini">Ses tenues</div><div class="val">Blouson, béret, veste de livreur…</div>
+    </div>
+  </div>
+
+  <div class="prompt" style="margin-top:26px">
+    <div class="ph"><b>01</b> Aucun ne te parle · À coller dans Claude</div>
+<pre>Propose-moi 3 personnages cartoon originaux pour une chaîne TikTok qui vulgarise <em>[le business et les grandes marques]</em>, avec un ton cynique et drôle. Pour chacun : son nom, son look en une phrase, sa persona (qui il est, ce qu'il veut, sa mauvaise foi), 3 apartés qui commencent par « Moi, … » et 3 tenues selon les sujets. Aucun personnage existant, et aucune ressemblance avec un héros de dessin animé connu.</pre>
+  </div>
+  <p class="note">Choisis-en un seul, et garde-le : tout le reste du kit dépend de lui.</p>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>6</span></div>
+</section>
+
+<!-- ============ PAGE 7 : ÉTAPE 2 LES POSES ============ -->
+<section class="page">
+  <div class="label">Partie 2 · Le kit</div>
+  <div class="sh"><span class="n">2</span><h1>Les poses</h1></div>
+  <p>Ton avatar ne parle pas vraiment : il change de pose à chaque phrase. Il te faut une planche de référence, puis ces 15 poses du même perso, sur fond blanc, que tu détoures.</p>
+
+  <div class="poses">
+    <div><span>01</span>Parle, main ouverte</div>
+    <div><span>02</span>Doigt levé (« Raison 1 »)</div>
+    <div><span>03</span>Montre le tableau</div>
+    <div><span>04</span>Bras croisés, sceptique</div>
+    <div><span>05</span>Main au menton, réfléchit</div>
+    <div><span>06</span>Hausse les épaules</div>
+    <div><span>07</span>Choqué, mains sur la tête</div>
+    <div><span>08</span>Rit, penché en arrière</div>
+    <div><span>09</span>Regarde son téléphone</div>
+    <div><span>10</span>Tape sur un ordi portable</div>
+    <div><span>11</span>Poing levé, victoire</div>
+    <div><span>12</span>Clin d'œil à la caméra</div>
+    <div><span>13</span>Air sournois, mains jointes</div>
+    <div><span>14</span>Chuchote, la main devant la bouche</div>
+    <div><span>15</span>Désigne le spectateur</div>
+  </div>
+
+  <div class="prompt key" style="margin-top:20px">
+    <div class="ph"><b>02</b> La planche de référence · Générateur d'images, en anglais</div>
+<pre>Original 2D cartoon character for a TV-style animated series. Flat colors, clean thick black outlines, exaggerated proportions, very expressive face. Character: <em>[Max, a 50-year-old ex-CEO who got fired: lanky body, oversized navy suit, loosened red tie, slicked side part, angular nose, pointy eyebrows, smug half-smile]</em>. Character turnaround sheet: front view, 3/4 view and side view, full body. Plain white background, no text.</pre>
+  </div>
+
+  <div class="prompt">
+    <div class="ph"><b>03</b> Chaque pose · Avec la planche en image de référence</div>
+<pre>Same character as the reference image: same proportions, same outfit, same colors, same line style. Full body, standing, <em>[pointing at something on his left with his index finger]</em>. Plain white background, no text, no ground shadow.</pre>
+  </div>
+
+  <div class="paras" style="margin-top:-2px">
+    <p><b>Garde le même perso.</b> Donne la planche en référence à chaque pose : <code>--cref</code> sur Midjourney, ou l'image jointe dans ChatGPT ou Leonardo.</p>
+    <p><b>Détoure et range.</b> remove.bg, ou « Supprimer l'arrière-plan » dans CapCut. Range les PNG dans un dossier <code>poses/</code> : <code>01-parle.png</code>, <code>02-doigt.png</code>…</p>
+    <p><b>Une nouvelle tenue ?</b> Relance seulement les 6 ou 7 poses que tu utilises le plus, avec la tenue dans le prompt.</p>
+  </div>
+
+  <div class="callout"><span class="v">Jamais « in the style of ».</span> N'écris jamais le nom d'un dessin animé ou d'un studio dans tes prompts : décris le style avec tes mots. Encore plus sûr : fais dessiner le perso et ses 15 poses par un illustrateur (Fiverr, Malt). Il t'appartient alors à 100 %.</div>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>7</span></div>
+</section>
+
+<!-- ============ PAGE 8 : ÉTAPE 3 LE GABARIT ============ -->
+<section class="page">
+  <div class="label">Partie 2 · Le kit</div>
+  <div class="sh"><span class="n">3</span><h1>Le gabarit</h1></div>
+  <p>Tu montes ta première vidéo avec soin, puis tu l'enregistres comme modèle dans CapCut. Pour les suivantes, tu ne changes que le décor, la voix, les poses, les pictos et l'URL.</p>
+
+  <div class="rowlabel" style="margin-top:22px">Les 5 calques, du dessus au dessous</div>
+  <div class="layers" style="margin-top:0">
+    <div class="layer"><span class="mono">Calque 5</span><b>Les sous-titres</b><span>Karaoké, sous l'avatar.</span></div>
+    <div class="layer"><span class="mono">Calque 4</span><b>L'URL et le badge</b><span>En haut, deux calques texte.</span></div>
+    <div class="layer"><span class="mono">Calque 3</span><b>Le tableau et ses pictos</b><span>À droite, un picto par phrase.</span></div>
+    <div class="layer"><span class="mono">Calque 2</span><b>L'avatar</b><span>À gauche, une pose par phrase.</span></div>
+    <div class="layer"><span class="mono">Calque 1</span><b>Le décor</b><span>Une image fixe par vidéo.</span></div>
+  </div>
+
+  <h2 style="margin-top:26px">Les réglages</h2>
+  <ul class="kv">
+    <li><b>Format</b><span>9:16, 1080 × 1920, 30 images par seconde.</span></li>
+    <li><b>Avatar</b><span>À gauche, en pied. Une pose par phrase, avec un fondu enchaîné de 4 à 5 images (0,15 s environ).</span></li>
+    <li><b>Pictos</b><span>Sur le tableau, à droite. Ils apparaissent en « pop » : un zoom de 80 % à 100 % sur 6 images.</span></li>
+    <li><b>Sous-titres</b><span>Automatiques, style « Highlight », police sans-serif grasse, 3 à 5 mots par ligne, centrés sous l'avatar.</span></li>
+    <li><b>URL et badge</b><span>Deux calques texte en haut : l'URL change une fois, au moment de la réponse ; le badge, à chaque chapitre.</span></li>
+    <li><b>Bruitages</b><span>Légers : un pop par picto, un whoosh par chapitre, un ding sur les chiffres.</span></li>
+  </ul>
+
+  <div class="callout" style="margin-top:22px"><span class="v">Astuce.</span> Enregistre le modèle dès ta première vidéo réussie : c'est lui qui te fait gagner le plus de temps sur toutes les suivantes.</div>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>8</span></div>
+</section>
+
+<!-- ============ PAGE 9 : ÉTAPE 4 LE SUJET ============ -->
+<section class="page">
+  <div class="label">Partie 3 · Chaque vidéo</div>
+  <div class="sh"><span class="n">4</span><h1>Le sujet</h1><span class="pill">Tu décides</span></div>
+  <p>Un bon sujet, c'est une question que tout le monde s'est déjà posée, sur une marque que tout le monde connaît. Et derrière, un vrai concept de pro à vulgariser.</p>
+
+  <div class="recipe">
+    <div class="box"><div class="mini">La marque</div><b>IKEA</b>Tout le monde y est déjà allé.</div>
+    <div class="op">+</div>
+    <div class="box"><div class="mini">Le paradoxe</div><b>Le grand détour</b>Tu viens pour une ampoule, tu fais tout le magasin.</div>
+    <div class="op">+</div>
+    <div class="box"><div class="mini">Le concept pro</div><b>L'effet Gruen</b>Le nom que les pros donnent à ce piège.</div>
+    <div class="op">=</div>
+    <div class="box dash"><div class="mini" style="color:var(--violet)">Ton sujet</div><b>« Pourquoi IKEA te fait faire tout le magasin ? »</b></div>
+  </div>
+
+  <div class="prompt" style="margin-top:22px">
+    <div class="ph"><b>04</b> Trouver tes sujets · À coller dans Claude</div>
+<pre>Propose-moi 10 sujets de vidéos TikTok pour <em>[Max, un ex-PDG viré, cynique et drôle]</em>, sur <em>[le business et les grandes marques]</em>. Chaque sujet suit la recette : une marque que tout le monde connaît, un paradoxe que tout le monde a déjà remarqué, et un vrai concept de pro à vulgariser. Pour chacun : la question d'accroche en moins de 12 mots, le concept pro, et le fait chiffré le plus fort, avec sa source. Ne garde que des sujets dont tu peux sourcer les faits.</pre>
+  </div>
+
+  <h2 style="margin-top:4px">Des idées pour commencer</h2>
+  <div class="ideas">
+    <div>
+      <div class="rowlabel" style="margin:4px 0 4px">Pour Max · business</div>
+      <ul class="nl">
+        <li><span>01</span>Pourquoi les prix finissent en ,99 ?</li>
+        <li><span>02</span>Pourquoi le lait est toujours au fond du supermarché ?</li>
+        <li><span>03</span>Comment Ryanair peut te vendre un vol à 15 € ?</li>
+        <li><span>04</span>Comment Apple te fait changer d'iPhone tous les 2 ans ?</li>
+        <li><span>05</span>Pourquoi les casinos n'ont ni horloge ni fenêtre ?</li>
+        <li><span>06</span>Pourquoi Netflix te demande « Vous êtes toujours là ? »</li>
+        <li><span>07</span>Comment Nespresso a fait du café un abonnement ?</li>
+      </ul>
+    </div>
+    <div>
+      <div class="rowlabel" style="margin:4px 0 4px">Pour Nina · tech</div>
+      <ul class="nl">
+        <li><span>01</span>Comment Netflix empêche le partage de compte ?</li>
+        <li><span>02</span>Ton téléphone t'écoute-t-il vraiment ?</li>
+        <li><span>03</span>Comment un captcha sait que t'es humain ?</li>
+        <li><span>04</span>Comment TikTok choisit ta page « Pour toi » ?</li>
+        <li><span>05</span>Comment ta banque repère une carte volée en 2 secondes ?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>9</span></div>
+</section>
+
+<!-- ============ PAGE 10 : ÉTAPE 5 LE SCRIPT ============ -->
+<section class="page">
+  <div class="label">Partie 3 · Chaque vidéo</div>
+  <div class="sh"><span class="n">5</span><h1>Le script</h1><span class="pill">Tu décides</span></div>
+  <p>C'est l'étape qui compte le plus. Tu colles le prompt 05 avec ton sujet : Claude écrit le script en 8 temps, découpé plan par plan, avec ses sources. Tu ne valides qu'après avoir vérifié les chiffres (page suivante).</p>
+
+  <div class="prompt key" style="margin-top:18px">
+    <div class="ph"><b>05</b> Le script · À coller dans Claude</div>
+<pre>Écris le script d'une vidéo TikTok d'environ <em>[75]</em> secondes sur ce sujet : <em>[Pourquoi IKEA te fait faire tout le magasin ?]</em>
+Le perso qui parle : <em>[Max, un ex-PDG viré, cynique et drôle, jaloux des marques qui réussissent]</em>.
+
+Le format : un avatar cartoon à gauche, qui change de pose à chaque phrase ; un tableau à droite, où apparaît un picto par phrase ; des sous-titres karaoké ; en haut, une fausse barre d'URL et un badge de chapitre.
+
+Suis ces 8 temps, dans l'ordre :
+1. L'accroche (0-5 s) : une question sur la marque et son paradoxe.
+2. L'aparté (5-10 s) : le perso se met en scène, « Moi, … », avec une conséquence drôle.
+3. Le fait choc (10-25 s) : une date ou un chiffre, une mini-histoire en 4 à 6 phrases, un résultat chiffré.
+4. Le plan : « 3 raisons. » ou « 2 règles. »
+5. Les points (25-50 s) : pour chacun, une étiquette de 2 ou 3 mots, une image concrète, une punchline.
+6. Le jargon : « En [domaine], ça s'appelle [le vrai terme]. », puis une phrase simple qui l'explique.
+7. Le twist (50-65 s) : « Sauf que… », avec un exemple surprenant et précis.
+8. La chute (65-80 s) : une punchline ironique qui retourne la situation contre le perso ou la marque.
+
+Les règles : des phrases de 2 à 8 mots ; le tutoiement et un argot léger ; le concret avant l'abstrait ; environ 240 mots ; le perso dit « moi » 2 ou 3 fois. N'invente aucun chiffre : chaque fait a une source.
+
+Mes poses : 1 parle, 2 doigt levé, 3 montre le tableau, 4 bras croisés, 5 réfléchit, 6 hausse les épaules, 7 choqué, 8 rit, 9 téléphone, 10 ordi, 11 victoire, 12 clin d'œil, 13 sournois, 14 chuchote, 15 désigne le spectateur.
+
+Rends-moi :
+- l'URL-blague, sa variante pour le moment de la réponse, et la liste des badges de chapitre ;
+- un tableau numéroté, une ligne par plan : badge, texte dit, picto du tableau, numéro de pose ;
+- la liste des chiffres et des faits, avec une source pour chacun.</pre>
+  </div>
+  <p class="note">En rose, ce qui change à chaque vidéo. Le reste ne bouge jamais : garde-le tel quel.</p>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>10</span></div>
+</section>
+
+<!-- ============ PAGE 11 : ÉTAPE 5 SUITE ============ -->
+<section class="page">
+  <div class="label">Partie 3 · Chaque vidéo</div>
+  <div class="sh"><span class="n">5</span><h1>Le script : tu vérifies, puis tu valides</h1></div>
+  <p>Claude peut se tromper sur un chiffre ou une date. Avant d'enregistrer la voix, fais-lui relire ses propres faits, puis vérifie toi-même les sources des chiffres les plus importants.</p>
+
+  <div class="prompt key" style="margin-top:18px">
+    <div class="ph"><b>06</b> Vérifier les faits · Juste après le script</div>
+<pre>Relis ton script comme un fact-checker. Pour chaque chiffre, date ou fait : la source, et ton niveau de certitude (sûr, probable ou douteux). Si c'est douteux, propose une phrase plus prudente ou un autre fait que tu peux sourcer. Puis redonne-moi le tableau corrigé.</pre>
+  </div>
+
+  <div class="pair">
+    <div class="prompt sm">
+      <div class="ph"><b>07</b> Changer un détail</div>
+<pre>Garde tout, mais <em>[plan 12 : la punchline est trop faible / raccourcis l'aparté / trouve un autre exemple pour le twist]</em>. Change seulement ça, puis redonne-moi le tableau plan par plan.</pre>
+    </div>
+    <div class="prompt sm">
+      <div class="ph"><b>08</b> Tu valides</div>
+<pre>Le script me va. Donne-moi le texte seul, prêt à lire à voix haute : une phrase par ligne, sans le tableau, avec des « … » là où il faut marquer une pause.</pre>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:4px"><span class="v">Une bonne remarque,</span> c'est le numéro du plan et ce que tu veux voir. Par exemple : « Plan 12 : la punchline tombe à plat, trouve une image plus concrète. » Tu ne réécris jamais tout toi-même : tu dis ce qui ne va pas, et il corrige.</div>
+
+  <h2 style="margin-top:26px">Ce que tu dois avoir avant l'étape 6</h2>
+  <ul class="listcard">
+    <li><span><b>Le tableau plan par plan</b>, validé : badge, texte, picto et pose pour chaque ligne.</span></li>
+    <li><span><b>L'URL-blague et sa variante</b>, et la liste des badges de chapitre.</span></li>
+    <li><span><b>Le texte seul</b> (prompt 08), prêt à lire pour la voix.</span></li>
+    <li><span><b>Les sources</b> de chaque chiffre, gardées de côté si on te pose la question en commentaire.</span></li>
+  </ul>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>11</span></div>
+</section>
+
+<!-- ============ PAGE 12 : ÉTAPES 6 ET 7 ============ -->
+<section class="page">
+  <div class="label">Partie 3 · Chaque vidéo</div>
+  <div class="sh"><span class="n">6</span><h1>La voix</h1></div>
+  <p>Ta voix, ou une voix de synthèse originale. Le débit est rapide, un peu plus de 3 mots par seconde, et le ton théâtral : ton perso joue un rôle.</p>
+
+  <div class="opts">
+    <div class="box"><div class="mini">Ta voix</div>Au téléphone, dans une pièce calme. Lis le texte du prompt 08, une phrase par ligne, et surjoue un peu : c'est un perso.</div>
+    <div class="box"><div class="mini">Une voix de synthèse</div>ElevenLabs, « Voice Design » : tu décris la voix, il la crée. Garde ensuite toujours la même pour ton perso.</div>
+  </div>
+
+  <div class="prompt" style="margin-top:20px">
+    <div class="ph"><b>09</b> La voix de ton perso · ElevenLabs, en anglais</div>
+<pre><em>[A French man in his fifties]</em>, theatrical and a bit smug. Fast-paced, very expressive, sarcastic, like a cartoon villain narrating a documentary. Clear studio quality, standard French accent.</pre>
+  </div>
+  <div class="callout" style="margin-top:-6px"><span class="v">Jamais de clone.</span> Ne clone pas la voix d'un acteur ou d'un doubleur existant : c'est le même risque que pour l'avatar.</div>
+
+  <hr class="rule">
+
+  <div class="sh"><span class="n">7</span><h1>Les visuels</h1></div>
+  <p>Pour chaque vidéo : un décor raccord avec le sujet, la tenue du jour si besoin, et un picto par phrase, d'après la colonne « picto » de ton tableau.</p>
+
+  <div class="pair" style="margin-top:6px">
+    <div class="prompt sm">
+      <div class="ph"><b>10</b> Le décor · En anglais</div>
+<pre>Background for a vertical 9:16 cartoon video. Flat colors, clean outlines, same style as the reference image. <em>[A Scandinavian furniture showroom living room]</em>. No characters, no text. Empty space on the right for a large board.</pre>
+    </div>
+    <div class="prompt sm">
+      <div class="ph"><b>11</b> Un picto · En anglais</div>
+<pre>Flat vector icon of <em>[a shopping cart overflowing with candles]</em>. Thick outlines, 2 to 3 colors, white background, no text.</pre>
+    </div>
+  </div>
+  <p class="small" style="margin-top:-8px">Pour les pictos simples (cœur, cadenas, horloge), Flaticon, Noun Project ou Icons8 vont plus vite que la génération. Les logos des marques dont tu parles restent sur le tableau, pour illustrer ton propos.</p>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>12</span></div>
+</section>
+
+<!-- ============ PAGE 13 : ÉTAPES 8 ET 9 ============ -->
+<section class="page">
+  <div class="label">Partie 3 · Chaque vidéo</div>
+  <div class="sh"><span class="n">8</span><h1>Le montage</h1></div>
+  <p>Tout se passe dans ton gabarit. Tu suis le tableau plan par plan du script, ligne après ligne.</p>
+  <ol class="ol" style="margin-top:10px">
+    <li><span>Ouvre ton modèle CapCut et remplace le décor par celui du jour.</span></li>
+    <li><span>Importe la voix, puis lance les sous-titres automatiques, style « Highlight ».</span></li>
+    <li><span>Pour chaque plan du tableau : place la pose indiquée, fais apparaître le picto en « pop », et change le badge quand le chapitre change.</span></li>
+    <li><span>Au moment de la réponse, change l'URL : <code>pub.inutile</code> devient <code>pub.utile</code>.</span></li>
+    <li><span>Ajoute les bruitages : un pop par picto, un whoosh par chapitre, un ding sur les chiffres.</span></li>
+    <li><span>Exporte en 1080 × 1920, 30 images par seconde.</span></li>
+  </ol>
+
+  <hr class="rule">
+
+  <div class="sh"><span class="n">9</span><h1>Le contrôle</h1><span class="pill">Tu décides</span></div>
+  <p>Regarde la vidéo en entier une fois, avec le son, comme si tu tombais dessus. Puis coche tout :</p>
+  <ul class="check" style="margin-top:12px">
+    <li><span>L'accroche tient en 5 secondes, et la question se comprend même sans le son.</span></li>
+    <li><span>Il y a une nouvelle image à chaque phrase.</span></li>
+    <li><span>Les sous-titres se lisent sans effort et ne cachent ni l'avatar ni le tableau.</span></li>
+    <li><span>Chaque chiffre a sa source (étape 5).</span></li>
+    <li><span>Le perso dit « moi » 2 ou 3 fois, et la chute revient sur lui.</span></li>
+    <li><span>La vidéo dure entre 60 et 80 secondes.</span></li>
+    <li><span>Aucun personnage ni aucune voix qui ne t'appartient pas.</span></li>
+  </ul>
+
+  <div class="prompt" style="margin-top:22px">
+    <div class="ph"><b>12</b> Ta légende · À coller dans Claude</div>
+<pre>Écris la légende TikTok de cette vidéo : une phrase qui relance la question de l'accroche sans donner la réponse, puis 4 à 6 hashtags précis sur le sujet. Voici le script : <em>[colle le texte du prompt 08]</em>.</pre>
+  </div>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>13</span></div>
+</section>
+
+<!-- ============ PAGE 14 : SCRIPT A ============ -->
+<section class="page">
+  <div class="label">Annexe · Script prêt à tourner</div>
+  <h1 class="ann">« Pourquoi IKEA te fait faire tout le magasin ? »</h1>
+  <div class="meta">
+    <div><div class="mini">Avatar</div><div class="val">Max</div></div>
+    <div><div class="mini">URL</div><div class="val mono" style="font-size:11px">raccourci.introuvable → raccourci.inutile</div></div>
+    <div><div class="mini">Décor</div><div class="val">Showroom scandinave</div></div>
+    <div><div class="mini">Tenue</div><div class="val">Costard, gilet de vendeur</div></div>
+  </div>
+  <table class="sc">
+    <tr><th></th><th>Badge</th><th>Texte dit</th><th>Au tableau</th><th>Pose</th></tr>
+    <tr class="ch"><td class="i">01</td><td class="b"><span class="chip">Pourquoi ?</span></td><td class="s">Tu rentres chez IKEA pour une ampoule.</td><td>Une ampoule seule</td><td class="pz">01 parle</td></tr>
+    <tr><td class="i">02</td><td></td><td class="s">Tu ressors avec un plaid, trois bougies et une plante.</td><td>Un ticket de caisse qui s'allonge</td><td class="pz">07 choqué</td></tr>
+    <tr><td class="i">03</td><td></td><td class="s">Pourquoi IKEA te fait faire tout le magasin ?</td><td>Le plan du magasin, une flèche en zigzag</td><td class="pz">03 montre</td></tr>
+    <tr><td class="i">04</td><td></td><td class="s">Moi, quand j'étais PDG… mes clients trouvaient même pas l'entrée.</td><td>Max devant une porte fermée</td><td class="pz">06 épaules</td></tr>
+    <tr><td class="i">05</td><td></td><td class="s">IKEA, lui, a un secret : le chemin.</td><td>Des flèches au sol</td><td class="pz">13 sournois</td></tr>
+    <tr><td class="i">06</td><td></td><td class="s">Un seul sens. Des flèches par terre.</td><td>Des flèches jaunes</td><td class="pz">03 montre</td></tr>
+    <tr><td class="i">07</td><td></td><td class="s">Les raccourcis existent… mais ils sont bien cachés.</td><td>Une porte « sortie » minuscule</td><td class="pz">14 chuchote</td></tr>
+    <tr><td class="i">08</td><td></td><td class="s">3 raisons.</td><td>Un « 3 » géant</td><td class="pz">02 doigt</td></tr>
+    <tr class="ch"><td class="i">09</td><td class="b"><span class="chip">1/3 Perdu</span></td><td class="s">Raison 1 : tu te perds.</td><td>Un labyrinthe</td><td class="pz">02 doigt</td></tr>
+    <tr><td class="i">10</td><td></td><td class="s">Presque pas de fenêtres. Des virages partout.</td><td>Une fenêtre barrée, un chemin sinueux</td><td class="pz">05 réfléchit</td></tr>
+    <tr><td class="i">11</td><td></td><td class="s">Ton cerveau lâche son plan… et passe en mode balade.</td><td>Un cerveau en chapeau de touriste</td><td class="pz">08 rit</td></tr>
+    <tr><td class="i">12</td><td></td><td class="s">En marketing, ça s'appelle l'effet Gruen, du nom de l'architecte des premiers centres commerciaux.</td><td>« EFFET GRUEN » en gros</td><td class="pz">03 montre</td></tr>
+    <tr class="ch"><td class="i">13</td><td class="b"><span class="chip">2/3 Mise en scène</span></td><td class="s">Raison 2 : tu vis dans le magasin.</td><td>Un salon meublé</td><td class="pz">02 doigt</td></tr>
+    <tr><td class="i">14</td><td></td><td class="s">Une chambre, une cuisine, un salon… avec des prix dessus.</td><td>Des étiquettes de prix</td><td class="pz">01 parle</td></tr>
+    <tr><td class="i">15</td><td></td><td class="s">Tu achètes pas une étagère. Tu achètes l'appart d'à côté.</td><td>L'appart rêvé contre l'appart réel</td><td class="pz">15 désigne</td></tr>
+    <tr class="ch"><td class="i">16</td><td class="b"><span class="chip">3/3 Tu bosses</span></td><td class="s">Raison 3 : c'est toi qui montes.</td><td>Une clé Allen</td><td class="pz">02 doigt</td></tr>
+    <tr><td class="i">17</td><td></td><td class="s">Et ça, c'est du génie.</td><td>Une ampoule qui s'allume</td><td class="pz">11 victoire</td></tr>
+    <tr><td class="i">18</td><td></td><td class="s">Une étude de 2011 l'a montré : on accorde plus de valeur à ce qu'on a monté soi-même.</td><td>Un graphique qui monte</td><td class="pz">03 montre</td></tr>
+    <tr><td class="i">19</td><td></td><td class="s">Même quand c'est bancal.</td><td>Une étagère penchée</td><td class="pz">08 rit</td></tr>
+    <tr><td class="i">20</td><td></td><td class="s">Les chercheurs l'ont appelé… l'effet IKEA.</td><td>« EFFET IKEA » en gros</td><td class="pz">12 clin d'œil</td></tr>
+    <tr class="ch"><td class="i">21</td><td class="b"><span class="chip">La réponse</span></td><td class="s">Donc le chemin, c'est pas un défaut. C'est le produit.</td><td>Une flèche vers un caddie plein</td><td class="pz">04 bras croisés</td></tr>
+    <tr class="ch"><td class="i">22</td><td class="b"><span class="chip">Bonus</span></td><td class="s">Sauf que IKEA va encore plus loin.</td><td>Le logo, un point d'exclamation</td><td class="pz">13 sournois</td></tr>
+    <tr><td class="i">23</td><td></td><td class="s">À la sortie : un hot-dog à prix cassé. Pour que tu repartes en te disant que c'était pas si cher.</td><td>Un hot-dog, un smiley soulagé</td><td class="pz">01 parle</td></tr>
+    <tr><td class="i">24</td><td></td><td class="s">Moi, la prochaine fois, je prends le raccourci.</td><td>Max devant le raccourci…</td><td class="pz">11 victoire</td></tr>
+    <tr><td class="i">25</td><td></td><td class="s">…dès que je l'ai trouvé.</td><td>…qui débouche sur le rayon bougies</td><td class="pz">07 choqué</td></tr>
+  </table>
+  <p class="small" style="margin-top:12px">Faits à vérifier avant de publier : l'effet Gruen (l'architecte Victor Gruen), l'étude de 2011 sur l'effet IKEA (Norton, Mochon et Ariely), le prix du hot-dog dans ton pays.</p>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>14</span></div>
+</section>
+
+<!-- ============ PAGE 15 : SCRIPT B ============ -->
+<section class="page">
+  <div class="label">Annexe · Script prêt à tourner</div>
+  <h1 class="ann">« Comment Spotify sait quelle chanson tu vas aimer ? »</h1>
+  <div class="meta">
+    <div><div class="mini">Avatar</div><div class="val">Max</div></div>
+    <div><div class="mini">URL</div><div class="val mono" style="font-size:11px">ton.algo → ton.miroir</div></div>
+    <div><div class="mini">Décor</div><div class="val">Studio d'enregistrement néon</div></div>
+    <div><div class="mini">Tenue</div><div class="val">Costard, casque audio</div></div>
+  </div>
+  <table class="sc">
+    <tr><th></th><th>Badge</th><th>Texte dit</th><th>Au tableau</th><th>Pose</th></tr>
+    <tr class="ch"><td class="i">01</td><td class="b"><span class="chip">Comment ?</span></td><td class="s">Lundi matin. Spotify te sort une playlist.</td><td>Le logo, un calendrier « LUNDI »</td><td class="pz">09 téléphone</td></tr>
+    <tr><td class="i">02</td><td></td><td class="s">Trente chansons que t'as jamais écoutées…</td><td>Un « 30 » géant</td><td class="pz">01 parle</td></tr>
+    <tr><td class="i">03</td><td></td><td class="s">…et t'aimes presque tout.</td><td>Des cœurs</td><td class="pz">07 choqué</td></tr>
+    <tr><td class="i">04</td><td></td><td class="s">Moi, quand j'étais PDG, je savais même pas ce qu'aimait ma femme.</td><td>Max avec un bouquet fané</td><td class="pz">06 épaules</td></tr>
+    <tr><td class="i">05</td><td></td><td class="s">Comment Spotify te connaît mieux que toi ?</td><td>Un point d'interrogation</td><td class="pz">05 réfléchit</td></tr>
+    <tr><td class="i">06</td><td></td><td class="s">3 ingrédients.</td><td>Un « 3 » géant</td><td class="pz">02 doigt</td></tr>
+    <tr class="ch"><td class="i">07</td><td class="b"><span class="chip">1/3 Tes jumeaux</span></td><td class="s">Ingrédient 1 : tes jumeaux musicaux.</td><td>Deux silhouettes identiques</td><td class="pz">02 doigt</td></tr>
+    <tr><td class="i">08</td><td></td><td class="s">Quelque part, des gens écoutent presque les mêmes sons que toi.</td><td>Une carte du monde, des points</td><td class="pz">03 montre</td></tr>
+    <tr><td class="i">09</td><td></td><td class="s">Ce qu'ils aiment et que t'as pas encore écouté ?</td><td>Une flèche vers toi</td><td class="pz">15 désigne</td></tr>
+    <tr><td class="i">10</td><td></td><td class="s">Ça arrive dans ta playlist.</td><td>Une playlist</td><td class="pz">01 parle</td></tr>
+    <tr><td class="i">11</td><td></td><td class="s">Ça s'appelle le filtrage collaboratif.</td><td>« FILTRAGE COLLABORATIF »</td><td class="pz">03 montre</td></tr>
+    <tr class="ch"><td class="i">12</td><td class="b"><span class="chip">2/3 Le son</span></td><td class="s">Ingrédient 2 : le son lui-même.</td><td>Une onde sonore</td><td class="pz">02 doigt</td></tr>
+    <tr><td class="i">13</td><td></td><td class="s">Tempo, énergie, ambiance : chaque morceau est analysé.</td><td>Des jauges</td><td class="pz">10 ordi</td></tr>
+    <tr><td class="i">14</td><td></td><td class="s">Une chanson qui vient de sortir, sans un seul fan, peut quand même te trouver.</td><td>Une note de musique en couche-culotte</td><td class="pz">08 rit</td></tr>
+    <tr class="ch"><td class="i">15</td><td class="b"><span class="chip">3/3 Les mots</span></td><td class="s">Ingrédient 3 : ce qu'on raconte sur la musique.</td><td>Des bulles de texte</td><td class="pz">02 doigt</td></tr>
+    <tr><td class="i">16</td><td></td><td class="s">Articles, blogs, playlists : l'algo lit tout ce qui se dit sur chaque artiste.</td><td>Des journaux</td><td class="pz">10 ordi</td></tr>
+    <tr class="ch"><td class="i">17</td><td class="b"><span class="chip">La réponse</span></td><td class="s">Donc Spotify devine pas tes goûts.</td><td>Une boule de cristal barrée</td><td class="pz">04 bras croisés</td></tr>
+    <tr><td class="i">18</td><td></td><td class="s">Il te range à côté de ceux qui te ressemblent.</td><td>Une étagère de gens</td><td class="pz">03 montre</td></tr>
+    <tr class="ch"><td class="i">19</td><td class="b"><span class="chip">Attention</span></td><td class="s">Sauf que…</td><td>Un panneau « attention »</td><td class="pz">13 sournois</td></tr>
+    <tr><td class="i">20</td><td></td><td class="s">Plus il te comprend, plus il te ressert la même chose.</td><td>Une boucle</td><td class="pz">01 parle</td></tr>
+    <tr><td class="i">21</td><td></td><td class="s">Tu crois découvrir… tu tournes en rond dans ta bulle.</td><td>Une bulle de savon</td><td class="pz">15 désigne</td></tr>
+    <tr class="ch"><td class="i">22</td><td class="b"><span class="chip">Bonus</span></td><td class="s">Et le pire ?</td><td>Le logo, en petit</td><td class="pz">14 chuchote</td></tr>
+    <tr><td class="i">23</td><td></td><td class="s">Mes trois jumeaux musicaux…</td><td>Trois Max identiques</td><td class="pz">07 choqué</td></tr>
+    <tr><td class="i">24</td><td></td><td class="s">…écoutent tous la playlist « Motivation lundi matin ».</td><td>La playlist « Motivation »</td><td class="pz">06 épaules</td></tr>
+  </table>
+  <p class="small" style="margin-top:12px">Faits à vérifier avant de publier : la playlist « Découvertes de la semaine » (le lundi, 30 titres), l'analyse audio des morceaux, l'analyse des textes publiés sur les artistes.</p>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>15</span></div>
+</section>
+
+<!-- ============ PAGE 16 : LES VIDÉOS D'ORIGINE ============ -->
+<section class="page">
+  <div class="label">Annexe · Les modèles</div>
+  <h1>Les deux vidéos d'origine, annotées</h1>
+  <p class="lead">Reconstituées depuis les sous-titres. Chaque passage porte le numéro de son temps (page 3) : relis-les pour sentir le rythme, pas pour recopier.</p>
+
+  <div class="orig">
+    <div>
+      <div class="label">Vidéo 1 · 79 s</div>
+      <h3>Pourquoi Coca et McDo font encore de la pub</h3>
+      <p><span class="tag">1 · Accroche</span>Une pub Coca. Une pub McDo. On s'est tous déjà demandé : pourquoi des marques aussi connues font encore de la pub ?</p>
+      <p><span class="tag">3 · Fait choc</span>Coca, en 2025 : plus de 5 milliards de dollars de pub.</p>
+      <p><span class="tag p">2 · Aparté</span>Moi, avec 5 milliards… j'arrêterais les cours direct.</p>
+      <p><span class="tag">3 · Fait choc</span>Expérience culte : des gens goûtent Coca et Pepsi… dans un scanner du cerveau. À l'aveugle ? Moitié-moitié. Puis on leur montre la canette… 3 sur 4 choisissent Coca. Le nom Coca allume la mémoire. Et elle a voté. Cette mémoire, Coca l'entretient.</p>
+      <p><span class="tag">4 · Plan</span>3 raisons.</p>
+      <p><span class="tag">5 · Points</span>Raison 1 : ton cerveau oublie. Ta tête, c'est une étagère blindée. Une marque absente glisse au fond, derrière les chips. 2 ans sans pub ? En moyenne, un quart des ventes s'envole. Raison 2 : les nouveaux. Chaque hiver, des gamins découvrent le camion de Noël Coca. Eux : zéro souvenir. Raison 3 : la place est jamais libre. Coca disparaît une semaine ? Pepsi débarque dans ton frigo ! Burger King attend que McDo cligne des yeux.</p>
+      <p><span class="tag">6 · Jargon</span>En marketing, ça s'appelle la disponibilité mentale. Et c'est ça, la réponse. La pub sert pas à te présenter Coca. Elle sert à ce que t'y penses… pile quand t'as soif. Et à McDo, quand t'as la dalle.</p>
+      <p><span class="tag">7 · Twist</span>Sauf que McDo va plus loin. En France, il a osé des affiches sans son nom. Juste des frites, un Big Mac… et un coup de dent dans le panneau. Le logo, ils en ont plus besoin. La pub, si.</p>
+      <p><span class="tag p">8 · Chute</span>Et le pire… je viens de leur faire une minute de pub. Gratos.</p>
+    </div>
+    <div>
+      <div class="label">Vidéo 2 · 73 s</div>
+      <h3>Comment Rockstar empêche les leaks de GTA 6</h3>
+      <p><span class="tag">1 · Accroche</span>Comment Rockstar empêche ses employés de leaker GTA 6 ?</p>
+      <p><span class="tag p">2 · Aparté</span>Parce que moi, si je bossais dessus… je tiendrais même pas 48 heures. « LES GARS, J'AI VU LA MAP ENTIÈRE ! »</p>
+      <p><span class="tag">3 · Fait choc</span>2022. Un hacker entre dans leur messagerie interne… depuis une chambre d'hôtel, avec une clé branchée sur la télé. Résultat : 90 vidéos du jeu, sur internet.</p>
+      <p><span class="tag">4 · Plan</span>Depuis, Rockstar a tout verrouillé. Deux règles.</p>
+      <p><span class="tag">5 · Points</span>Règle 1 : fini le télétravail. Retour au bureau, 5 jours sur 5. Les fichiers du jeu restent chez Rockstar. Pas sur ton PC portable, au fond de ton canapé. Règle 2 : chacun ses clés. Le mec qui fait les animations voit les animations. Point. Pas la map. Pas le scénario. Pas les outils.</p>
+      <p><span class="tag">6 · Jargon</span>En sécu, ça s'appelle le moindre privilège. Parce que si tu files les clés de toute la maison à des milliers de personnes… y a toujours un petit malin qui peut se dire : « Allez… je regarde juste un petit fichier. » Et BOUM. GTA 6 avant GTA 6 !</p>
+      <p><span class="tag">7 · Twist</span>Sauf que même avec tout ça… août 2026 : des vidéos fuitent encore. Donc la vraie sécu, c'est pas juste empêcher les gens de parler. C'est faire que même si quelqu'un rentre… il reparte pas avec tout le jeu sous le bras. Il pique le compte du mec des animations ? Il repart avec des animations.</p>
+      <p><span class="tag p">8 · Chute</span>Et vu le nombre de leaks qu'on s'est déjà mangés… je crois que GTA 6 va sortir avec plus de secrets volés que de secrets gardés.</p>
+    </div>
+  </div>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>16</span></div>
+</section>
+
+<!-- ============ PAGE 17 : RÉCAP ============ -->
+<section class="page">
+  <h1 style="margin-top:2px">Le récap en une page</h1>
+  <div class="paras" style="margin-top:12px">
+    <p><b>Une seule fois, le kit.</b> Ton avatar (prompt 01), sa planche et ses 15 poses (02 et 03), ton gabarit CapCut. Pages 6 à 8.</p>
+    <p><b>À chaque vidéo.</b> Le sujet (04), le script (05), la vérification (06 à 08), la voix (09), les visuels (10 et 11), le montage, le contrôle et la légende (12). Pages 9 à 13.</p>
+    <p><b>Toujours :</b> une phrase = une image, des chiffres sourcés, et une persona qui n'est jamais neutre.</p>
+  </div>
+
+  <h2>Tous les prompts du guide</h2>
+  <div class="pr">
+    <div><span>01</span><span>Aucun avatar ne te parle</span><span>p6</span></div>
+    <div><span>07</span><span>Changer un détail</span><span>p11</span></div>
+    <div><span>02</span><span>La planche de référence</span><span>p7</span></div>
+    <div><span>08</span><span>Tu valides le script</span><span>p11</span></div>
+    <div><span>03</span><span>Chaque pose</span><span>p7</span></div>
+    <div><span>09</span><span>La voix de ton perso</span><span>p12</span></div>
+    <div><span>04</span><span>Trouver tes sujets</span><span>p9</span></div>
+    <div><span>10</span><span>Le décor</span><span>p12</span></div>
+    <div><span>05</span><span>Le script</span><span>p10</span></div>
+    <div><span>11</span><span>Un picto</span><span>p12</span></div>
+    <div><span>06</span><span>Vérifier les faits</span><span>p11</span></div>
+    <div><span>12</span><span>Ta légende</span><span>p13</span></div>
+  </div>
+
+  <h2>Les outils</h2>
+  <ul class="links">
+    <li><a href="https://claude.ai">claude.ai</a> : trouver tes sujets, écrire et vérifier tes scripts</li>
+    <li><a href="https://midjourney.com">midjourney.com</a> · <a href="https://chatgpt.com">chatgpt.com</a> : ton avatar, ses poses, tes décors et tes pictos</li>
+    <li><a href="https://elevenlabs.io">elevenlabs.io</a> : la voix de ton perso, avec « Voice Design »</li>
+    <li><a href="https://capcut.com">capcut.com</a> : le montage, les sous-titres karaoké et ton modèle</li>
+    <li><a href="https://remove.bg">remove.bg</a> : détourer tes poses</li>
+    <li><a href="https://flaticon.com">flaticon.com</a> · <a href="https://thenounproject.com">thenounproject.com</a> · <a href="https://icons8.com">icons8.com</a> : les pictos tout faits</li>
+  </ul>
+
+  <div class="final">
+    <div class="label">Le raccourci</div>
+    <h2>Donne ce PDF à Claude</h2>
+    <p>Joins ce guide à une conversation, puis écris-lui la phrase ci-dessous. Il suit la méthode, s'arrête aux étapes où c'est toi qui décides, et te rend le tableau plan par plan.</p>
+    <span class="lk">Suis ce guide. Mon perso : <em>[Max]</em>. Fais les étapes 4 et 5 sur ce sujet : <em>[ton sujet]</em>.</span>
+  </div>
+
+  <div class="footer"><span>Refaire le format doof_lab · Guide pas à pas</span><span>17</span></div>
+</section>
+
+<script>
+// Espaces insécables à la française : avant : ; ? ! » et après «
+(function(){
+  const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+  let n;
+  while((n=w.nextNode())){
+    if(n.parentElement && n.parentElement.closest('style,script')) continue;
+    n.nodeValue=n.nodeValue.replace(/ ([:;?!»])/g,' $1').replace(/« /g,'« ').replace(/ →/g,' →');
+  }
+})();
+</script>
+</body>
+</html>
