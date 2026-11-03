@@ -21,7 +21,7 @@ const fs = require('fs');
     let last = {};
     for (let i = 0; i < n; i++) {
       last = await p.evaluate(i => window.frame(i), i);
-      const buf = await p.screenshot({ type: 'jpeg', quality: 93 });
+      const buf = await p.screenshot({ type: 'jpeg', quality: 93, timeout: 0 });   // no 30 s limit: the first frame of a scene can be slow when several renders share the CPU
       if (!ff.stdin.write(buf)) await new Promise(r => ff.stdin.once('drain', r));
       if (i % 30 === 0) process.stdout.write(`${id} ${i}/${n}\n`);
     }
