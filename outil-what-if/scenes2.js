@@ -468,12 +468,13 @@ export function station(scene) {
   const shop = new THREE.Group(); shop.position.set(-2, 0, -14); shop.add(box(16, 3.8, 6, M(0xe4e2dc, 0.8), 0, 1.9, 0)); shop.add(box(10, 2.6, 0.1, glass(0x1b2028, 0.85), 1, 1.5, 3.02)); castAll(shop); scene.add(shop);
   seed(14); const colors = [0x8a1f1f, 0x2f4a6d, 0xd9d9d6, 0x1d1d1f, 0x6b6f74, 0x3f5d3a, 0xb8862a, 0x4c7f99];
   for (const [x, z, ry] of [[-4, -0.2, Math.PI / 2], [4, -3.6, -Math.PI / 2]]) { const c = car({ color: pick(colors) }); c.position.set(x + 1.6, 0, z); c.rotation.y = ry; scene.add(c); }
-  for (let k = 0; k < 4; k++) { const c = car({ color: colors[(k + 2) % colors.length] }); c.position.set(5.6, 0, 2.2 + k * 5.4); c.rotation.y = Math.PI / 2; scene.add(c); }
+  for (let k = 0; k < 4; k++) { const c = car({ color: colors[[2, 7, 4, 5][k]] }); c.position.set(5.6, 0, 2.2 + k * 5.4); c.rotation.y = Math.PI / 2; scene.add(c); }
   const MG = new THREE.Group(); scene.add(MG);
-  const man = person(randPerson({ coat: true, rsh: [0.1, -0.2], rel: -0.1 })); man.position.set(6.5, 0, 4.5); man.rotation.y = -0.9; MG.add(man);
-  const jerry = rbox(0.3, 0.38, 0.16, 0.03, M(0xc0261c, 0.5), 6.6, 0.4, 4.2); MG.add(jerry);
+  // back from the dead pumps with an empty jerrycan, walking towards us along the queue (stays in frame, clear of the counter)
+  const man = person(randPerson({ coat: true, rsh: [0.1, -0.2], rel: -0.1 })); man.position.set(7.3, 0, 2.6); man.rotation.y = 0; MG.add(man);
+  const jerry = rbox(0.16, 0.38, 0.3, 0.03, M(0xc0261c, 0.5), 7.02, 0.45, 2.55); MG.add(jerry);
   hemi(scene, 0xd7dde3, 0x5a564f, 0.9); sun(scene, { pos: [20, 30, 25], color: 0xe8ecef, intensity: 0.9, size: 40, far: 140 });
-  const anim = [(t) => { const d = 1.05 * t; MG.position.set(Math.sin(-0.9) * d, 0, Math.cos(-0.9) * d); animPerson(man, t, { walk: 1.55, stride: 0.42, armSwing: 0.5, look: 0.3 }); jerry.rotation.z = Math.sin(t * 1.55 * Math.PI * 2) * 0.12; }];
+  const anim = [(t) => { MG.position.set(0, 0, 0.65 * t); animPerson(man, t, { walk: 1.2, stride: 0.38, armSwing: 0.3, look: 0.35 }); jerry.rotation.x = Math.sin(t * 1.2 * Math.PI * 2) * 0.1; }];
   return { anim };
 }
 
