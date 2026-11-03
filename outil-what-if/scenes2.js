@@ -209,7 +209,7 @@ export function apartment(scene, { variant }) {
   if (variant === 'restored') { hemi(scene, 0xe7dcc8, 0x4a3a2a, 0.55); point(scene, 0xffc27a, 5.5, 8, 0, 2.2, -0.4, true); spot(scene, 0xffd9b0, 10, -0.9, 2.2, -4.6, 0.6, 0.6, 0.6, 0.6, 0.6, true, 14); }
   scene.add(dust(120, [-2, 0.3, -2.2, 2, 2.4, 1.5], day ? 0xfff2d8 : 0xbcd0ff, 0.012, 0.35));
   const puffs = [];
-  if (variant === 'cold') for (let i = 0; i < 3; i++) { const m = new THREE.Mesh(new THREE.SphereGeometry(0.035, 10, 8), new THREE.MeshBasicMaterial({ color: 0xdfe8f2, transparent: true, opacity: 0, depthWrite: false })); scene.add(m); puffs.push(m); }
+  // (no breath puffs: hard-edged spheres read as white discs on Jeanne's face, and breath is not visible at indoor temperatures)
   const pj = jeanne, py = yanis, anim = [];
   if (variant === 'dark') anim.push((t) => {   // the TV and the ceiling light die at 19:42
     const on = t < 0.38, k2 = t > 0.24 && t < 0.38 ? (Math.sin(t * 95) > 0 ? 1 : 0.15) : 1;
