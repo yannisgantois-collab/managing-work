@@ -33,7 +33,16 @@ export function objAnim(id, ctx, t, dur, frame) {
   if (ctx.anim) ctx.anim.forEach(f => f(t, dur, frame));
   if (id === 'P07' && ctx.people) {
     ctx.people.forEach((p, i) => animPerson(p, t, { breath: 1, look: 0.8, sway: 1.5, phase: i * 1.3 }));
-    if (ctx.walker) { const d = 1.1 * Math.max(0, t - 0.3); ctx.walker.position.x = 0.4 + d; animPerson(ctx.walker, t, { walk: t > 0.3 ? 1.4 : 0, look: 0.3, phase: 2 }); }
+    if (ctx.walker) {   // leaves the shop towards the street, then walks off in front of the queue (not behind it)
+      const P = [[0.4, -3.9], [0.45, -2.0], [0.55, -1.5], [3.4, -1.5]];
+      const at = (s) => { const u = 1 - s, w = [u * u * u, 3 * u * u * s, 3 * u * s * s, s * s * s]; return [0, 1].map(k => w.reduce((a, c, i) => a + c * P[i][k], 0)); };
+      const W = ctx.walker.userData;   // walk at a steady 1.15 m/s: sample the curve once and move along it by distance
+      if (!W.len) { W.pts = []; W.len = [0]; for (let i = 0; i <= 64; i++) W.pts.push(at(i / 64)); for (let i = 1; i <= 64; i++) W.len.push(W.len[i - 1] + Math.hypot(W.pts[i][0] - W.pts[i - 1][0], W.pts[i][1] - W.pts[i - 1][1])); }
+      const by = (d) => { d = Math.max(0, Math.min(W.len[64], d)); let i = 1; while (i < 64 && W.len[i] < d) i++; const f = (d - W.len[i - 1]) / (W.len[i] - W.len[i - 1] || 1); return [0, 1].map(k => W.pts[i - 1][k] + (W.pts[i][k] - W.pts[i - 1][k]) * f); };
+      const d = 1.15 * Math.max(0, t - 0.3), [x, z] = by(d), [x2, z2] = by(d + 0.05);
+      ctx.walker.position.x = x; ctx.walker.position.z = z; if (Math.hypot(x2 - x, z2 - z) > 1e-4) ctx.walker.rotation.y = Math.atan2(x2 - x, z2 - z);
+      animPerson(ctx.walker, t, { walk: t > 0.3 ? 1.4 : 0, look: 0.3, phase: 2 });
+    }
   }
   return {};
 }
