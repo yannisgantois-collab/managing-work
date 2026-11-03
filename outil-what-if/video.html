@@ -47,7 +47,7 @@ const W = +(q.get('w') || 1080), H = Math.round(W * 16 / 9), id = q.get('shot') 
 const Wi = Math.round(W * sc), Hi = Math.round(H * sc);
 document.documentElement.style.setProperty('--w', W + 'px'); document.documentElement.style.setProperty('--h', H + 'px');
 document.documentElement.style.setProperty('--u', (W / 1080) + 'px');
-const nb = (s) => s.replace(/ ([?!:;»])/g, ' $1').replace(/« /g, '« ').replace(/(\d) (\d{3})/g, '$1 $2');
+const nb = (s) => s.replace(/ ([?!:;»])/g, ' $1').replace(/« /g, '« ').replace(/(\d) (\d{3})/g, '$1 $2').replace(/(\d) (?=(?:h|heures?|min|minutes?|jours?|ans|%)(?![\p{L}\d]))/gu, '$1 ').replace(/(\d h) (\d)/g, '$1 $2');
 try {
   await Promise.all(['500 64px Newsreader', '600 64px Newsreader', 'italic 500 64px Newsreader', 'italic 600 64px Newsreader', '600 64px Inter', '700 64px Inter', '800 64px Inter', '500 30px "IBM Plex Mono"', '600 30px "IBM Plex Mono"'].map(f => document.fonts.load(f)));
   const data = await (await fetch('./' + (q.get('data') || 'shots.json'))).json();
@@ -79,7 +79,7 @@ try {
       if (shot.hud.sub) h += `<div class="sub">${shot.hud.sub[0]}<b>${nb(shot.hud.sub[1])}</b></div>`;
       h += `</div>`;
     }
-    if (shot.cap) h += `<div class="cap" id="cap">${nb(shot.cap)}</div>`;
+    if (shot.cap) h += `<div class="cap" id="cap">${nb(shot.cap).replace(/\n/g, '<br>')}</div>`;
   }
   u.innerHTML = h;
   const val = document.getElementById('val'), tlEl = document.getElementById('tl'), cap = document.getElementById('cap'), capbg = document.getElementById('capbg'), arrow = document.getElementById('arrow');

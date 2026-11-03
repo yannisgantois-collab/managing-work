@@ -182,7 +182,7 @@
     "value": "0 h 00",
     "tl": "JOUR 1 · 19:42"
    },
-   "cap": "19 h 42. Toute la France s’éteint d’un coup.",
+   "cap": "19 h 42. Toute la France\ns’éteint d’un coup.",
    "action": "Le salon de Jeanne : la télé et le plafonnier s’éteignent. Elle reste dans son fauteuil, éclairée par la lune.",
    "move": "Lent travelling avant.",
    "sfx": "Le frigo s’arrête, la télé se tait ; seule une horloge à piles continue.",
@@ -204,7 +204,7 @@
     "value": "0 h 05",
     "tl": "JOUR 1 · 19:47"
    },
-   "cap": "Les feux tricolores s’éteignent. Les carrefours se bloquent.",
+   "cap": "Les feux tricolores s’éteignent.\nLes carrefours se bloquent.",
    "action": "Carrefour parisien : feux morts, voitures bloquées en travers, phares dans la brume, un piéton s’éclaire avec son téléphone.",
    "move": "Plan large en hauteur, légère dérive.",
    "sfx": "Klaxons, moteurs au ralenti.",
@@ -246,7 +246,7 @@
     "value": "0 h 30",
     "tl": "JOUR 1 · 20:12"
    },
-   "cap": "Les antennes mobiles tiennent une demi-heure sur batterie. Puis plus rien.",
+   "cap": "Les antennes mobiles tiennent\nune demi-heure sur batterie.\nPuis plus rien.",
    "action": "Gros plan : la main de Jeanne tient son téléphone. À l’écran, « Aucun service ». Une bougie brûle en arrière-plan.",
    "move": "Push-in sur l’écran.",
    "sfx": "Un appel qui échoue, trois bips.",
@@ -270,7 +270,7 @@
     "value": "1 h 18",
     "tl": "JOUR 1 · 21:00"
    },
-   "cap": "La pompe de l’immeuble est électrique. Au 6e, l’eau ne monte plus.",
+   "cap": "La pompe de l’immeuble est électrique.\nAu 6e, l’eau ne monte plus.",
    "action": "Cuisine à la bougie : Jeanne ouvre le robinet, une dernière goutte tombe dans le verre.",
    "move": "Gros plan fixe.",
    "sfx": "Le robinet crache de l’air, une goutte tombe.",
@@ -294,7 +294,7 @@
     "value": "15 h 10",
     "tl": "JOUR 2 · 10:52"
    },
-   "cap": "Jour 2. Plus de carte bancaire ni de distributeur. Seuls les billets passent.",
+   "cap": "Jour 2. Plus de carte bancaire\nni de distributeur.\nSeuls les billets passent.",
    "action": "Rue grise du matin : une épicerie ouverte sans lumière, une file d’attente, une pancarte « ESPÈCES UNIQUEMENT » sur la porte.",
    "move": "Plan large fixe depuis le trottoir d’en face.",
    "sfx": "Murmures, clochette de porte, pièces de monnaie.",
@@ -316,7 +316,7 @@
     "value": "18 h 00",
     "tl": "JOUR 2 · 13:42"
    },
-   "cap": "Les pompes à essence sont électriques, elles aussi. Les voitures restent à sec.",
+   "cap": "Les pompes à essence sont électriques,\nelles aussi. Les voitures restent à sec.",
    "action": "Station-service à l’arrêt : écrans noirs, pistolets raccrochés, panneaux « EN PANNE », une file de voitures qui n’avance plus.",
    "move": "Lent travelling latéral.",
    "sfx": "Vent, portières, un moteur qui cale.",
@@ -338,7 +338,7 @@
     "value": "26 h 00",
     "tl": "JOUR 2 · 21:42"
    },
-   "cap": "Les hôpitaux tournent sur groupes électrogènes. Tant qu’il reste du carburant.",
+   "cap": "Les hôpitaux tournent\nsur groupes électrogènes.\nTant qu’il reste du carburant.",
    "action": "Couloir d’hôpital en éclairage de secours : une lumière sur trois, des lits dans le couloir, une infirmière avec une lampe frontale.",
    "move": "Lent travelling avant.",
    "sfx": "Ronronnement lointain du groupe électrogène, bips de monitoring.",
@@ -359,7 +359,7 @@
     "value": "48 h 00",
     "tl": "JOUR 3 · 19:42"
    },
-   "cap": "Jour 3. Le congélateur a tenu 48 heures. Le frigo, 4 heures.",
+   "cap": "Jour 3. Le congélateur a tenu\n48 heures. Le frigo, 4 heures.",
    "action": "Le frigo ouvert, sans lumière : le congélateur dégouline, les aliments sont perdus. Une lampe torche éclaire l’intérieur.",
    "move": "Plan fixe ; le faisceau de la lampe balaie l’intérieur.",
    "sfx": "Gouttes d’eau, porte du frigo qui grince.",
@@ -383,7 +383,7 @@
     "value": "70 h 00",
     "tl": "JOUR 4 · 17:42"
    },
-   "cap": "Jour 4. Plus de chauffage : même les chaudières à gaz ont besoin de courant.",
+   "cap": "Jour 4. Plus de chauffage :\nmême les chaudières à gaz\nont besoin de courant.",
    "action": "Même vue que P01 : Paris éteint, de petites lueurs de bougies tremblent aux fenêtres.",
    "move": "Plan fixe, en rime avec P01.",
    "sfx": "Vent froid, une sirène au loin.",
@@ -407,7 +407,7 @@
     "value": "74 h 00",
     "tl": "JOUR 4 · 21:42"
    },
-   "cap": "Jeanne, 79 ans, vit seule au 6e. Sans ascenseur, elle ne peut plus descendre.",
+   "cap": "Jeanne, 79 ans, vit seule au 6e.\nSans ascenseur,\nelle ne peut plus descendre.",
    "action": "Jeanne emmitouflée dans une couverture, dans son fauteuil, une bougie sur la table basse.",
    "move": "Push-in très lent sur son visage.",
    "sfx": "Flamme de bougie, horloge, son souffle.",
@@ -428,7 +428,7 @@
     "value": "88 h 00",
     "tl": "JOUR 5 · 11:42"
    },
-   "cap": "Jour 5. Son voisin du dessous monte avec de l’eau. Il reviendra chaque jour.",
+   "cap": "Jour 5. Son voisin du dessous monte\navec de l’eau. Il reviendra chaque jour.",
    "action": "La porte s’ouvre : Yanis, le voisin du 5e, entre avec un pack d’eau et une lampe torche. Jeanne se retourne.",
    "move": "Plan large, contre-jour de la cage d’escalier.",
    "sfx": "On frappe, la porte grince, des pas.",
@@ -450,7 +450,7 @@
     "value": "144 h 00",
     "tl": "JOUR 7 · 19:42"
    },
-   "cap": "Jour 7. Le courant revient. Ce scénario n’a pourtant rien d’imaginaire.",
+   "cap": "Jour 7. Le courant revient.\nCe scénario n’a pourtant\nrien d’imaginaire.",
    "action": "Même vue que P01 : la vague repart en sens inverse, Paris se rallume, la tour Eiffel scintille.",
    "move": "Plan fixe.",
    "sfx": "Le frigo redémarre, la ville revient, la musique passe en majeur.",
@@ -471,7 +471,7 @@
     "value": "12:33",
     "tl": "ESPAGNE ET PORTUGAL · 28 AVRIL 2025"
    },
-   "cap": "28 avril 2025 : l’Espagne et le Portugal s’éteignent en quelques secondes.",
+   "cap": "28 avril 2025 :\nl’Espagne et le Portugal\ns’éteignent en quelques secondes.",
    "action": "Carte de la péninsule Ibérique vue de nuit : les villes brillent, puis s’éteignent toutes en même temps. Le sud de la France et le Maroc restent allumés.",
    "move": "Lent zoom arrière.",
    "sfx": "Un seul « clac », puis un long silence.",
@@ -495,7 +495,7 @@
     "value": "99,95 %",
     "tl": "LE LENDEMAIN MATIN"
    },
-   "cap": "Des dizaines de millions de personnes. Il faut une nuit pour tout rallumer.",
+   "cap": "Des dizaines de millions de personnes.\nIl faut une nuit pour tout rallumer.",
    "action": "Rue ensoleillée d’une ville espagnole : feux éteints, un policier règle la circulation à la main, des gens marchent au milieu de la rue.",
    "move": "Plan large, légère dérive.",
    "sfx": "Sifflet, klaxons, conversations.",
@@ -521,7 +521,7 @@
     "value": "08:27",
     "tl": "FRANCE · 19 DÉCEMBRE 1978"
    },
-   "cap": "19 décembre 1978 : les trois quarts de la France, plus de 4 h sans courant.",
+   "cap": "19 décembre 1978 :\nles trois quarts de la France,\nplus de 4 h sans courant.",
    "action": "Carte de la France vue de nuit : les villes s’éteignent d’ouest en est ; seul l’Est reste allumé.",
    "move": "Plan fixe en plongée.",
    "sfx": "Clics successifs, vent d’hiver.",
@@ -546,7 +546,7 @@
     "value": "0 h 00",
     "tl": "AUJOURD’HUI"
    },
-   "cap": "Quand tout s’éteint, ce qui tient, ce sont les voisins.",
+   "cap": "Quand tout s’éteint,\nce qui tient, ce sont les voisins.",
    "action": "Le salon de Jeanne, la lumière revenue : Jeanne et Yanis prennent un café ensemble.",
    "move": "Plan moyen, léger travelling.",
    "sfx": "Tasses, rires, musique en majeur.",

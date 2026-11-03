@@ -99,7 +99,7 @@ for s in shots:
         onscreen = f'<p class="onscreen"><span class="lbl">À l’écran</span>{e(data["title"])}<br><span class="mono">{e(" ".join(s["end"]["mono"]))}</span><br><span class="mono">{e(" ".join(s["end"]["cta"]))}</span></p>'
         hud = '<dt>Compteur</dt><dd>Aucun : carton final.</dd>'
     else:
-        txt = (f'<em>Titre :</em> {e(data["title"])}' if s.get('title') else '') + (e('« ' + s['cap'] + ' »') if s['cap'] else '')
+        txt = (f'<em>Titre :</em> {e(data["title"])}' if s.get('title') else '') + (e('« ' + s['cap'].replace('\n', ' ') + ' »') if s['cap'] else '')
         onscreen = f'<p class="onscreen"><span class="lbl">À l’écran</span>{txt}</p>'
         h = s['hud']; v = f'{e(h["label"])} · <b>{e(h["value"])}</b> · {e(h["tl"])}'
         if h.get('sub'): v += f'<br><span class="sub">{e(h["sub"][0])} · <b>{e(h["sub"][1])}</b></span>'
