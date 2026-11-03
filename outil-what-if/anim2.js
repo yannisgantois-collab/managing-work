@@ -24,7 +24,7 @@ export const CAMANIM = {
   P15: (u, b) => ({ ...b, pos: lerp3(b.pos, b.look, -0.12 * ease(u)) }),
   P16: (u, b) => ({ ...b, pos: add3(b.pos, [-1.5 * u, 0, 0.5 * u]) }),
   P17: (u, b) => ({ ...b, pos: lerp3(b.pos, b.look, 0.05 * ease(u)) }),
-  P18: (u, b) => ({ ...b, pos: add3(b.pos, [0.3 * u, 0, -0.2 * u]) }),
+  P18: (u, b) => ({ ...b, pos: lerp3(b.pos, b.look, -0.08 * ease(u)) }),   // slow pull-back: both stay in frame
 };
 
 // every decor animates itself through ctx.anim; shots built from episode 1 decors get their life here

@@ -584,7 +584,7 @@ export const CAMS2 = {
   'apartment:dark': [46, [1.6, 1.45, 1.3], [-0.85, 0.95, -1.35], {}],
   'apartment:cold': [42, [0.85, 1.35, 0.75], [-0.7, 0.85, -1.3], { bloom: [0.6, 0.5, 0.7] }],
   'apartment:neighbor': [52, [-2.1, 1.75, -1.7], [2.3, 1.15, 0.65], {}],
-  'apartment:restored': [60, [-0.6, 1.6, 3.6], [1.1, 0.95, 0.9], {}],
+  'apartment:restored': [60, [-0.6, 1.6, 3.6], [0.85, 0.95, 0.9], {}],   // aimed a little towards Jeanne so the counter never covers her
   'crossroads:night': [50, [15, 7.5, 17], [0, 0.4, 0], { ao: false, bloom: [0.9, 0.6, 0.5] }],
   'crossroads:day': [50, [15, 7.5, 17], [0, 0.4, 0], { ao: false }],
   'metro:car': [58, [0, 1.62, 1.7], [0, 1.25, -14], { bloom: [0.5, 0.4, 0.75] }],
