@@ -134,11 +134,11 @@ add(roomtone(4.0, 400) * np.linspace(0.05, 1, int(4.0 * SR)), T('P14'), 0.09)
 for k, t0 in enumerate(np.linspace(0.4, 3.4, 10)): add(clac() * 0.6, T('P14') + t0, 0.05, rng.uniform(-0.6, 0.6))
 # P15: one big "clac" when the peninsula goes dark (1.0 s), then a long silence
 big = norm(1.0 * thump(1.8, 38, 2.5) + 0.3 * band(noise(1.8), 30, 300) * np.exp(-tt(1.8) * 3)); add(big, T('P15') + 1.0, 0.35); add(clac(), T('P15') + 1.0, 0.2)
-# P16: Spanish street: whistle, honks, chatter, a car passing
+# P16: Spanish street: whistle, honks, chatter, a car rolling up to the crossing
 add(babble(4.5, 250, 1800, 4.0), T('P16'), 0.06)
 for t0 in (0.3, 1.6, 3.1): add(whistle(0.45), T('P16') + t0, 0.05, -0.2)
 for t0 in (0.9, 2.6): add(horn(0.35, 460, 580), T('P16') + t0, 0.03, 0.5)
-add(roomtone(3.0, 160) * np.linspace(0.2, 1, int(3.0 * SR)), T('P16') + 1.2, 0.08, 0.3)
+add(roomtone(3.6, 160) * np.interp(np.arange(int(3.6 * SR)), [0, int(2.6 * SR), int(3.6 * SR)], [0.2, 1.0, 0.45]), T('P16') + 0.6, 0.06, 0.3)   # the far car rolls up, then idles at the crossing
 # P17: one click per French city going dark (west to east, 0.6-3.6 s), winter wind
 add(wind(5.0, 100, 500, 0.2), T('P17'), 0.05)
 for k in range(30): add(click(), T('P17') + 0.6 + 3.0 * (k / 29) + rng.uniform(-0.04, 0.04), 0.07, -0.6 + 1.2 * k / 29)
