@@ -187,7 +187,7 @@ export function apartment(scene, { variant }) {
   if (variant === 'neighbor') {
     var hinge = new THREE.Group(); hinge.position.set(2.45, 0, 1.09); scene.add(hinge); hinge.add(box(0.05, 2.08, 0.93, doorM, 0, 1.04, -0.465)); hinge.rotation.y = 1.25;
     scene.add(box(2.0, 2.8, 0.12, M(0x2a2a2c, 0.9), 3.6, 1.4, -0.4)); scene.add(box(2.0, 2.8, 0.12, M(0x2a2a2c, 0.9), 3.6, 1.4, 1.65)); scene.add(box(0.12, 2.8, 2.2, M(0x232325, 0.9), 4.6, 1.4, 0.6));
-    var YG = new THREE.Group(); scene.add(YG);
+    var YG = new THREE.Group(); YG.position.x = 0.35; scene.add(YG);   // starts back in the landing so nothing pokes through the closed door
     const y = person({ ...YANIS, lsh: [-1.0, 0.25], lel: -0.6, rsh: [-0.9, -0.2], rel: -0.7, neck: [0.1, -0.2, 0] }); y.position.set(2.85, 0, 0.62); y.rotation.y = -Math.PI / 2 - 0.2; YG.add(y); yanis = y;
     const pack = new THREE.Group(); pack.position.set(2.45, 0.98, 0.42);
     for (let i = 0; i < 6; i++) pack.add(cyl(0.045, 0.045, 0.3, glass(0x9fc8e8, 0.55), (i % 3) * 0.1 - 0.1, 0, Math.floor(i / 3) * 0.1 - 0.05, 12));
@@ -226,7 +226,7 @@ export function apartment(scene, { variant }) {
   });
   if (variant === 'neighbor') anim.push((t) => {   // the door opens, Yanis walks in with the water
     hinge.rotation.y = 1.25 * ease(t / 0.7);
-    const k = ease((t - 0.45) / 2.4); YG.position.x = -0.8 * k;
+    const k = ease((t - 0.45) / 2.4); YG.position.x = 0.35 - 1.15 * k;
     animPerson(py, t, { walk: k > 0.02 && k < 0.98 ? 1.5 : 0, stride: 0.33, armSwing: 0, look: 0.3, phase: 1 });
     animPerson(pj, t, { breath: 1, look: 0.15 });
     pj.userData.rig.head.rotation.y += -0.9 + 0.9 * ease(t / 1.4);
