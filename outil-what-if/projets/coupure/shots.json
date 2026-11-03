@@ -1,0 +1,587 @@
+{
+ "title": "Et si la France entière perdait l’électricité pendant une semaine ?",
+ "handle": "@ton.compte",
+ "page": {
+  "eyebrow": "Storyboard · What if · épisode 2",
+  "lead": "À 19 h 42, la France entière s’éteint. On suit Jeanne, 79 ans, seule au 6e étage, pendant sept jours sans courant. À la fin, la fiction rejoint deux pannes bien réelles : l’Espagne et le Portugal en 2025, la France en 1978.",
+  "facts": [
+   "9:16 · 1080 × 1920",
+   "78,5 s",
+   "19 plans",
+   "Sans voix off",
+   "Images rendues en 3D par code"
+  ],
+  "acts": {
+   "1": [
+    "Acte 1",
+    "La coupure"
+   ],
+   "2": [
+    "Acte 2",
+    "La semaine noire"
+   ],
+   "3": [
+    "Acte 3",
+    "Ce n’est pas de la fiction"
+   ]
+  },
+  "new": [
+   "Sujet : une coupure d’électricité nationale pendant une semaine.",
+   "Déclencheur : Paris qui s’éteint quartier par quartier, vu depuis une fenêtre.",
+   "Personnages : Jeanne, 79 ans, et Yanis, son voisin du dessous.",
+   "Chute : deux pannes réelles, puis une note d’espoir sur les voisins.",
+   "Appel au partage : « Envoie ça à ton voisin. »",
+   "Durée : 78,5 s, comme le premier épisode."
+  ],
+  "defects": {
+   "D01": [
+    "Chaque conséquence suit une cause vérifiable : la pompe de l’immeuble, les terminaux de paiement, les pompes à essence et les chaudières à gaz ont besoin de courant.",
+    "P06, P07, P08, P11"
+   ],
+   "D02": [
+    "Les durées affichées collent aux sources : antennes 30 minutes, frigo 4 heures, congélateur plein 48 heures.",
+    "P05, P10, P16"
+   ],
+   "D03": [
+    "Tout texte dans le décor (écran du téléphone, pancartes « ESPÈCES UNIQUEMENT » et « EN PANNE ») est écrit proprement.",
+    "P05, P07, P08"
+   ],
+   "D04": [
+    "Fiches personnages uniques : Jeanne (gilet bordeaux, chignon blanc) et Yanis (sweat vert), identiques dans chaque plan.",
+    "P02, P05, P06, P12, P13, P18"
+   ],
+   "D07": [
+    "La ville s’éteint dès la première image, sous un titre grand et contrasté.",
+    "P01, P02"
+   ],
+   "D08": [
+    "78,5 s en trois actes ; le compteur de durée fait avancer le temps de 0 h à 144 h.",
+    "Tous"
+   ],
+   "D10": [
+    "La fiction rejoint deux pannes réelles, puis une note d’espoir : les voisins.",
+    "P14 à P18"
+   ],
+   "D12": [
+    "Chaque phrase a un sujet explicite.",
+    "P04, P13, P16"
+   ],
+   "D13": [
+    "Le libellé dit toujours ce que mesure le chiffre : durée de la coupure, heure de la coupure, courant rétabli.",
+    "P01, P15, P16, P17"
+   ],
+   "D14": [
+    "Chaque chiffre réel renvoie à une source. L’autonomie des antennes a été corrigée pendant la vérification : 30 minutes, et non quelques heures.",
+    "P05, P10, P15, P16, P17"
+   ],
+   "D16": [
+    "Un seul compteur à l’écran, toujours à la même place.",
+    "Tous"
+   ]
+  },
+  "sources": [
+   [
+    "S1",
+    "Public Sénat : le 19 décembre 1978 à 8 h 27, la quasi-totalité de la France est plongée dans le noir ; métros, trains, feux et ascenseurs s’arrêtent.",
+    "https://www.publicsenat.fr/actualites/societe/la-france-est-en-panne-retour-sur-le-black-out-de-1978-231450",
+    "P17",
+    "Vérifié"
+   ],
+   [
+    "S2",
+    "L’info durable : les trois quarts du pays privés d’électricité pendant plus de quatre heures ; seul l’Est relativement épargné.",
+    "https://www.linfodurable.fr/risques-de-delestages-les-precedentes-grandes-coupures-delectricite-35846",
+    "P17",
+    "Vérifié"
+   ],
+   [
+    "S3",
+    "Le Petit Journal (Madrid) : coupure géante en Espagne et au Portugal le 28 avril 2025 à 12 h 33, des dizaines de millions de personnes touchées.",
+    "https://lepetitjournal.com/madrid/actualites/panne-courant-massive-espagne-portugal-411505",
+    "P15, P16",
+    "Vérifié"
+   ],
+   [
+    "S4",
+    "24matins : 99,95 % de la demande rétablie en Espagne le lendemain matin.",
+    "https://www.24matins.fr/espagne-retablissement-quasi-total-de-lelectricite-les-raisons-de-la-panne-demeurent-un-mystere-1389500",
+    "P16",
+    "Vérifié"
+   ],
+   [
+    "S5",
+    "Orange (FAQ 2022, mise à jour 2023) : 10 à 20 minutes d’autonomie sur batterie pour ses antennes ; environ 30 minutes pour le secteur selon Selectra.",
+    "https://selectra.info/telecom/actualites/marche/reseau-mobile-tombe-avec-electricite-autonomie-antennes",
+    "P05",
+    "Vérifié"
+   ],
+   [
+    "S6",
+    "FDA (version française) : un frigo fermé reste sûr 4 heures ; un congélateur plein tient environ 48 heures.",
+    "https://www.fda.gov/food/buy-store-serve-safe-food/securite-sanitaire-des-aliments-et-de-leau-lors-de-pannes-delectricite-et-dinondations",
+    "P10",
+    "Vérifié"
+   ],
+   [
+    "S7",
+    "Selectra : une chaudière gaz s’arrête sans courant (électronique, allumage, ventilateur, circulateur), même si le gaz continue d’arriver.",
+    "https://selectra.info/energie/actualites/marche/coupure-courant-vent-chaudiere-gaz-ballon-tient",
+    "P11",
+    "Vérifié"
+   ],
+   [
+    "S8",
+    "Xpair et Mon Logis : au-delà de six étages, un surpresseur électrique fait monter l’eau ; sans courant, l’eau n’atteint plus les étages.",
+    "https://conseils.xpair.com/consulter_savoir_faire/reduction_pression/immeubles_collectifs_exemples.htm",
+    "P06",
+    "Vérifié"
+   ]
+  ],
+  "fiction": "Chiffres inventés pour la fiction : la durée de la coupure (de 0 h à 144 h) et les heures de la semaine. Tous les autres chiffres sont réels et sourcés.",
+  "validate": [
+   "Le sujet, les 19 sous-titres et la chute.",
+   "Le nom de ton compte pour le carton final (@ton.compte)."
+  ],
+  "page_title": "Storyboard What if Coupure",
+  "music": "Une nappe grave entre dans le silence qui suit la coupure (P02), un piano en mineur accompagne la semaine noire, la musique passe en majeur quand le courant revient (P14).",
+  "light": "Acte 1 ville dorée puis nuit bleue, acte 2 bougies, lampes torches et éclairage de secours, acte 3 lumière revenue et cartes vues de nuit."
+ },
+ "shots": [
+  {
+   "id": "P01",
+   "act": 1,
+   "t0": 0.0,
+   "dur": 3.0,
+   "set": "skyline",
+   "cam": "wave",
+   "title": true,
+   "hud": {
+    "label": "DURÉE DE LA COUPURE",
+    "value": "0 h 00",
+    "tl": "JOUR 1 · 19:42"
+   },
+   "cap": "",
+   "action": "Depuis la fenêtre de Jeanne, au 6e : Paris illuminé, la tour Eiffel scintille. À 19 h 42, les lumières s’éteignent quartier par quartier.",
+   "move": "Plan fixe ; la vague d’extinction traverse l’image de droite à gauche.",
+   "sfx": "Rumeur de la ville, puis des « clacs » sourds qui se rapprochent, et le silence.",
+   "fix": [
+    "D07",
+    "D11",
+    "D05"
+   ],
+   "src": []
+  },
+  {
+   "id": "P02",
+   "act": 1,
+   "t0": 3.0,
+   "dur": 4.0,
+   "set": "apartment",
+   "cam": "dark",
+   "hud": {
+    "label": "DURÉE DE LA COUPURE",
+    "value": "0 h 00",
+    "tl": "JOUR 1 · 19:42"
+   },
+   "cap": "19 h 42. Toute la France s’éteint d’un coup.",
+   "action": "Le salon de Jeanne : la télé et le plafonnier s’éteignent. Elle reste dans son fauteuil, éclairée par la lune.",
+   "move": "Lent travelling avant.",
+   "sfx": "Le frigo s’arrête, la télé se tait ; seule une horloge à piles continue.",
+   "fix": [
+    "D04",
+    "D07"
+   ],
+   "src": []
+  },
+  {
+   "id": "P03",
+   "act": 1,
+   "t0": 7.0,
+   "dur": 4.0,
+   "set": "crossroads",
+   "cam": "night",
+   "hud": {
+    "label": "DURÉE DE LA COUPURE",
+    "value": "0 h 05",
+    "tl": "JOUR 1 · 19:47"
+   },
+   "cap": "Les feux tricolores s’éteignent. Les carrefours se bloquent.",
+   "action": "Carrefour parisien : feux morts, voitures bloquées en travers, phares dans la brume, un piéton s’éclaire avec son téléphone.",
+   "move": "Plan large en hauteur, légère dérive.",
+   "sfx": "Klaxons, moteurs au ralenti.",
+   "fix": [
+    "D03"
+   ],
+   "src": []
+  },
+  {
+   "id": "P04",
+   "act": 1,
+   "t0": 11.0,
+   "dur": 4.0,
+   "set": "metro",
+   "cam": "car",
+   "hud": {
+    "label": "DURÉE DE LA COUPURE",
+    "value": "0 h 20",
+    "tl": "JOUR 1 · 20:02"
+   },
+   "cap": "Sous terre, les métros s’arrêtent en plein tunnel.",
+   "action": "Une rame arrêtée dans le tunnel, éclairage de secours bleuté ; des voyageurs allument la lampe de leur téléphone.",
+   "move": "La caméra avance lentement dans l’allée.",
+   "sfx": "Silence lourd, une annonce coupée, des murmures.",
+   "fix": [
+    "D12"
+   ],
+   "src": []
+  },
+  {
+   "id": "P05",
+   "act": 1,
+   "t0": 15.0,
+   "dur": 4.0,
+   "set": "phone",
+   "cam": "hand",
+   "hud": {
+    "label": "DURÉE DE LA COUPURE",
+    "value": "0 h 30",
+    "tl": "JOUR 1 · 20:12"
+   },
+   "cap": "Les antennes mobiles tiennent une demi-heure sur batterie. Puis plus rien.",
+   "action": "Gros plan : la main de Jeanne tient son téléphone. À l’écran, « Aucun service ». Une bougie brûle en arrière-plan.",
+   "move": "Push-in sur l’écran.",
+   "sfx": "Un appel qui échoue, trois bips.",
+   "fix": [
+    "D14",
+    "D03"
+   ],
+   "src": [
+    "S5"
+   ]
+  },
+  {
+   "id": "P06",
+   "act": 2,
+   "t0": 19.0,
+   "dur": 4.0,
+   "set": "kitchen",
+   "cam": "tap",
+   "hud": {
+    "label": "DURÉE DE LA COUPURE",
+    "value": "1 h 18",
+    "tl": "JOUR 1 · 21:00"
+   },
+   "cap": "La pompe de l’immeuble est électrique. Au 6e, l’eau ne monte plus.",
+   "action": "Cuisine à la bougie : Jeanne ouvre le robinet, une dernière goutte tombe dans le verre.",
+   "move": "Gros plan fixe.",
+   "sfx": "Le robinet crache de l’air, une goutte tombe.",
+   "fix": [
+    "D01",
+    "D14"
+   ],
+   "src": [
+    "S8"
+   ]
+  },
+  {
+   "id": "P07",
+   "act": 2,
+   "t0": 23.0,
+   "dur": 4.0,
+   "set": "bakery",
+   "cam": "cash",
+   "hud": {
+    "label": "DURÉE DE LA COUPURE",
+    "value": "15 h 10",
+    "tl": "JOUR 2 · 10:52"
+   },
+   "cap": "Jour 2. Plus de carte bancaire ni de distributeur. Seuls les billets passent.",
+   "action": "Rue grise du matin : une épicerie ouverte sans lumière, une file d’attente, une pancarte « ESPÈCES UNIQUEMENT » sur la porte.",
+   "move": "Plan large fixe depuis le trottoir d’en face.",
+   "sfx": "Murmures, clochette de porte, pièces de monnaie.",
+   "fix": [
+    "D03",
+    "D01"
+   ],
+   "src": []
+  },
+  {
+   "id": "P08",
+   "act": 2,
+   "t0": 27.0,
+   "dur": 4.0,
+   "set": "station",
+   "cam": "day",
+   "hud": {
+    "label": "DURÉE DE LA COUPURE",
+    "value": "18 h 00",
+    "tl": "JOUR 2 · 13:42"
+   },
+   "cap": "Les pompes à essence sont électriques, elles aussi. Les voitures restent à sec.",
+   "action": "Station-service à l’arrêt : écrans noirs, pistolets raccrochés, panneaux « EN PANNE », une file de voitures qui n’avance plus.",
+   "move": "Lent travelling latéral.",
+   "sfx": "Vent, portières, un moteur qui cale.",
+   "fix": [
+    "D03",
+    "D01"
+   ],
+   "src": []
+  },
+  {
+   "id": "P09",
+   "act": 2,
+   "t0": 31.0,
+   "dur": 4.5,
+   "set": "hospital",
+   "cam": "corridor",
+   "hud": {
+    "label": "DURÉE DE LA COUPURE",
+    "value": "26 h 00",
+    "tl": "JOUR 2 · 21:42"
+   },
+   "cap": "Les hôpitaux tournent sur groupes électrogènes. Tant qu’il reste du carburant.",
+   "action": "Couloir d’hôpital en éclairage de secours : une lumière sur trois, des lits dans le couloir, une infirmière avec une lampe frontale.",
+   "move": "Lent travelling avant.",
+   "sfx": "Ronronnement lointain du groupe électrogène, bips de monitoring.",
+   "fix": [
+    "D01"
+   ],
+   "src": []
+  },
+  {
+   "id": "P10",
+   "act": 2,
+   "t0": 35.5,
+   "dur": 4.0,
+   "set": "kitchen",
+   "cam": "fridge",
+   "hud": {
+    "label": "DURÉE DE LA COUPURE",
+    "value": "48 h 00",
+    "tl": "JOUR 3 · 19:42"
+   },
+   "cap": "Jour 3. Le congélateur a tenu 48 heures. Le frigo, 4 heures.",
+   "action": "Le frigo ouvert, sans lumière : le congélateur dégouline, les aliments sont perdus. Une lampe torche éclaire l’intérieur.",
+   "move": "Plan fixe ; le faisceau de la lampe balaie l’intérieur.",
+   "sfx": "Gouttes d’eau, porte du frigo qui grince.",
+   "fix": [
+    "D02",
+    "D14"
+   ],
+   "src": [
+    "S6"
+   ]
+  },
+  {
+   "id": "P11",
+   "act": 2,
+   "t0": 39.5,
+   "dur": 4.0,
+   "set": "skyline",
+   "cam": "candles",
+   "hud": {
+    "label": "DURÉE DE LA COUPURE",
+    "value": "70 h 00",
+    "tl": "JOUR 4 · 17:42"
+   },
+   "cap": "Jour 4. Plus de chauffage : même les chaudières à gaz ont besoin de courant.",
+   "action": "Même vue que P01 : Paris éteint, de petites lueurs de bougies tremblent aux fenêtres.",
+   "move": "Plan fixe, en rime avec P01.",
+   "sfx": "Vent froid, une sirène au loin.",
+   "fix": [
+    "D01",
+    "D14"
+   ],
+   "src": [
+    "S7"
+   ]
+  },
+  {
+   "id": "P12",
+   "act": 2,
+   "t0": 43.5,
+   "dur": 4.5,
+   "set": "apartment",
+   "cam": "cold",
+   "hud": {
+    "label": "DURÉE DE LA COUPURE",
+    "value": "74 h 00",
+    "tl": "JOUR 4 · 21:42"
+   },
+   "cap": "Jeanne, 79 ans, vit seule au 6e. Sans ascenseur, elle ne peut plus descendre.",
+   "action": "Jeanne emmitouflée dans une couverture, dans son fauteuil, une bougie sur la table basse.",
+   "move": "Push-in très lent sur son visage.",
+   "sfx": "Flamme de bougie, horloge, son souffle.",
+   "fix": [
+    "D04"
+   ],
+   "src": []
+  },
+  {
+   "id": "P13",
+   "act": 2,
+   "t0": 48.0,
+   "dur": 4.0,
+   "set": "apartment",
+   "cam": "neighbor",
+   "hud": {
+    "label": "DURÉE DE LA COUPURE",
+    "value": "88 h 00",
+    "tl": "JOUR 5 · 11:42"
+   },
+   "cap": "Jour 5. Son voisin du dessous monte avec de l’eau. Il reviendra chaque jour.",
+   "action": "La porte s’ouvre : Yanis, le voisin du 5e, entre avec un pack d’eau et une lampe torche. Jeanne se retourne.",
+   "move": "Plan large, contre-jour de la cage d’escalier.",
+   "sfx": "On frappe, la porte grince, des pas.",
+   "fix": [
+    "D04",
+    "D12"
+   ],
+   "src": []
+  },
+  {
+   "id": "P14",
+   "act": 3,
+   "t0": 52.0,
+   "dur": 4.0,
+   "set": "skyline",
+   "cam": "restore",
+   "hud": {
+    "label": "DURÉE DE LA COUPURE",
+    "value": "144 h 00",
+    "tl": "JOUR 7 · 19:42"
+   },
+   "cap": "Jour 7. Le courant revient. Ce scénario n’a pourtant rien d’imaginaire.",
+   "action": "Même vue que P01 : la vague repart en sens inverse, Paris se rallume, la tour Eiffel scintille.",
+   "move": "Plan fixe.",
+   "sfx": "Le frigo redémarre, la ville revient, la musique passe en majeur.",
+   "fix": [
+    "D10"
+   ],
+   "src": []
+  },
+  {
+   "id": "P15",
+   "act": 3,
+   "t0": 56.0,
+   "dur": 4.5,
+   "set": "map",
+   "cam": "iberia",
+   "hud": {
+    "label": "HEURE DE LA COUPURE",
+    "value": "12:33",
+    "tl": "ESPAGNE ET PORTUGAL · 28 AVRIL 2025"
+   },
+   "cap": "28 avril 2025 : l’Espagne et le Portugal s’éteignent en quelques secondes.",
+   "action": "Carte de la péninsule Ibérique vue de nuit : les villes brillent, puis s’éteignent toutes en même temps. Le sud de la France et le Maroc restent allumés.",
+   "move": "Lent zoom arrière.",
+   "sfx": "Un seul « clac », puis un long silence.",
+   "fix": [
+    "D14",
+    "D13"
+   ],
+   "src": [
+    "S3"
+   ]
+  },
+  {
+   "id": "P16",
+   "act": 3,
+   "t0": 60.5,
+   "dur": 4.5,
+   "set": "crossroads",
+   "cam": "day",
+   "hud": {
+    "label": "COURANT RÉTABLI EN ESPAGNE",
+    "value": "99,95 %",
+    "tl": "LE LENDEMAIN MATIN"
+   },
+   "cap": "Des dizaines de millions de personnes. Il faut une nuit pour tout rallumer.",
+   "action": "Rue ensoleillée d’une ville espagnole : feux éteints, un policier règle la circulation à la main, des gens marchent au milieu de la rue.",
+   "move": "Plan large, légère dérive.",
+   "sfx": "Sifflet, klaxons, conversations.",
+   "fix": [
+    "D14",
+    "D02",
+    "D12"
+   ],
+   "src": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "id": "P17",
+   "act": 3,
+   "t0": 65.0,
+   "dur": 5.0,
+   "set": "map",
+   "cam": "france",
+   "hud": {
+    "label": "HEURE DE LA COUPURE",
+    "value": "08:27",
+    "tl": "FRANCE · 19 DÉCEMBRE 1978"
+   },
+   "cap": "19 décembre 1978 : les trois quarts de la France, plus de 4 h sans courant.",
+   "action": "Carte de la France vue de nuit : les villes s’éteignent d’ouest en est ; seul l’Est reste allumé.",
+   "move": "Plan fixe en plongée.",
+   "sfx": "Clics successifs, vent d’hiver.",
+   "fix": [
+    "D14",
+    "D13"
+   ],
+   "src": [
+    "S1",
+    "S2"
+   ]
+  },
+  {
+   "id": "P18",
+   "act": 3,
+   "t0": 70.0,
+   "dur": 4.5,
+   "set": "apartment",
+   "cam": "restored",
+   "hud": {
+    "label": "DURÉE DE LA COUPURE",
+    "value": "0 h 00",
+    "tl": "AUJOURD’HUI"
+   },
+   "cap": "Quand tout s’éteint, ce qui tient, ce sont les voisins.",
+   "action": "Le salon de Jeanne, la lumière revenue : Jeanne et Yanis prennent un café ensemble.",
+   "move": "Plan moyen, léger travelling.",
+   "sfx": "Tasses, rires, musique en majeur.",
+   "fix": [
+    "D10"
+   ],
+   "src": []
+  },
+  {
+   "id": "P19",
+   "act": 3,
+   "t0": 74.5,
+   "dur": 4.0,
+   "set": "endcard",
+   "cam": "",
+   "end": {
+    "mono": [
+     "UNE LAMPE, DE L’EAU, UNE RADIO À PILES.",
+     "ET LE NUMÉRO DE TON VOISIN."
+    ],
+    "cta": [
+     "ENVOIE ÇA À TON VOISIN."
+    ]
+   },
+   "cap": "",
+   "action": "Carton final noir : même titre qu’en ouverture, un conseil, la flèche de partage et l’appel à l’action.",
+   "move": "Fixe ; la flèche de partage s’anime.",
+   "sfx": "La musique se résout sur une note tenue, 0,5 s de silence, puis boucle.",
+   "fix": [
+    "D09",
+    "D11",
+    "D05"
+   ],
+   "src": []
+  }
+ ]
+}

@@ -1,0 +1,471 @@
+{
+ "title": "Et si tous les agriculteurs de France arrêtaient demain ?",
+ "handle": "@ton.compte",
+ "shots": [
+  {
+   "id": "P01",
+   "act": 1,
+   "t0": 0.0,
+   "dur": 3.0,
+   "set": "bedroom",
+   "cam": "clock",
+   "title": true,
+   "hud": {
+    "label": "AGRICULTEURS AU TRAVAIL",
+    "value": "496 365",
+    "tl": "JOUR 1 · 04:30"
+   },
+   "cap": "",
+   "action": "Gros plan : un vieux réveil à cloches sur la table de nuit d’une ferme. Il est 4 h 30, il sonne. Lumière de lune bleue par la fenêtre.",
+   "move": "Push-in lent sur le cadran.",
+   "sfx": "Sonnerie du réveil dès la 1re image, grillons au loin.",
+   "fix": [
+    "D07",
+    "D11",
+    "D05"
+   ],
+   "src": [
+    "S1"
+   ]
+  },
+  {
+   "id": "P02",
+   "act": 1,
+   "t0": 3.0,
+   "dur": 4.0,
+   "set": "bedroom",
+   "cam": "wide",
+   "hud": {
+    "label": "AGRICULTEURS AU TRAVAIL",
+    "value": "187 512",
+    "tl": "JOUR 1 · 04:30",
+    "note": "le compteur chute à toute vitesse"
+   },
+   "cap": "4 h 30. Hélène, éleveuse, ne se lève pas.",
+   "action": "Plan large de la chambre : Hélène allongée, les yeux ouverts, immobile. Le réveil continue de sonner.",
+   "move": "Plan fixe, légère dérive latérale.",
+   "sfx": "Le réveil sonne toujours. Plancher qui craque.",
+   "fix": [
+    "D07",
+    "D04"
+   ],
+   "src": []
+  },
+  {
+   "id": "P03",
+   "act": 1,
+   "t0": 7.0,
+   "dur": 4.0,
+   "set": "bedroom",
+   "cam": "face",
+   "hud": {
+    "label": "AGRICULTEURS AU TRAVAIL",
+    "value": "0",
+    "tl": "JOUR 1 · 04:31"
+   },
+   "cap": "Ni elle. Ni aucun agriculteur en France.",
+   "action": "Gros plan sur le visage d’Hélène sur l’oreiller, yeux ouverts. Le réveil s’arrête tout seul.",
+   "move": "Push-in très lent.",
+   "sfx": "La sonnerie s’éteint → 1 s de silence total → première note de piano.",
+   "fix": [
+    "D13"
+   ],
+   "src": [
+    "S1"
+   ]
+  },
+  {
+   "id": "P04",
+   "act": 1,
+   "t0": 11.0,
+   "dur": 4.0,
+   "set": "barn",
+   "cam": "cows",
+   "hud": {
+    "label": "AGRICULTEURS AU TRAVAIL",
+    "value": "0",
+    "tl": "JOUR 1 · 06:00"
+   },
+   "cap": "3,3 millions de vaches laitières attendent la traite.",
+   "action": "Stabulation à l’aube : une rangée de vaches au cornadis, faisceaux de lumière poussiéreux, l’allée d’alimentation vide.",
+   "move": "Travelling latéral lent le long des vaches.",
+   "sfx": "Meuglements qui s’impatientent, sabots, chaînes.",
+   "fix": [
+    "D14"
+   ],
+   "src": [
+    "S3"
+   ]
+  },
+  {
+   "id": "P05",
+   "act": 1,
+   "t0": 15.0,
+   "dur": 4.0,
+   "set": "countryside",
+   "cam": "aerial",
+   "hud": {
+    "label": "AGRICULTEURS AU TRAVAIL",
+    "value": "0",
+    "tl": "JOUR 1 · 08:00"
+   },
+   "cap": "Aucun tracteur ne démarre. Les camions de collecte repartent à vide.",
+   "action": "Vue aérienne d’une ferme au lever du soleil : maison, stabulation, hangar à foin, silos, vaches au pré. Le tracteur reste garé dans la cour. Sur la départementale, les camions de collecte repartent à vide.",
+   "move": "Drone en descente lente, la route en diagonale.",
+   "sfx": "Vent, oiseaux, moteurs de camions qui s’éloignent. Aucun moteur de tracteur.",
+   "fix": [
+    "D01",
+    "D08"
+   ],
+   "src": []
+  },
+  {
+   "id": "P06",
+   "act": 2,
+   "t0": 19.0,
+   "dur": 4.0,
+   "set": "supermarket",
+   "cam": "aisle",
+   "hud": {
+    "label": "RÉSERVES ALIMENTAIRES · PARIS",
+    "value": "6 jours",
+    "tl": "JOUR 2",
+    "sub": [
+     "AGRICULTEURS AU TRAVAIL",
+     "0"
+    ]
+   },
+   "cap": "Jour 2. Paris n’a que 5 à 7 jours de réserves.",
+   "action": "Supermarché parisien bondé : rayons à moitié vides, chariots pleins, clients qui se pressent.",
+   "move": "Caméra épaule qui avance dans l’allée.",
+   "sfx": "Brouhaha, roulettes de chariots, bips de caisse au loin.",
+   "fix": [
+    "D14",
+    "D16",
+    "D13"
+   ],
+   "src": [
+    "S4"
+   ]
+  },
+  {
+   "id": "P07",
+   "act": 2,
+   "t0": 23.0,
+   "dur": 4.0,
+   "set": "market",
+   "cam": "hall",
+   "hud": {
+    "label": "RÉSERVES ALIMENTAIRES · PARIS",
+    "value": "4 jours",
+    "tl": "JOUR 4",
+    "sub": [
+     "AGRICULTEURS AU TRAVAIL",
+     "0"
+    ]
+   },
+   "cap": "Jour 4. À Rungis, les quais se vident.",
+   "action": "Immense halle de marché de gros, la nuit : palettes vides, chariots élévateurs à l’arrêt, un manutentionnaire seul au milieu.",
+   "move": "Plan très large et symétrique, lent travelling arrière.",
+   "sfx": "Résonance de la halle, bip de recul au loin, néons qui grésillent.",
+   "fix": [
+    "D03"
+   ],
+   "src": [
+    "S5"
+   ]
+  },
+  {
+   "id": "P08",
+   "act": 2,
+   "t0": 27.0,
+   "dur": 4.5,
+   "set": "stall",
+   "cam": "crates",
+   "hud": {
+    "label": "RÉSERVES ALIMENTAIRES · PARIS",
+    "value": "3 jours",
+    "tl": "JOUR 5",
+    "sub": [
+     "AGRICULTEURS AU TRAVAIL",
+     "0"
+    ]
+   },
+   "cap": "Près d’un fruit et légume sur deux était importé. L’autre moitié n’arrive plus.",
+   "action": "Étal de primeur : cagettes « ESPAGNE », « MAROC », « PAYS-BAS » encore pleines ; les cagettes « FRANCE » sont vides.",
+   "move": "Plongée sur l’étal, lent panoramique.",
+   "sfx": "Marché clairsemé, voix étouffées.",
+   "fix": [
+    "D02",
+    "D03",
+    "D01"
+   ],
+   "src": [
+    "S6"
+   ]
+  },
+  {
+   "id": "P09",
+   "act": 2,
+   "t0": 31.5,
+   "dur": 4.0,
+   "set": "bakery",
+   "cam": "street",
+   "hud": {
+    "label": "RÉSERVES ALIMENTAIRES · PARIS",
+    "value": "0 jour",
+    "tl": "SEMAINE 2",
+    "sub": [
+     "AGRICULTEURS AU TRAVAIL",
+     "0"
+    ]
+   },
+   "cap": "Semaine 2. Le pain est rationné. Une première depuis 1949.",
+   "action": "Boulangerie de quartier à l’aube : longue file sur le trottoir, pancarte manuscrite « PLUS DE PAIN » sur la porte.",
+   "move": "Plan large fixe depuis le trottoir d’en face.",
+   "sfx": "Clochette de porte, murmures, pluie fine.",
+   "fix": [
+    "D03",
+    "D14"
+   ],
+   "src": [
+    "S7"
+   ]
+  },
+  {
+   "id": "P10",
+   "act": 2,
+   "t0": 35.5,
+   "dur": 4.0,
+   "set": "foodbank",
+   "cam": "queue",
+   "hud": {
+    "label": "RÉSERVES ALIMENTAIRES · PARIS",
+    "value": "0 jour",
+    "tl": "SEMAINE 3",
+    "sub": [
+     "AGRICULTEURS AU TRAVAIL",
+     "0"
+    ]
+   },
+   "cap": "Les prix flambent. Les distributions alimentaires débordent.",
+   "action": "Nuit, sous les réverbères : file d’attente devant une distribution alimentaire, des bénévoles tendent des sacs.",
+   "move": "Travelling latéral le long de la file.",
+   "sfx": "Pluie, pas, sacs en papier, un enfant qui demande quelque chose.",
+   "fix": [
+    "D12"
+   ],
+   "src": []
+  },
+  {
+   "id": "P11",
+   "act": 2,
+   "t0": 39.5,
+   "dur": 4.0,
+   "set": "wheat",
+   "cam": "low",
+   "hud": {
+    "label": "AGRICULTEURS AU TRAVAIL",
+    "value": "0",
+    "tl": "MOIS 2"
+   },
+   "cap": "Mois 2. Le blé n’est pas moissonné. Il pourrit sur pied.",
+   "action": "Champ de blé à perte de vue, épis couchés et noircis, moissonneuse arrêtée au loin, corbeaux.",
+   "move": "Plan bas au ras des épis, léger travelling avant.",
+   "sfx": "Vent dans les épis, corbeaux.",
+   "fix": [
+    "D13"
+   ],
+   "src": []
+  },
+  {
+   "id": "P12",
+   "act": 2,
+   "t0": 43.5,
+   "dur": 4.5,
+   "set": "park",
+   "cam": "wide",
+   "hud": {
+    "label": "AGRICULTEURS AU TRAVAIL",
+    "value": "12 870",
+    "tl": "MOIS 3",
+    "note": "chiffre fictif : bénévoles débutants"
+   },
+   "cap": "Les citadins se mettent à cultiver. Mais ça ne s’improvise pas.",
+   "action": "Jardin public parisien transformé en potager : pelouses retournées, des gens en tenue de ville avec des pelles, immeubles haussmanniens.",
+   "move": "Plan large en légère plongée.",
+   "sfx": "Pelles, discussions, ville au loin.",
+   "fix": [
+    "D01"
+   ],
+   "src": []
+  },
+  {
+   "id": "P13",
+   "act": 2,
+   "t0": 48.0,
+   "dur": 4.0,
+   "set": "fallow",
+   "cam": "wide",
+   "hud": {
+    "label": "AGRICULTEURS AU TRAVAIL",
+    "value": "41 302",
+    "tl": "MOIS 6",
+    "note": "chiffre fictif"
+   },
+   "cap": "Mois 6. Les champs redeviennent des friches.",
+   "action": "Champ envahi de broussailles sous un ciel gris, tracteur rouillé abandonné.",
+   "move": "Plan fixe, zoom très lent.",
+   "sfx": "Vent, insectes, silence.",
+   "fix": [
+    "D08"
+   ],
+   "src": []
+  },
+  {
+   "id": "P14",
+   "act": 3,
+   "t0": 52.0,
+   "dur": 4.0,
+   "set": "bedroom",
+   "cam": "wake",
+   "hud": {
+    "label": "AGRICULTEURS AU TRAVAIL",
+    "value": "496 365",
+    "tl": "AUJOURD’HUI · 04:30"
+   },
+   "cap": "Retour au réel. Ce matin, Hélène s’est levée.",
+   "action": "Même chambre, même réveil, 4 h 30. Hélène, assise au bord du lit, éteint le réveil. Lampe de chevet allumée, lumière chaude.",
+   "move": "Même axe que P02 : rime visuelle.",
+   "sfx": "Réveil → clic → silence. La musique passe en majeur.",
+   "fix": [
+    "D10"
+   ],
+   "src": [
+    "S1"
+   ]
+  },
+  {
+   "id": "P15",
+   "act": 3,
+   "t0": 56.0,
+   "dur": 4.5,
+   "set": "barn",
+   "cam": "milking",
+   "hud": {
+    "label": "AGRICULTEURS AU TRAVAIL",
+    "value": "496 365",
+    "tl": "AUJOURD’HUI · 05:10"
+   },
+   "cap": "Mais dans deux ans, elle part à la retraite. Personne ne reprend sa ferme.",
+   "action": "Hélène, seule à l’aube dans la stabulation, s’occupe de ses vaches. Geste fatigué.",
+   "move": "Plan moyen, légère contre-plongée.",
+   "sfx": "Pompe de la machine à traire, vaches calmes.",
+   "fix": [
+    "D04"
+   ],
+   "src": []
+  },
+  {
+   "id": "P16",
+   "act": 3,
+   "t0": 60.5,
+   "dur": 4.5,
+   "set": "gate",
+   "cam": "sunset",
+   "hud": {
+    "label": "FERMES EN FRANCE",
+    "value": "389 000",
+    "tl": "AUJOURD’HUI"
+   },
+   "cap": "D’ici 2030, la moitié des fermes auront un chef en âge de la retraite.",
+   "action": "Coucher de soleil : Hélène de dos devant le portail de sa ferme, panneau « FERME À REPRENDRE ».",
+   "move": "Plan large, silhouette en contre-jour.",
+   "sfx": "Vent, cloches de vaches au loin.",
+   "fix": [
+    "D13",
+    "D14"
+   ],
+   "src": [
+    "S2",
+    "S8"
+   ]
+  },
+  {
+   "id": "P17",
+   "act": 3,
+   "t0": 65.0,
+   "dur": 5.0,
+   "set": "valley",
+   "cam": "high",
+   "hud": {
+    "label": "FERMES EN FRANCE",
+    "value": "388 999",
+    "tl": "AUJOURD’HUI",
+    "note": "−1 toutes les 52 min"
+   },
+   "cap": "En 10 ans, la France a perdu 100 000 fermes. Une toutes les 52 minutes.",
+   "action": "Vallée de nuit vue du ciel : des dizaines de fermes éclairées. Les lumières s’éteignent une à une.",
+   "move": "Drone fixe, très haut.",
+   "sfx": "Un clic discret à chaque lumière qui s’éteint, nappe grave.",
+   "fix": [
+    "D14",
+    "D02"
+   ],
+   "src": [
+    "S2"
+   ]
+  },
+  {
+   "id": "P18",
+   "act": 3,
+   "t0": 70.0,
+   "dur": 4.5,
+   "set": "valley",
+   "cam": "last",
+   "hud": {
+    "label": "FERMES EN FRANCE",
+    "value": "388 999",
+    "tl": "AUJOURD’HUI"
+   },
+   "cap": "Ils n’arrêteront pas tous demain. Ils arrêtent un par un.",
+   "action": "La même vallée, presque noire. Une seule fenêtre reste allumée : celle d’Hélène.",
+   "move": "Push-in lent vers la dernière lumière.",
+   "sfx": "Silence, un dernier meuglement au loin.",
+   "fix": [
+    "D10"
+   ],
+   "src": []
+  },
+  {
+   "id": "P19",
+   "act": 3,
+   "t0": 74.5,
+   "dur": 4.0,
+   "set": "endcard",
+   "cam": "",
+   "end": {
+    "mono": [
+     "LES AGRICULTEURS : 7 % DES EMPLOIS EN 1982.",
+     "1,5 % EN 2019."
+    ],
+    "cta": [
+     "ENVOIE ÇA À QUELQU’UN",
+     "QUI MANGE TROIS FOIS PAR JOUR."
+    ]
+   },
+   "cap": "",
+   "action": "Carton final noir : même titre qu’en ouverture, un chiffre, la flèche de partage et l’appel à l’action.",
+   "move": "Fixe ; la flèche de partage s’anime.",
+   "sfx": "La musique se résout sur une note tenue, 0,5 s de silence, puis boucle.",
+   "fix": [
+    "D09",
+    "D11",
+    "D05"
+   ],
+   "src": [
+    "S9"
+   ]
+  }
+ ]
+}

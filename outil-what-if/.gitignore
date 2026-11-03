@@ -1,0 +1,11 @@
+node_modules/
+frames/
+draft/
+segments/
+segments_fix/
+projets/*/frames/
+projets/*/draft/
+*.wav
+video_noaudio.mp4
+concat.txt
+x264pass*

@@ -1,0 +1,360 @@
+<title>Storyboard What if Coupure</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: production sheet. Header + act timeline, defect ledger, then a grid of horizontal shot cards (frame | notes), charter and sources. */
+:root {
+  --bg: #eef0f3; --surface: #ffffff; --ink: #151a22; --muted: #5a6372; --line: #d6dbe3;
+  --gold: #8a6a1f; --gold-soft: #f3ead3; --fix: #2f6b3a; --fix-soft: #e3efe4; --warn: #9a5a12; --warn-soft: #f6ead8;
+  --a1: #2c4675; --a2: #8a5d1c; --a3: #a03b2a;
+  --display: "Newsreader", Georgia, "Times New Roman", serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0e131c; --surface: #151c28; --ink: #e8ebf0; --muted: #9ba4b3; --line: #273142;
+  --gold: #d8b766; --gold-soft: #2a2416; --fix: #86c48d; --fix-soft: #17271b; --warn: #e2a65a; --warn-soft: #2c2114;
+  --a1: #86a3d8; --a2: #dcaa5c; --a3: #e98068; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0e131c; --surface: #151c28; --ink: #e8ebf0; --muted: #9ba4b3; --line: #273142;
+  --gold: #d8b766; --gold-soft: #2a2416; --fix: #86c48d; --fix-soft: #17271b; --warn: #e2a65a; --warn-soft: #2c2114;
+  --a1: #86a3d8; --a2: #dcaa5c; --a3: #e98068; color-scheme: dark; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+.wrap > *, section { min-width: 0; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 40px 72px; display: grid; gap: 56px; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.eyebrow { font: 500 12px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+h1 { font: 500 clamp(30px, 5vw, 52px)/1.08 var(--display); margin: 10px 0 0; text-wrap: balance; max-width: 22ch; }
+h2 { font: 500 clamp(24px, 3vw, 32px)/1.15 var(--display); margin: 0; text-wrap: balance; }
+.lead { font-size: 17px; max-width: 68ch; margin: 18px 0 0; color: var(--ink); }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; padding: 0; list-style: none; }
+.facts li { font: 500 12.5px/1 var(--mono); padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+section > header { display: grid; gap: 8px; margin-bottom: 20px; }
+section > header p { margin: 0; color: var(--muted); max-width: 72ch; }
+/* act timeline */
+.timeline { margin-top: 28px; display: grid; gap: 6px; }
+.acts { display: flex; gap: 4px; }
+.act { min-width: 0; border-top: 4px solid; padding-top: 8px; display: grid; gap: 2px; }
+.act.a1 { border-color: var(--a1); } .act.a2 { border-color: var(--a2); } .act.a3 { border-color: var(--a3); }
+.act-n { font: 500 11.5px/1.3 var(--mono); color: var(--muted); }
+.act-t { font: 500 15px/1.25 var(--display); }
+.ticks { display: flex; gap: 2px; }
+.tick { min-width: 0; text-align: center; text-decoration: none; font: 500 10.5px/22px var(--mono); color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 2px; overflow: hidden; }
+.tick:hover { color: var(--ink); border-color: var(--gold); }
+/* two-column analysis */
+.split { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 20px 22px; min-width: 0; }
+.panel h3 { font: 600 13px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; color: var(--muted); }
+.panel ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+/* tables */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 14px; }
+th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-top: 1px solid var(--line); }
+thead th { border-top: 0; font: 600 11.5px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: var(--bg); }
+tbody th { font-weight: 600; width: 22%; }
+.code { display: block; font: 600 12px/1.4 var(--mono); color: var(--fix); margin-bottom: 2px; }
+td.where { font: 500 12.5px/1.5 var(--mono); white-space: nowrap; color: var(--muted); }
+tr:target { background: var(--gold-soft); }
+/* storyboard */
+.board { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 500px), 1fr)); gap: 18px; }
+.shot { display: grid; grid-template-columns: clamp(112px, 32%, 176px) minmax(0, 1fr); gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px; border-top: 4px solid; }
+.shot.a1 { border-top-color: var(--a1); } .shot.a2 { border-top-color: var(--a2); } .shot.a3 { border-top-color: var(--a3); }
+.shot:target { box-shadow: 0 0 0 2px var(--gold); }
+.frame { padding: 0; border: 0; background: #000; border-radius: 4px; overflow: hidden; cursor: zoom-in; align-self: start; display: block; width: 100%; }
+.frame img { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; }
+.meta { min-width: 0; display: grid; gap: 10px; align-content: start; }
+.meta header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; font-family: var(--mono); }
+.id { font: 600 20px/1 var(--display); }
+.tc { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.dur { font-size: 12px; padding: 2px 6px; border: 1px solid var(--line); border-radius: 3px; }
+.onscreen { margin: 0; font: italic 400 17px/1.35 var(--display); }
+.onscreen em { font-style: normal; font-family: var(--body); font-size: 13px; color: var(--muted); }
+.onscreen .mono { font: 500 11.5px/1.6 var(--mono); font-style: normal; letter-spacing: .04em; color: var(--muted); }
+.lbl { display: block; font: 600 10.5px/1.4 var(--mono); font-style: normal; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: 2px; }
+dl { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 4px 10px; margin: 0; font-size: 13.5px; line-height: 1.45; }
+dt { font: 600 10.5px/1.9 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+dd { margin: 0; }
+dd b { font-variant-numeric: tabular-nums; }
+.sub { color: var(--muted); } .note { color: var(--warn); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 600 11.5px/1 var(--mono); padding: 5px 7px; border-radius: 3px; text-decoration: none; }
+.chip.fix { background: var(--fix-soft); color: var(--fix); }
+.chip.src { background: var(--gold-soft); color: var(--gold); }
+@media (max-width: 420px) { .shot { grid-template-columns: 1fr; } .frame { max-width: 220px; } }
+/* charter */
+.spec { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+.spec dl { grid-template-columns: 110px minmax(0, 1fr); font-size: 14px; }
+.status { font: 600 11.5px/1.3 var(--mono); padding: 4px 6px; border-radius: 3px; display: inline-block; }
+.status.ok { background: var(--fix-soft); color: var(--fix); } .status.warn { background: var(--warn-soft); color: var(--warn); }
+.lnk { margin-top: 4px; font: 500 12.5px/1.4 var(--mono); } .muted { color: var(--muted); }
+.next { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 6px; padding: 20px 22px; max-width: 80ch; }
+.next p { margin: 0 0 8px; } .next p:last-child { margin: 0; }
+/* viewer */
+.viewer { position: fixed; inset: 0; z-index: 20; background: rgba(5, 7, 12, .92); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.viewer img { max-height: 86vh; max-width: 100%; width: auto; border-radius: 6px; }
+.viewer .bar { display: flex; gap: 10px; align-items: center; justify-content: center; margin-top: 12px; color: #e8ebf0; font: 500 13px/1 var(--mono); }
+.viewer button { font: 600 13px/1 var(--mono); color: #e8ebf0; background: #1b2331; border: 1px solid #36435a; border-radius: 4px; padding: 10px 12px; cursor: pointer; }
+@media (prefers-reduced-motion: no-preference) { .tick, .shot { transition: border-color .15s, box-shadow .15s; } }
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Storyboard · What if · épisode 2</div>
+  <h1>Et si la France entière perdait l’électricité pendant une semaine ?</h1>
+  <p class="lead">À 19 h 42, la France entière s’éteint. On suit Jeanne, 79 ans, seule au 6e étage, pendant sept jours sans courant. À la fin, la fiction rejoint deux pannes bien réelles : l’Espagne et le Portugal en 2025, la France en 1978.</p>
+  <ul class="facts"><li>9:16 · 1080 × 1920</li><li>78,5 s</li><li>19 plans</li><li>Sans voix off</li><li>Images rendues en 3D par code</li></ul>
+  <div class="timeline"><div class="acts" role="img" aria-label="Répartition des 19 plans dans les trois actes, sur 78,5 secondes"><div class="act a1" style="flex:19.00"><span class="act-n">Acte 1 · 0:00,0–0:19,0</span><span class="act-t">La coupure</span></div><div class="act a2" style="flex:33.00"><span class="act-n">Acte 2 · 0:19,0–0:52,0</span><span class="act-t">La semaine noire</span></div><div class="act a3" style="flex:26.50"><span class="act-n">Acte 3 · 0:52,0–1:18,5</span><span class="act-t">Ce n’est pas de la fiction</span></div></div><div class="ticks" aria-hidden="true"><a href="#p01" class="tick a1" style="flex:3.00" title="P01 · 0:00,0">01</a><a href="#p02" class="tick a1" style="flex:4.00" title="P02 · 0:03,0">02</a><a href="#p03" class="tick a1" style="flex:4.00" title="P03 · 0:07,0">03</a><a href="#p04" class="tick a1" style="flex:4.00" title="P04 · 0:11,0">04</a><a href="#p05" class="tick a1" style="flex:4.00" title="P05 · 0:15,0">05</a><a href="#p06" class="tick a2" style="flex:4.00" title="P06 · 0:19,0">06</a><a href="#p07" class="tick a2" style="flex:4.00" title="P07 · 0:23,0">07</a><a href="#p08" class="tick a2" style="flex:4.00" title="P08 · 0:27,0">08</a><a href="#p09" class="tick a2" style="flex:4.50" title="P09 · 0:31,0">09</a><a href="#p10" class="tick a2" style="flex:4.00" title="P10 · 0:35,5">10</a><a href="#p11" class="tick a2" style="flex:4.00" title="P11 · 0:39,5">11</a><a href="#p12" class="tick a2" style="flex:4.50" title="P12 · 0:43,5">12</a><a href="#p13" class="tick a2" style="flex:4.00" title="P13 · 0:48,0">13</a><a href="#p14" class="tick a3" style="flex:4.00" title="P14 · 0:52,0">14</a><a href="#p15" class="tick a3" style="flex:4.50" title="P15 · 0:56,0">15</a><a href="#p16" class="tick a3" style="flex:4.50" title="P16 · 1:00,5">16</a><a href="#p17" class="tick a3" style="flex:5.00" title="P17 · 1:05,0">17</a><a href="#p18" class="tick a3" style="flex:4.50" title="P18 · 1:10,0">18</a><a href="#p19" class="tick a3" style="flex:4.00" title="P19 · 1:14,5">19</a></div></div>
+</header>
+
+<section aria-labelledby="h-ref">
+  <header><div class="eyebrow">Analyse des deux vidéos de référence</div><h2 id="h-ref">Le style est repris, l’histoire est neuve</h2>
+  <p>Les deux vidéos fournies (1:53 et 2:42) servent uniquement de référence visuelle. Aucune scène, réplique, prémisse ni personnage n’en est repris.</p></header>
+  <div class="split">
+    <div class="panel"><h3>Repris du style</h3><ul>
+      <li>3D stylisée, personnages simples aux traits minimalistes, lumière de cinéma.</li>
+      <li>Un compteur qui raconte l’histoire, avec un repère de temps (jour, semaine, mois).</li>
+      <li>Sous-titres en serif italique, centrés, une idée par plan.</li>
+      <li>Aucune voix off : le texte et le sound design portent le récit.</li>
+      <li>Un personnage qui ouvre et ferme l’histoire.</li>
+      <li>Carton final sombre avec un appel au partage.</li></ul></div>
+    <div class="panel"><h3>Nouveau dans ce What if</h3><ul><li>Sujet : une coupure d’électricité nationale pendant une semaine.</li><li>Déclencheur : Paris qui s’éteint quartier par quartier, vu depuis une fenêtre.</li><li>Personnages : Jeanne, 79 ans, et Yanis, son voisin du dessous.</li><li>Chute : deux pannes réelles, puis une note d’espoir sur les voisins.</li><li>Appel au partage : « Envoie ça à ton voisin. »</li><li>Durée : 78,5 s, comme le premier épisode.</li></ul></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-def">
+  <header><div class="eyebrow">16 défauts relevés · 16 corrections</div><h2 id="h-def">Ce que le storyboard corrige</h2>
+  <p>Chaque plan du storyboard renvoie aux codes ci-dessous (pastilles vertes).</p></header>
+  <div class="tbl"><table><thead><tr><th scope="col">Défaut</th><th scope="col">Constaté dans les références</th><th scope="col">Correction</th><th scope="col">Plans</th></tr></thead><tbody><tr id="d01"><th scope="row"><span class="code">D01</span>Incohérences logiques</th><td>Vidéo 2, 0:12–0:34 : les hommes enceints ont leurs règles et achètent des protections. Vidéo 1, 0:54–1:00 : « la criminalité augmente de 80 % » alors que « les femmes ne commettaient que 20 % des crimes violents ». Vidéo 1, 1:08 : le compteur des soins non rémunérés tombe à 0 alors que « les pères s’en chargent seuls ».</td><td>Chaque conséquence suit une cause vérifiable : la pompe de l’immeuble, les terminaux de paiement, les pompes à essence et les chaudières à gaz ont besoin de courant.</td><td class="where">P06, P07, P08, P11</td></tr><tr id="d02"><th scope="row"><span class="code">D02</span>Le chiffre à l’image contredit le texte</th><td>Vidéo 2, 1:22 : la facture affiche 18 640,75 $, le sous-titre dit 18 865 $. Vidéo 1, 1:02 : le compteur montre 12,42 milliards, le texte dit 12,5 milliards.</td><td>Les durées affichées collent aux sources : antennes 30 minutes, frigo 4 heures, congélateur plein 48 heures.</td><td class="where">P05, P10, P16</td></tr><tr id="d03"><th scope="row"><span class="code">D03</span>Texte déformé dans l’image</th><td>Vidéo 1, 0:54 : enseigne « SUPERMA KET ».</td><td>Tout texte dans le décor (écran du téléphone, pancartes « ESPÈCES UNIQUEMENT » et « EN PANNE ») est écrit proprement.</td><td class="where">P05, P07, P08</td></tr><tr id="d04"><th scope="row"><span class="code">D04</span>Le personnage change d’un plan à l’autre</th><td>Vidéo 2 : le héros passe d’un sweat gris à un sweat marine, la coiffure varie.</td><td>Fiches personnages uniques : Jeanne (gilet bordeaux, chignon blanc) et Yanis (sweat vert), identiques dans chaque plan.</td><td class="where">P02, P05, P06, P12, P13, P18</td></tr><tr id="d05"><th scope="row"><span class="code">D05</span>Sous-titres peu lisibles</th><td>Vidéo 1, 0:32–0:44 : petit italique blanc sans ombre sur des fonds clairs (couloir ensoleillé, bougies).</td><td>Corps 54 px au lieu d’environ 34 px, ombre portée et voile sombre local derrière les sous-titres et le compteur.</td><td class="where">Tous</td></tr><tr id="d06"><th scope="row"><span class="code">D06</span>Sous-titres trop longs pour le plan</th><td>Vidéo 2, 1:06 : trois lignes à lire en quatre secondes.</td><td>Deux lignes au plus, 80 caractères au plus, 4 s minimum par sous-titre (environ 17 caractères par seconde).</td><td class="where">Tous</td></tr><tr id="d07"><th scope="row"><span class="code">D07</span>Accroche lente</th><td>Les deux vidéos posent l’événement vers 0:08–0:10, avec un titre petit sur un fond chargé.</td><td>La ville s’éteint dès la première image, sous un titre grand et contrasté.</td><td class="where">P01, P02</td></tr><tr id="d08"><th scope="row"><span class="code">D08</span>Trop long, milieu répétitif</th><td>1:53 et 2:42. La vidéo 2 enchaîne une quinzaine de faits au même rythme.</td><td>78,5 s en trois actes ; le compteur de durée fait avancer le temps de 0 h à 144 h.</td><td class="where">Tous</td></tr><tr id="d09"><th scope="row"><span class="code">D09</span>Temps morts</th><td>Vidéo 2, 2:09 : deux secondes d’écran noir. Cartons finaux de sept secondes.</td><td>Aucun plan vide. Carton final de 4 s qui boucle sur la nuit du premier plan.</td><td class="where">P19</td></tr><tr id="d10"><th scope="row"><span class="code">D10</span>Chute « tout ça n’était qu’un rêve »</th><td>Vidéo 2, 2:22 : le rêve annule tout l’enjeu de l’histoire.</td><td>La fiction rejoint deux pannes réelles, puis une note d’espoir : les voisins.</td><td class="where">P14 à P18</td></tr><tr id="d11"><th scope="row"><span class="code">D11</span>Titre différent entre l’accroche et la fin</th><td>Vidéo 1 : « What if every Woman on Earth disappeared? » au début, « What if all women disappeared? » à la fin.</td><td>Titre identique au caractère près, typographie française (espaces insécables, guillemets).</td><td class="where">P01, P19</td></tr><tr id="d12"><th scope="row"><span class="code">D12</span>Phrases ambiguës</th><td>Vidéo 1, 0:44 : « Over a billion of them are children » (de qui parle-t-on ?).</td><td>Chaque phrase a un sujet explicite.</td><td class="where">P04, P13, P16</td></tr><tr id="d13"><th scope="row"><span class="code">D13</span>Le compteur change de sens sans prévenir</th><td>Vidéo 2 : « PREGNANT MEN » reste affiché en année 2, bien après les naissances.</td><td>Le libellé dit toujours ce que mesure le chiffre : durée de la coupure, heure de la coupure, courant rétabli.</td><td class="where">P01, P15, P16, P17</td></tr><tr id="d14"><th scope="row"><span class="code">D14</span>Chiffres sans source</th><td>Vidéo 1 : « la criminalité augmente de 80 % », sans origine.</td><td>Chaque chiffre réel renvoie à une source. L’autonomie des antennes a été corrigée pendant la vérification : 30 minutes, et non quelques heures.</td><td class="where">P05, P10, P15, P16, P17</td></tr><tr id="d15"><th scope="row"><span class="code">D15</span>Fautes de langue</th><td>Vidéo 2, 1:52 : « 1 in 8 new mothers go ».</td><td>Relecture orthographique et typographique du français.</td><td class="where">Tous</td></tr><tr id="d16"><th scope="row"><span class="code">D16</span>Deux compteurs qui se disputent l’écran</th><td>Vidéo 1, 1:02 : deux grands compteurs empilés.</td><td>Un seul compteur à l’écran, toujours à la même place.</td><td class="where">Tous</td></tr></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-sb">
+  <header><div class="eyebrow">19 plans · cliquer une image pour l’agrandir</div><h2 id="h-sb">Storyboard</h2>
+  <p>Images de travail rendues en 3D, avec les textes à leur taille finale. Les pastilles vertes renvoient aux défauts corrigés, les dorées aux sources.</p></header>
+  <div class="board">
+<article class="shot a1" id="p01">
+  <button class="frame" type="button" data-i="0" aria-label="Agrandir le plan P01"><img src="frames/P01.jpg" alt="Plan P01 : Depuis la fenêtre de Jeanne, au 6e : Paris illuminé, la tour Eiffel scintille. À 19 h 42, les lumières s’éteignent quartier par quartier." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P01</span><span class="tc">0:00,0 → 0:03,0</span><span class="dur">3,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span><em>Titre :</em> Et si la France entière perdait l’électricité pendant une semaine ?</p>
+    <dl><dt>Compteur</dt><dd>DURÉE DE LA COUPURE · <b>0 h 00</b> · JOUR 1 · 19:42</dd><dt>Image</dt><dd>Depuis la fenêtre de Jeanne, au 6e : Paris illuminé, la tour Eiffel scintille. À 19 h 42, les lumières s’éteignent quartier par quartier.</dd><dt>Caméra</dt><dd>Plan fixe ; la vague d’extinction traverse l’image de droite à gauche.</dd><dt>Son</dt><dd>Rumeur de la ville, puis des « clacs » sourds qui se rapprochent, et le silence.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d07" title="Accroche lente">D07</a><a class="chip fix" href="#d11" title="Titre différent entre l’accroche et la fin">D11</a><a class="chip fix" href="#d05" title="Sous-titres peu lisibles">D05</a></div>
+  </div>
+</article>
+<article class="shot a1" id="p02">
+  <button class="frame" type="button" data-i="1" aria-label="Agrandir le plan P02"><img src="frames/P02.jpg" alt="Plan P02 : Le salon de Jeanne : la télé et le plafonnier s’éteignent. Elle reste dans son fauteuil, éclairée par la lune." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P02</span><span class="tc">0:03,0 → 0:07,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« 19 h 42. Toute la France s’éteint d’un coup. »</p>
+    <dl><dt>Compteur</dt><dd>DURÉE DE LA COUPURE · <b>0 h 00</b> · JOUR 1 · 19:42</dd><dt>Image</dt><dd>Le salon de Jeanne : la télé et le plafonnier s’éteignent. Elle reste dans son fauteuil, éclairée par la lune.</dd><dt>Caméra</dt><dd>Lent travelling avant.</dd><dt>Son</dt><dd>Le frigo s’arrête, la télé se tait ; seule une horloge à piles continue.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d04" title="Le personnage change d’un plan à l’autre">D04</a><a class="chip fix" href="#d07" title="Accroche lente">D07</a></div>
+  </div>
+</article>
+<article class="shot a1" id="p03">
+  <button class="frame" type="button" data-i="2" aria-label="Agrandir le plan P03"><img src="frames/P03.jpg" alt="Plan P03 : Carrefour parisien : feux morts, voitures bloquées en travers, phares dans la brume, un piéton s’éclaire avec son téléphone." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P03</span><span class="tc">0:07,0 → 0:11,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Les feux tricolores s’éteignent. Les carrefours se bloquent. »</p>
+    <dl><dt>Compteur</dt><dd>DURÉE DE LA COUPURE · <b>0 h 05</b> · JOUR 1 · 19:47</dd><dt>Image</dt><dd>Carrefour parisien : feux morts, voitures bloquées en travers, phares dans la brume, un piéton s’éclaire avec son téléphone.</dd><dt>Caméra</dt><dd>Plan large en hauteur, légère dérive.</dd><dt>Son</dt><dd>Klaxons, moteurs au ralenti.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d03" title="Texte déformé dans l’image">D03</a></div>
+  </div>
+</article>
+<article class="shot a1" id="p04">
+  <button class="frame" type="button" data-i="3" aria-label="Agrandir le plan P04"><img src="frames/P04.jpg" alt="Plan P04 : Une rame arrêtée dans le tunnel, éclairage de secours bleuté ; des voyageurs allument la lampe de leur téléphone." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P04</span><span class="tc">0:11,0 → 0:15,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Sous terre, les métros s’arrêtent en plein tunnel. »</p>
+    <dl><dt>Compteur</dt><dd>DURÉE DE LA COUPURE · <b>0 h 20</b> · JOUR 1 · 20:02</dd><dt>Image</dt><dd>Une rame arrêtée dans le tunnel, éclairage de secours bleuté ; des voyageurs allument la lampe de leur téléphone.</dd><dt>Caméra</dt><dd>La caméra avance lentement dans l’allée.</dd><dt>Son</dt><dd>Silence lourd, une annonce coupée, des murmures.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d12" title="Phrases ambiguës">D12</a></div>
+  </div>
+</article>
+<article class="shot a1" id="p05">
+  <button class="frame" type="button" data-i="4" aria-label="Agrandir le plan P05"><img src="frames/P05.jpg" alt="Plan P05 : Gros plan : la main de Jeanne tient son téléphone. À l’écran, « Aucun service ». Une bougie brûle en arrière-plan." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P05</span><span class="tc">0:15,0 → 0:19,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Les antennes mobiles tiennent une demi-heure sur batterie. Puis plus rien. »</p>
+    <dl><dt>Compteur</dt><dd>DURÉE DE LA COUPURE · <b>0 h 30</b> · JOUR 1 · 20:12</dd><dt>Image</dt><dd>Gros plan : la main de Jeanne tient son téléphone. À l’écran, « Aucun service ». Une bougie brûle en arrière-plan.</dd><dt>Caméra</dt><dd>Push-in sur l’écran.</dd><dt>Son</dt><dd>Un appel qui échoue, trois bips.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip fix" href="#d03" title="Texte déformé dans l’image">D03</a><a class="chip src" href="#s5">S5</a></div>
+  </div>
+</article>
+<article class="shot a2" id="p06">
+  <button class="frame" type="button" data-i="5" aria-label="Agrandir le plan P06"><img src="frames/P06.jpg" alt="Plan P06 : Cuisine à la bougie : Jeanne ouvre le robinet, une dernière goutte tombe dans le verre." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P06</span><span class="tc">0:19,0 → 0:23,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« La pompe de l’immeuble est électrique. Au 6e, l’eau ne monte plus. »</p>
+    <dl><dt>Compteur</dt><dd>DURÉE DE LA COUPURE · <b>1 h 18</b> · JOUR 1 · 21:00</dd><dt>Image</dt><dd>Cuisine à la bougie : Jeanne ouvre le robinet, une dernière goutte tombe dans le verre.</dd><dt>Caméra</dt><dd>Gros plan fixe.</dd><dt>Son</dt><dd>Le robinet crache de l’air, une goutte tombe.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d01" title="Incohérences logiques">D01</a><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip src" href="#s8">S8</a></div>
+  </div>
+</article>
+<article class="shot a2" id="p07">
+  <button class="frame" type="button" data-i="6" aria-label="Agrandir le plan P07"><img src="frames/P07.jpg" alt="Plan P07 : Rue grise du matin : une épicerie ouverte sans lumière, une file d’attente, une pancarte « ESPÈCES UNIQUEMENT » sur la porte." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P07</span><span class="tc">0:23,0 → 0:27,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Jour 2. Plus de carte bancaire ni de distributeur. Seuls les billets passent. »</p>
+    <dl><dt>Compteur</dt><dd>DURÉE DE LA COUPURE · <b>15 h 10</b> · JOUR 2 · 10:52</dd><dt>Image</dt><dd>Rue grise du matin : une épicerie ouverte sans lumière, une file d’attente, une pancarte « ESPÈCES UNIQUEMENT » sur la porte.</dd><dt>Caméra</dt><dd>Plan large fixe depuis le trottoir d’en face.</dd><dt>Son</dt><dd>Murmures, clochette de porte, pièces de monnaie.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d03" title="Texte déformé dans l’image">D03</a><a class="chip fix" href="#d01" title="Incohérences logiques">D01</a></div>
+  </div>
+</article>
+<article class="shot a2" id="p08">
+  <button class="frame" type="button" data-i="7" aria-label="Agrandir le plan P08"><img src="frames/P08.jpg" alt="Plan P08 : Station-service à l’arrêt : écrans noirs, pistolets raccrochés, panneaux « EN PANNE », une file de voitures qui n’avance plus." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P08</span><span class="tc">0:27,0 → 0:31,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Les pompes à essence sont électriques, elles aussi. Les voitures restent à sec. »</p>
+    <dl><dt>Compteur</dt><dd>DURÉE DE LA COUPURE · <b>18 h 00</b> · JOUR 2 · 13:42</dd><dt>Image</dt><dd>Station-service à l’arrêt : écrans noirs, pistolets raccrochés, panneaux « EN PANNE », une file de voitures qui n’avance plus.</dd><dt>Caméra</dt><dd>Lent travelling latéral.</dd><dt>Son</dt><dd>Vent, portières, un moteur qui cale.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d03" title="Texte déformé dans l’image">D03</a><a class="chip fix" href="#d01" title="Incohérences logiques">D01</a></div>
+  </div>
+</article>
+<article class="shot a2" id="p09">
+  <button class="frame" type="button" data-i="8" aria-label="Agrandir le plan P09"><img src="frames/P09.jpg" alt="Plan P09 : Couloir d’hôpital en éclairage de secours : une lumière sur trois, des lits dans le couloir, une infirmière avec une lampe frontale." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P09</span><span class="tc">0:31,0 → 0:35,5</span><span class="dur">4,5 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Les hôpitaux tournent sur groupes électrogènes. Tant qu’il reste du carburant. »</p>
+    <dl><dt>Compteur</dt><dd>DURÉE DE LA COUPURE · <b>26 h 00</b> · JOUR 2 · 21:42</dd><dt>Image</dt><dd>Couloir d’hôpital en éclairage de secours : une lumière sur trois, des lits dans le couloir, une infirmière avec une lampe frontale.</dd><dt>Caméra</dt><dd>Lent travelling avant.</dd><dt>Son</dt><dd>Ronronnement lointain du groupe électrogène, bips de monitoring.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d01" title="Incohérences logiques">D01</a></div>
+  </div>
+</article>
+<article class="shot a2" id="p10">
+  <button class="frame" type="button" data-i="9" aria-label="Agrandir le plan P10"><img src="frames/P10.jpg" alt="Plan P10 : Le frigo ouvert, sans lumière : le congélateur dégouline, les aliments sont perdus. Une lampe torche éclaire l’intérieur." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P10</span><span class="tc">0:35,5 → 0:39,5</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Jour 3. Le congélateur a tenu 48 heures. Le frigo, 4 heures. »</p>
+    <dl><dt>Compteur</dt><dd>DURÉE DE LA COUPURE · <b>48 h 00</b> · JOUR 3 · 19:42</dd><dt>Image</dt><dd>Le frigo ouvert, sans lumière : le congélateur dégouline, les aliments sont perdus. Une lampe torche éclaire l’intérieur.</dd><dt>Caméra</dt><dd>Plan fixe ; le faisceau de la lampe balaie l’intérieur.</dd><dt>Son</dt><dd>Gouttes d’eau, porte du frigo qui grince.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d02" title="Le chiffre à l’image contredit le texte">D02</a><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip src" href="#s6">S6</a></div>
+  </div>
+</article>
+<article class="shot a2" id="p11">
+  <button class="frame" type="button" data-i="10" aria-label="Agrandir le plan P11"><img src="frames/P11.jpg" alt="Plan P11 : Même vue que P01 : Paris éteint, de petites lueurs de bougies tremblent aux fenêtres." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P11</span><span class="tc">0:39,5 → 0:43,5</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Jour 4. Plus de chauffage : même les chaudières à gaz ont besoin de courant. »</p>
+    <dl><dt>Compteur</dt><dd>DURÉE DE LA COUPURE · <b>70 h 00</b> · JOUR 4 · 17:42</dd><dt>Image</dt><dd>Même vue que P01 : Paris éteint, de petites lueurs de bougies tremblent aux fenêtres.</dd><dt>Caméra</dt><dd>Plan fixe, en rime avec P01.</dd><dt>Son</dt><dd>Vent froid, une sirène au loin.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d01" title="Incohérences logiques">D01</a><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip src" href="#s7">S7</a></div>
+  </div>
+</article>
+<article class="shot a2" id="p12">
+  <button class="frame" type="button" data-i="11" aria-label="Agrandir le plan P12"><img src="frames/P12.jpg" alt="Plan P12 : Jeanne emmitouflée dans une couverture, dans son fauteuil, une bougie sur la table basse." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P12</span><span class="tc">0:43,5 → 0:48,0</span><span class="dur">4,5 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Jeanne, 79 ans, vit seule au 6e. Sans ascenseur, elle ne peut plus descendre. »</p>
+    <dl><dt>Compteur</dt><dd>DURÉE DE LA COUPURE · <b>74 h 00</b> · JOUR 4 · 21:42</dd><dt>Image</dt><dd>Jeanne emmitouflée dans une couverture, dans son fauteuil, une bougie sur la table basse.</dd><dt>Caméra</dt><dd>Push-in très lent sur son visage.</dd><dt>Son</dt><dd>Flamme de bougie, horloge, son souffle.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d04" title="Le personnage change d’un plan à l’autre">D04</a></div>
+  </div>
+</article>
+<article class="shot a2" id="p13">
+  <button class="frame" type="button" data-i="12" aria-label="Agrandir le plan P13"><img src="frames/P13.jpg" alt="Plan P13 : La porte s’ouvre : Yanis, le voisin du 5e, entre avec un pack d’eau et une lampe torche. Jeanne se retourne." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P13</span><span class="tc">0:48,0 → 0:52,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Jour 5. Son voisin du dessous monte avec de l’eau. Il reviendra chaque jour. »</p>
+    <dl><dt>Compteur</dt><dd>DURÉE DE LA COUPURE · <b>88 h 00</b> · JOUR 5 · 11:42</dd><dt>Image</dt><dd>La porte s’ouvre : Yanis, le voisin du 5e, entre avec un pack d’eau et une lampe torche. Jeanne se retourne.</dd><dt>Caméra</dt><dd>Plan large, contre-jour de la cage d’escalier.</dd><dt>Son</dt><dd>On frappe, la porte grince, des pas.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d04" title="Le personnage change d’un plan à l’autre">D04</a><a class="chip fix" href="#d12" title="Phrases ambiguës">D12</a></div>
+  </div>
+</article>
+<article class="shot a3" id="p14">
+  <button class="frame" type="button" data-i="13" aria-label="Agrandir le plan P14"><img src="frames/P14.jpg" alt="Plan P14 : Même vue que P01 : la vague repart en sens inverse, Paris se rallume, la tour Eiffel scintille." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P14</span><span class="tc">0:52,0 → 0:56,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Jour 7. Le courant revient. Ce scénario n’a pourtant rien d’imaginaire. »</p>
+    <dl><dt>Compteur</dt><dd>DURÉE DE LA COUPURE · <b>144 h 00</b> · JOUR 7 · 19:42</dd><dt>Image</dt><dd>Même vue que P01 : la vague repart en sens inverse, Paris se rallume, la tour Eiffel scintille.</dd><dt>Caméra</dt><dd>Plan fixe.</dd><dt>Son</dt><dd>Le frigo redémarre, la ville revient, la musique passe en majeur.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d10" title="Chute « tout ça n’était qu’un rêve »">D10</a></div>
+  </div>
+</article>
+<article class="shot a3" id="p15">
+  <button class="frame" type="button" data-i="14" aria-label="Agrandir le plan P15"><img src="frames/P15.jpg" alt="Plan P15 : Carte de la péninsule Ibérique vue de nuit : les villes brillent, puis s’éteignent toutes en même temps. Le sud de la France et le Maroc restent allumés." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P15</span><span class="tc">0:56,0 → 1:00,5</span><span class="dur">4,5 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« 28 avril 2025 : l’Espagne et le Portugal s’éteignent en quelques secondes. »</p>
+    <dl><dt>Compteur</dt><dd>HEURE DE LA COUPURE · <b>12:33</b> · ESPAGNE ET PORTUGAL · 28 AVRIL 2025</dd><dt>Image</dt><dd>Carte de la péninsule Ibérique vue de nuit : les villes brillent, puis s’éteignent toutes en même temps. Le sud de la France et le Maroc restent allumés.</dd><dt>Caméra</dt><dd>Lent zoom arrière.</dd><dt>Son</dt><dd>Un seul « clac », puis un long silence.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip fix" href="#d13" title="Le compteur change de sens sans prévenir">D13</a><a class="chip src" href="#s3">S3</a></div>
+  </div>
+</article>
+<article class="shot a3" id="p16">
+  <button class="frame" type="button" data-i="15" aria-label="Agrandir le plan P16"><img src="frames/P16.jpg" alt="Plan P16 : Rue ensoleillée d’une ville espagnole : feux éteints, un policier règle la circulation à la main, des gens marchent au milieu de la rue." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P16</span><span class="tc">1:00,5 → 1:05,0</span><span class="dur">4,5 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Des dizaines de millions de personnes. Il faut une nuit pour tout rallumer. »</p>
+    <dl><dt>Compteur</dt><dd>COURANT RÉTABLI EN ESPAGNE · <b>99,95 %</b> · LE LENDEMAIN MATIN</dd><dt>Image</dt><dd>Rue ensoleillée d’une ville espagnole : feux éteints, un policier règle la circulation à la main, des gens marchent au milieu de la rue.</dd><dt>Caméra</dt><dd>Plan large, légère dérive.</dd><dt>Son</dt><dd>Sifflet, klaxons, conversations.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip fix" href="#d02" title="Le chiffre à l’image contredit le texte">D02</a><a class="chip fix" href="#d12" title="Phrases ambiguës">D12</a><a class="chip src" href="#s3">S3</a><a class="chip src" href="#s4">S4</a></div>
+  </div>
+</article>
+<article class="shot a3" id="p17">
+  <button class="frame" type="button" data-i="16" aria-label="Agrandir le plan P17"><img src="frames/P17.jpg" alt="Plan P17 : Carte de la France vue de nuit : les villes s’éteignent d’ouest en est ; seul l’Est reste allumé." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P17</span><span class="tc">1:05,0 → 1:10,0</span><span class="dur">5,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« 19 décembre 1978 : les trois quarts de la France, plus de 4 h sans courant. »</p>
+    <dl><dt>Compteur</dt><dd>HEURE DE LA COUPURE · <b>08:27</b> · FRANCE · 19 DÉCEMBRE 1978</dd><dt>Image</dt><dd>Carte de la France vue de nuit : les villes s’éteignent d’ouest en est ; seul l’Est reste allumé.</dd><dt>Caméra</dt><dd>Plan fixe en plongée.</dd><dt>Son</dt><dd>Clics successifs, vent d’hiver.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip fix" href="#d13" title="Le compteur change de sens sans prévenir">D13</a><a class="chip src" href="#s1">S1</a><a class="chip src" href="#s2">S2</a></div>
+  </div>
+</article>
+<article class="shot a3" id="p18">
+  <button class="frame" type="button" data-i="17" aria-label="Agrandir le plan P18"><img src="frames/P18.jpg" alt="Plan P18 : Le salon de Jeanne, la lumière revenue : Jeanne et Yanis prennent un café ensemble." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P18</span><span class="tc">1:10,0 → 1:14,5</span><span class="dur">4,5 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Quand tout s’éteint, ce qui tient, ce sont les voisins. »</p>
+    <dl><dt>Compteur</dt><dd>DURÉE DE LA COUPURE · <b>0 h 00</b> · AUJOURD’HUI</dd><dt>Image</dt><dd>Le salon de Jeanne, la lumière revenue : Jeanne et Yanis prennent un café ensemble.</dd><dt>Caméra</dt><dd>Plan moyen, léger travelling.</dd><dt>Son</dt><dd>Tasses, rires, musique en majeur.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d10" title="Chute « tout ça n’était qu’un rêve »">D10</a></div>
+  </div>
+</article>
+<article class="shot a3" id="p19">
+  <button class="frame" type="button" data-i="18" aria-label="Agrandir le plan P19"><img src="frames/P19.jpg" alt="Plan P19 : Carton final noir : même titre qu’en ouverture, un conseil, la flèche de partage et l’appel à l’action." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P19</span><span class="tc">1:14,5 → 1:18,5</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>Et si la France entière perdait l’électricité pendant une semaine ?<br><span class="mono">UNE LAMPE, DE L’EAU, UNE RADIO À PILES. ET LE NUMÉRO DE TON VOISIN.</span><br><span class="mono">ENVOIE ÇA À TON VOISIN.</span></p>
+    <dl><dt>Compteur</dt><dd>Aucun : carton final.</dd><dt>Image</dt><dd>Carton final noir : même titre qu’en ouverture, un conseil, la flèche de partage et l’appel à l’action.</dd><dt>Caméra</dt><dd>Fixe ; la flèche de partage s’anime.</dd><dt>Son</dt><dd>La musique se résout sur une note tenue, 0,5 s de silence, puis boucle.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d09" title="Temps morts">D09</a><a class="chip fix" href="#d11" title="Titre différent entre l’accroche et la fin">D11</a><a class="chip fix" href="#d05" title="Sous-titres peu lisibles">D05</a></div>
+  </div>
+</article></div>
+</section>
+
+<section aria-labelledby="h-ch">
+  <header><div class="eyebrow">Pour la fabrication</div><h2 id="h-ch">Charte de production</h2></header>
+  <div class="spec">
+    <div class="panel"><h3>Textes à l’écran</h3><dl>
+      <dt>Compteur</dt><dd>Libellé Inter SemiBold 23 px, interlettrage 0,2 em. Valeur Newsreader Medium 90 px, chiffres tabulaires. Repère de temps Inter SemiBold 21 px.</dd>
+      <dt>Sous-titres</dt><dd>Newsreader Medium Italique 54 px, interligne 1,2. Ombre portée et voile sombre local.</dd>
+      <dt>Titre</dt><dd>Newsreader Medium 80 px, identique en P01 et P19.</dd>
+      <dt>Carton</dt><dd>Newsreader 68 px, IBM Plex Mono 26 et 30 px.</dd></dl></div>
+    <div class="panel"><h3>Règles</h3><dl>
+      <dt>Lecture</dt><dd>Deux lignes et 80 caractères au plus, 4 s minimum par sous-titre.</dd>
+      <dt>Nombres</dt><dd>Espace fine insécable pour les milliers (496 365), virgule décimale.</dd>
+      <dt>Ponctuation</dt><dd>Espace insécable avant ? ! : ; et à l’intérieur des guillemets.</dd>
+      <dt>Zones TikTok</dt><dd>Rien d’important dans les 160 px du haut, les 420 px du bas ni les 140 px de droite.</dd></dl></div>
+    <div class="panel"><h3>Son et lumière</h3><dl>
+      <dt>Voix</dt><dd>Aucune voix off. Ambiances et bruitages listés plan par plan.</dd>
+      <dt>Musique</dt><dd>Une nappe grave entre dans le silence qui suit la coupure (P02), un piano en mineur accompagne la semaine noire, la musique passe en majeur quand le courant revient (P14).</dd>
+      <dt>Mixage</dt><dd>−14 LUFS intégrés, crêtes à −1 dBTP.</dd>
+      <dt>Lumière</dt><dd>Acte 1 ville dorée puis nuit bleue, acte 2 bougies, lampes torches et éclairage de secours, acte 3 lumière revenue et cartes vues de nuit.</dd></dl></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-src">
+  <header><div class="eyebrow">Chiffres réels</div><h2 id="h-src">Sources</h2>
+  <p>Chiffres inventés pour la fiction : la durée de la coupure (de 0 h à 144 h) et les heures de la semaine. Tous les autres chiffres sont réels et sourcés.</p></header>
+  <div class="tbl"><table><thead><tr><th scope="col">Réf.</th><th scope="col">Donnée</th><th scope="col">Plans</th><th scope="col">Statut</th></tr></thead><tbody><tr id="s1"><th scope="row">S1</th><td>Public Sénat : le 19 décembre 1978 à 8 h 27, la quasi-totalité de la France est plongée dans le noir ; métros, trains, feux et ascenseurs s’arrêtent.<div class="lnk"><a href="https://www.publicsenat.fr/actualites/societe/la-france-est-en-panne-retour-sur-le-black-out-de-1978-231450" rel="noopener" target="_blank">www.publicsenat.fr</a></div></td><td>P17</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s2"><th scope="row">S2</th><td>L’info durable : les trois quarts du pays privés d’électricité pendant plus de quatre heures ; seul l’Est relativement épargné.<div class="lnk"><a href="https://www.linfodurable.fr/risques-de-delestages-les-precedentes-grandes-coupures-delectricite-35846" rel="noopener" target="_blank">www.linfodurable.fr</a></div></td><td>P17</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s3"><th scope="row">S3</th><td>Le Petit Journal (Madrid) : coupure géante en Espagne et au Portugal le 28 avril 2025 à 12 h 33, des dizaines de millions de personnes touchées.<div class="lnk"><a href="https://lepetitjournal.com/madrid/actualites/panne-courant-massive-espagne-portugal-411505" rel="noopener" target="_blank">lepetitjournal.com</a></div></td><td>P15, P16</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s4"><th scope="row">S4</th><td>24matins : 99,95 % de la demande rétablie en Espagne le lendemain matin.<div class="lnk"><a href="https://www.24matins.fr/espagne-retablissement-quasi-total-de-lelectricite-les-raisons-de-la-panne-demeurent-un-mystere-1389500" rel="noopener" target="_blank">www.24matins.fr</a></div></td><td>P16</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s5"><th scope="row">S5</th><td>Orange (FAQ 2022, mise à jour 2023) : 10 à 20 minutes d’autonomie sur batterie pour ses antennes ; environ 30 minutes pour le secteur selon Selectra.<div class="lnk"><a href="https://selectra.info/telecom/actualites/marche/reseau-mobile-tombe-avec-electricite-autonomie-antennes" rel="noopener" target="_blank">selectra.info</a></div></td><td>P05</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s6"><th scope="row">S6</th><td>FDA (version française) : un frigo fermé reste sûr 4 heures ; un congélateur plein tient environ 48 heures.<div class="lnk"><a href="https://www.fda.gov/food/buy-store-serve-safe-food/securite-sanitaire-des-aliments-et-de-leau-lors-de-pannes-delectricite-et-dinondations" rel="noopener" target="_blank">www.fda.gov</a></div></td><td>P10</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s7"><th scope="row">S7</th><td>Selectra : une chaudière gaz s’arrête sans courant (électronique, allumage, ventilateur, circulateur), même si le gaz continue d’arriver.<div class="lnk"><a href="https://selectra.info/energie/actualites/marche/coupure-courant-vent-chaudiere-gaz-ballon-tient" rel="noopener" target="_blank">selectra.info</a></div></td><td>P11</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s8"><th scope="row">S8</th><td>Xpair et Mon Logis : au-delà de six étages, un surpresseur électrique fait monter l’eau ; sans courant, l’eau n’atteint plus les étages.<div class="lnk"><a href="https://conseils.xpair.com/consulter_savoir_faire/reduction_pression/immeubles_collectifs_exemples.htm" rel="noopener" target="_blank">conseils.xpair.com</a></div></td><td>P06</td><td><span class="status ok">Vérifié</span></td></tr></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-next">
+  <div class="next"><div class="eyebrow">Avant l’animation</div><h2 id="h-next" style="margin:6px 0 10px">À valider</h2>
+  <p>Le sujet, les 19 sous-titres et la chute.</p><p>Le nom de ton compte pour le carton final (@ton.compte).</p></div>
+</section>
+</div>
+
+<div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Plan agrandi">
+  <div><img id="v-img" alt=""><div class="bar"><button type="button" id="v-prev" aria-label="Plan précédent">←</button><span id="v-cap"></span><button type="button" id="v-next" aria-label="Plan suivant">→</button><button type="button" id="v-close">Fermer</button></div></div>
+</div>
+<script>
+(() => {
+  const F = [{"src": "frames/P01.jpg", "id": "P01", "tc": "0:00,0"}, {"src": "frames/P02.jpg", "id": "P02", "tc": "0:03,0"}, {"src": "frames/P03.jpg", "id": "P03", "tc": "0:07,0"}, {"src": "frames/P04.jpg", "id": "P04", "tc": "0:11,0"}, {"src": "frames/P05.jpg", "id": "P05", "tc": "0:15,0"}, {"src": "frames/P06.jpg", "id": "P06", "tc": "0:19,0"}, {"src": "frames/P07.jpg", "id": "P07", "tc": "0:23,0"}, {"src": "frames/P08.jpg", "id": "P08", "tc": "0:27,0"}, {"src": "frames/P09.jpg", "id": "P09", "tc": "0:31,0"}, {"src": "frames/P10.jpg", "id": "P10", "tc": "0:35,5"}, {"src": "frames/P11.jpg", "id": "P11", "tc": "0:39,5"}, {"src": "frames/P12.jpg", "id": "P12", "tc": "0:43,5"}, {"src": "frames/P13.jpg", "id": "P13", "tc": "0:48,0"}, {"src": "frames/P14.jpg", "id": "P14", "tc": "0:52,0"}, {"src": "frames/P15.jpg", "id": "P15", "tc": "0:56,0"}, {"src": "frames/P16.jpg", "id": "P16", "tc": "1:00,5"}, {"src": "frames/P17.jpg", "id": "P17", "tc": "1:05,0"}, {"src": "frames/P18.jpg", "id": "P18", "tc": "1:10,0"}, {"src": "frames/P19.jpg", "id": "P19", "tc": "1:14,5"}];
+  const v = document.getElementById('viewer'), img = document.getElementById('v-img'), cap = document.getElementById('v-cap');
+  let i = 0;
+  const show = (k) => { i = (k + F.length) % F.length; img.src = F[i].src; img.alt = 'Plan ' + F[i].id; cap.textContent = F[i].id + ' · ' + F[i].tc; v.hidden = false; };
+  document.querySelectorAll('.frame').forEach(b => b.addEventListener('click', () => show(+b.dataset.i)));
+  document.getElementById('v-prev').addEventListener('click', (ev) => { ev.stopPropagation(); show(i - 1); });
+  document.getElementById('v-next').addEventListener('click', (ev) => { ev.stopPropagation(); show(i + 1); });
+  document.getElementById('v-close').addEventListener('click', () => { v.hidden = true; });
+  v.addEventListener('click', (ev) => { if (ev.target === v) v.hidden = true; });
+  document.addEventListener('keydown', (ev) => { if (v.hidden) return; if (ev.key === 'Escape') v.hidden = true; if (ev.key === 'ArrowRight') show(i + 1); if (ev.key === 'ArrowLeft') show(i - 1); });
+})();
+</script>
