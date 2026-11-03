@@ -17,7 +17,10 @@ p = subprocess.run(['ffmpeg', '-hide_banner', '-i', wav, '-af', 'loudnorm=I=-14:
 m = json.loads(re.findall(r'\{[^{}]*"input_i"[^{}]*\}', p.stderr)[-1])
 af = (f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={m['input_i']}:measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}"
       f":measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true:print_format=summary")
-# pass 2: apply + mux
-subprocess.run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', silent, '-i', wav, '-map', '0:v:0', '-map', '1:a:0', '-c:v', 'copy',
+# final encode: two-pass H.264 at 6 Mb/s (about 60 MB for 78.5 s: under GitHub's 100 MB limit, plenty for TikTok, which re-encodes)
+venc = ['-c:v', 'libx264', '-preset', 'slow', '-b:v', '6M', '-maxrate', '9M', '-bufsize', '12M', '-profile:v', 'high', '-level', '4.1', '-pix_fmt', 'yuv420p', '-r', '30']
+plog = os.path.join(HERE, 'x264pass')
+subprocess.run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', silent] + venc + ['-pass', '1', '-passlogfile', plog, '-an', '-f', 'mp4', os.devnull], check=True)
+subprocess.run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', silent, '-i', wav, '-map', '0:v:0', '-map', '1:a:0'] + venc + ['-pass', '2', '-passlogfile', plog,
                 '-af', af, '-ar', '48000', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-shortest', OUT], check=True)
 print('wrote', OUT, round(os.path.getsize(OUT) / 1e6, 1), 'MB')
