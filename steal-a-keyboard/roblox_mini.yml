@@ -1,0 +1,33 @@
+---
+# Définitions minimales des globales Roblox pour Selene (le linter Luau).
+base: luau
+name: roblox_mini
+globals:
+  game: {any: true}
+  workspace: {any: true}
+  script: {any: true}
+  Instance: {any: true}
+  Vector3: {any: true}
+  Vector2: {any: true}
+  CFrame: {any: true}
+  Color3: {any: true}
+  ColorSequence: {any: true}
+  ColorSequenceKeypoint: {any: true}
+  NumberSequence: {any: true}
+  NumberSequenceKeypoint: {any: true}
+  NumberRange: {any: true}
+  UDim: {any: true}
+  UDim2: {any: true}
+  Enum: {any: true}
+  RaycastParams: {any: true}
+  OverlapParams: {any: true}
+  TweenInfo: {any: true}
+  BrickColor: {any: true}
+  Font: {any: true}
+  Random: {any: true}
+  DateTime: {any: true}
+  task: {any: true}
+  tick: {any: true}
+  time: {any: true}
+  typeof: {any: true}
+  warn: {any: true}

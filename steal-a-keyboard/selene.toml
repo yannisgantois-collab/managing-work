@@ -1,0 +1,2 @@
+std = "roblox_mini"
+exclude = ["build/*"]
