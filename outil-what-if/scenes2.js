@@ -306,12 +306,13 @@ export function crossroads(scene, { variant }) {
     });
   } else {
     const PG = new THREE.Group(); scene.add(PG);
-    const p = person(randPerson({ coat: true, rsh: [-1.3, -0.1], rel: -0.9 })); p.position.set(-6.5, 0.16, 5.2); p.rotation.y = 0.6; PG.add(p);
-    PG.add(box(0.07, 0.13, 0.01, E(0xffffff, 6), -6.3, 1.32, 5.55)); PG.add(point(scene, 0xe8efff, 3, 6, -6.25, 1.35, 5.7));
+    // a pedestrian lights the far crossing with a phone, between the stuck cars (in frame, clear of the counter and the subtitle)
+    const p = person(randPerson({ coat: true, rsh: [-1.3, -0.1], rel: -0.9 })); p.position.set(3.0, 0.02, -7.4); p.rotation.y = -Math.PI / 2; PG.add(p);
+    const ph = box(0.01, 0.13, 0.07, E(0xffffff, 6), 2.6, 1.32, -7.45); PG.add(ph); PG.add(point(scene, 0xe8efff, 3, 6, 2.45, 1.35, -7.45));
     hemi(scene, 0x243150, 0x05060a, 0.25); const moon = new THREE.DirectionalLight(0x7f9ccc, 0.25); moon.position.set(-30, 60, -20); scene.add(moon);
     const c4 = cars[4], c4x = c4.position.x, c4z = c4.position.z, r4 = c4.rotation.y;
     anim.push((t) => {
-      const d = 0.85 * t; PG.position.set(Math.sin(0.6) * d, 0, Math.cos(0.6) * d);
+      PG.position.set(-0.95 * t, 0, 0);
       animPerson(p, t, { walk: 1.0, stride: 0.35, armSwing: 0.2, look: 0.5, phase: 0.5 });
       const k = 1.4 * ease(t / 4); c4.position.set(c4x + Math.cos(r4) * k, 0, c4z - Math.sin(r4) * k);
     });
