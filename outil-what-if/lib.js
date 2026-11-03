@@ -159,7 +159,7 @@ export function person(o = {}) {
   const p = Object.assign({ skin: 0xe8b896, top: 0x3a5a8a, pants: 0x2c2f38, shoes: 0x2a2421, hair: 0x5a3a22, hairStyle: 'short', hat: null, sleeves: true, coat: false,
     lsh: [0.05, 0.08], rsh: [0.05, -0.08], lel: -0.15, rel: -0.15, lhip: [0, 0], rhip: [0, 0], lkn: 0, rkn: 0, neck: [0, 0, 0], spine: 0, eyes: 'open', mouth: 'neutral', h: 1 }, o);
   const skinM = M(p.skin, 0.55), topM = M(p.top, 0.85), pantsM = M(p.pants, 0.85), shoeM = M(p.shoes, 0.6), hairM = M(p.hair, 0.7), dark = M(0x161210, 0.4);
-  const root = new THREE.Group();
+  const root = new THREE.Group(); const rig = {};
   const hips = new THREE.Group(); hips.position.y = 0.92; root.add(hips);
   // legs
   for (const side of [-1, 1]) {
@@ -167,6 +167,7 @@ export function person(o = {}) {
     const [hx, hz] = side < 0 ? p.lhip : p.rhip; hip.rotation.x = hx; hip.rotation.z = hz;
     hip.add(cap(0.088, 0.3, pantsM, 0, -0.22, 0));
     const knee = new THREE.Group(); knee.position.y = -0.45; hip.add(knee); knee.rotation.x = side < 0 ? p.lkn : p.rkn;
+    rig[side < 0 ? 'lHip' : 'rHip'] = hip; rig[side < 0 ? 'lKn' : 'rKn'] = knee;
     knee.add(cap(0.075, 0.3, pantsM, 0, -0.2, 0));
     knee.add(rbox(0.12, 0.09, 0.27, 0.04, shoeM, 0, -0.43, 0.05));
   }
@@ -185,6 +186,7 @@ export function person(o = {}) {
     el.add(cap(0.056, 0.22, p.sleeves ? topM : skinM, 0, -0.13, 0));
     el.add(sph(0.058, skinM, 0, -0.29, 0.005, 16));
     sh.userData.side = side; root.userData[side < 0 ? 'lArm' : 'rArm'] = sh; root.userData[side < 0 ? 'lHand' : 'rHand'] = el;
+    rig[side < 0 ? 'lSh' : 'rSh'] = sh; rig[side < 0 ? 'lEl' : 'rEl'] = el;
   }
   // head
   const head = new THREE.Group(); head.position.y = 0.78; head.rotation.set(...p.neck); torso.add(head);
@@ -211,6 +213,9 @@ export function person(o = {}) {
   if (p.hat === 'beanie') { const hc = mesh(new THREE.SphereGeometry(0.168, 32, 12, 0, Math.PI * 2, 0, 1.25), M(p.hatColor ?? 0x7a2e2e, 0.95), 0, 0.09, -0.005); head.add(hc); }
   root.scale.setScalar(p.h);
   root.userData.head = head; root.userData.torso = torso;
+  rig.head = head; rig.torso = torso; rig.hips = hips;
+  for (const k in rig) rig[k].userData.b = { x: rig[k].rotation.x, y: rig[k].rotation.y, z: rig[k].rotation.z, py: rig[k].position.y };
+  root.userData.rig = rig;
   root.traverse(o2 => { if (o2.isMesh) { o2.castShadow = true; o2.receiveShadow = true; } });
   return root;
 }
@@ -393,3 +398,28 @@ export function glow(color, scale, x, y, z, opacity = 0.9) {
   const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: roundTex(), color, transparent: true, opacity, depthWrite: false, blending: THREE.AdditiveBlending, fog: false }));
   s.scale.set(scale, scale, 1); s.position.set(x, y, z); return s;
 }
+
+// ---------- character animation: breathing, looking around, walking, gestures ----------
+// o: { phase, breath, look, nod, walk (cycles/s), stride, armSwing, wave, talk, sip, sway }
+export function animPerson(p, t, o = {}) {
+  const R = p.userData.rig; if (!R) return;
+  for (const k in R) { const j = R[k], b = j.userData.b; j.rotation.set(b.x, b.y, b.z); j.position.y = b.py; }
+  const ph = o.phase ?? 0;
+  R.torso.rotation.x += Math.sin(t * 1.6 + ph) * 0.022 * (o.breath ?? 1);
+  R.torso.rotation.z += Math.sin(t * 0.7 + ph * 1.7) * 0.015 * (o.sway ?? 1);
+  R.head.rotation.y += (Math.sin(t * 0.43 + ph * 2.3) * 0.12 + Math.sin(t * 1.13 + ph) * 0.04) * (o.look ?? 1);
+  R.head.rotation.x += Math.sin(t * 0.8 + ph * 1.3) * 0.045 * (o.nod ?? 1);
+  R.lSh.rotation.x += Math.sin(t * 1.6 + ph + 0.4) * 0.03; R.rSh.rotation.x += Math.sin(t * 1.6 + ph + 1.1) * 0.03;
+  if (o.walk) {
+    const w = t * o.walk * Math.PI * 2 + ph, s = Math.sin(w), st = o.stride ?? 0.45;
+    R.lHip.rotation.x += s * st; R.rHip.rotation.x -= s * st;
+    R.lKn.rotation.x += Math.max(0, -s) * st * 1.4; R.rKn.rotation.x += Math.max(0, s) * st * 1.4;
+    const a = 0.38 * (o.armSwing ?? 1); R.lSh.rotation.x -= s * a; R.rSh.rotation.x += s * a; R.lEl.rotation.x -= 0.25 * (o.armSwing ?? 1); R.rEl.rotation.x -= 0.25 * (o.armSwing ?? 1);
+    R.hips.position.y = R.hips.userData.b.py + Math.abs(Math.cos(w)) * 0.03;
+  }
+  if (o.wave) { R.rSh.rotation.z += Math.sin(t * 5.5 + ph) * 0.35; R.rEl.rotation.x += Math.sin(t * 5.5 + ph + 1) * 0.3; }
+  if (o.talk) { R.rEl.rotation.x += Math.sin(t * 2.6 + ph) * 0.3 * o.talk; R.rSh.rotation.x += Math.sin(t * 1.3 + ph) * 0.12 * o.talk; R.head.rotation.x += Math.sin(t * 4.1 + ph) * 0.05 * o.talk; }
+  if (o.sip) { const c = Math.max(0, Math.sin(t * 0.9 + ph)); R.lSh.rotation.x -= c * 0.6; R.lEl.rotation.x -= c * 0.9; R.head.rotation.x -= c * 0.08; }
+}
+// smooth pseudo-random flicker in [0,1]
+export function flick(t, seed = 0) { return 0.5 + 0.25 * Math.sin(t * 13.1 + seed) + 0.15 * Math.sin(t * 23.7 + seed * 1.7) + 0.1 * Math.sin(t * 41.3 + seed * 2.9); }

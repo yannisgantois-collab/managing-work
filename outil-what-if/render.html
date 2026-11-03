@@ -67,7 +67,7 @@ try {
     if (shot.set === 'endcard') {
       h += `<div class="end"><h1>${nb(data.title)}</h1><div class="mono">${shot.end.mono.map(nb).join('<br>')}</div>
         <svg viewBox="0 0 64 56" fill="none"><path d="M36 4 L60 24 L36 44 V32 C20 32 10 37 3 50 C5 30 15 18 36 16 Z" fill="#fff"/></svg>
-        <div class="cta">${shot.end.cta.map(nb).join('<br>')}</div><div class="handle"><i></i>${data.handle}</div></div>`;
+        <div class="cta">${shot.end.cta.map(nb).join('<br>')}</div>${data.handle ? `<div class="handle"><i></i>${data.handle}</div>` : ''}</div>`;
     } else {
       if (shot.cap) h += `<div class="capbg"></div>`;
       if (shot.title) h += `<div class="title">${nb(data.title)}</div>`;

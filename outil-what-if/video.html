@@ -42,7 +42,6 @@ import * as L from './lib.js';
 import { SETS as S1, CAMS as C1 } from './scenes.js';
 import { SETS2, CAMS2 } from './scenes2.js';
 const SETS = { ...S1, ...SETS2 }, CAMS = { ...C1, ...CAMS2 };
-import { CAMANIM, objAnim, hudValue } from './anim.js';
 const q = new URLSearchParams(location.search);
 const W = +(q.get('w') || 1080), H = Math.round(W * 16 / 9), id = q.get('shot') || 'P01', fps = +(q.get('fps') || 30), sc = +(q.get('scale') || 1);
 const Wi = Math.round(W * sc), Hi = Math.round(H * sc);
@@ -53,6 +52,7 @@ try {
   await Promise.all(['500 64px Newsreader', '600 64px Newsreader', 'italic 500 64px Newsreader', 'italic 600 64px Newsreader', '600 64px Inter', '700 64px Inter', '800 64px Inter', '500 30px "IBM Plex Mono"', '600 30px "IBM Plex Mono"'].map(f => document.fonts.load(f)));
   const data = await (await fetch('./' + (q.get('data') || 'shots.json'))).json();
   const shot = data.shots.find(s => s.id === id);
+  const { CAMANIM, objAnim, hudValue } = await import('./' + (data.anim || 'anim.js'));
   const nFrames = Math.round(shot.dur * fps);
   let renderer, scene, camera, comp, ctx, base, grain;
   if (shot.set !== 'endcard') {
@@ -70,19 +70,19 @@ try {
   if (shot.set === 'endcard') {
     h += `<div class="end"><h1>${nb(data.title)}</h1><div class="mono">${shot.end.mono.map(nb).join('<br>')}</div>
       <svg id="arrow" viewBox="0 0 64 56" fill="none"><path d="M36 4 L60 24 L36 44 V32 C20 32 10 37 3 50 C5 30 15 18 36 16 Z" fill="#fff"/></svg>
-      <div class="cta">${shot.end.cta.map(nb).join('<br>')}</div><div class="handle"><i></i>${data.handle}</div></div>`;
+      <div class="cta">${shot.end.cta.map(nb).join('<br>')}</div>${data.handle ? `<div class="handle"><i></i>${data.handle}</div>` : ''}</div>`;
   } else {
     if (shot.cap) h += `<div class="capbg" id="capbg"></div>`;
     if (shot.title) h += `<div class="title">${nb(data.title)}</div>`;
     if (shot.hud) {
-      h += `<div class="hud"><div class="lab">${shot.hud.label}</div><div class="val" id="val">${nb(shot.hud.value)}</div><div class="tl">${shot.hud.tl}</div>`;
+      h += `<div class="hud"><div class="lab">${shot.hud.label}</div><div class="val" id="val">${nb(shot.hud.value)}</div><div class="tl" id="tl">${shot.hud.tl}</div>`;
       if (shot.hud.sub) h += `<div class="sub">${shot.hud.sub[0]}<b>${nb(shot.hud.sub[1])}</b></div>`;
       h += `</div>`;
     }
     if (shot.cap) h += `<div class="cap" id="cap">${nb(shot.cap)}</div>`;
   }
   u.innerHTML = h;
-  const val = document.getElementById('val'), cap = document.getElementById('cap'), capbg = document.getElementById('capbg'), arrow = document.getElementById('arrow');
+  const val = document.getElementById('val'), tlEl = document.getElementById('tl'), cap = document.getElementById('cap'), capbg = document.getElementById('capbg'), arrow = document.getElementById('arrow');
   window.info = { nFrames, farms: ctx && ctx.farms ? ctx.farms.filter(f => !f.last).length : null };
   window.frame = (i) => {
     const t = i / fps, uu = Math.min(1, t / shot.dur), T = shot.t0 + t;
@@ -94,7 +94,7 @@ try {
       grain.uniforms.seed.value = (i * 0.137) % 1;
       comp.render();
     }
-    if (val) { const v = hudValue(id, T, t, shot.dur, st); if (v !== null) val.textContent = v; }
+    if (val) { const v = hudValue(id, T, t, shot.dur, st, shot); if (v !== null && v !== undefined) { if (typeof v === 'object') { val.textContent = v.value; if (v.tl && tlEl) tlEl.textContent = v.tl; } else val.textContent = v; } }
     if (cap) { const a = Math.min(1, Math.max(0, (t - 0.12) / 0.22)); cap.style.opacity = a; cap.style.transform = `translateY(${(1 - a) * 8 * W / 1080}px)`; capbg.style.opacity = a; }
     if (arrow) { arrow.style.transform = `translateX(${Math.sin(t * 5) * 7 * W / 1080}px)`; }
     if (shot.set === 'endcard') { const a = Math.min(1, t / 0.3); document.querySelector('.end').style.opacity = 0.35 + 0.65 * a; }

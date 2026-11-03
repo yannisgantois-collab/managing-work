@@ -1,6 +1,6 @@
 {
  "title": "Et si la France entière perdait l’électricité pendant une semaine ?",
- "handle": "@ton.compte",
+ "handle": "",
  "page": {
   "eyebrow": "Storyboard · What if · épisode 2",
   "lead": "À 19 h 42, la France entière s’éteint. On suit Jeanne, 79 ans, seule au 6e étage, pendant sept jours sans courant. À la fin, la fiction rejoint deux pannes bien réelles : l’Espagne et le Portugal en 2025, la France en 1978.",
@@ -139,8 +139,7 @@
   ],
   "fiction": "Chiffres inventés pour la fiction : la durée de la coupure (de 0 h à 144 h) et les heures de la semaine. Tous les autres chiffres sont réels et sourcés.",
   "validate": [
-   "Le sujet, les 19 sous-titres et la chute.",
-   "Le nom de ton compte pour le carton final (@ton.compte)."
+   "Le sujet, les 19 sous-titres et la chute."
   ],
   "page_title": "Storyboard What if Coupure",
   "music": "Une nappe grave entre dans le silence qui suit la coupure (P02), un piano en mineur accompagne la semaine noire, la musique passe en majeur quand le courant revient (P14).",
@@ -583,5 +582,6 @@
    ],
    "src": []
   }
- ]
+ ],
+ "anim": "anim2.js"
 }

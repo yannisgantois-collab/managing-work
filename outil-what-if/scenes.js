@@ -386,11 +386,14 @@ export function bakery(scene, { variant } = {}) {
   // street lamps
   for (const x of [-9, 9]) { scene.add(cyl(0.07, 0.1, 4.5, M(0x1b2420, 0.5, 0.4), x, 2.25, -1.4, 10)); scene.add(sph(0.22, cash ? M(0xcfd3d6, 0.3) : E(0xffd08a, 4), x, 4.6, -1.4, 16)); if (!cash) point(scene, 0xffc477, 20, 12, x, 4.4, -1.4); }
   // queue
-  seed(51);
-  for (let k = 0; k < 11; k++) { const p = person(randPerson({ coat: true, hat: rnd() < 0.3 ? 'beanie' : null, rsh: [rr(-0.3, 0.1), -0.1], lsh: [rr(-0.3, 0.1), 0.1] })); p.position.set(1.6 + k * 0.85, 0.18, -2.6 + rr(-0.2, 0.2)); p.rotation.y = -Math.PI / 2 + rr(-0.4, 0.4); scene.add(p); }
+  seed(51); const people = [];
+  for (let k = 0; k < 11; k++) { const p = person(randPerson({ coat: true, hat: rnd() < 0.3 ? 'beanie' : null, rsh: [rr(-0.3, 0.1), -0.1], lsh: [rr(-0.3, 0.1), 0.1] })); p.position.set(1.6 + k * 0.85, 0.18, -2.6 + rr(-0.2, 0.2)); p.rotation.y = -Math.PI / 2 + rr(-0.4, 0.4); scene.add(p); people.push(p); }
   hemi(scene, cash ? 0xcfd6dd : 0x6f86b8, 0x231d1a, cash ? 0.85 : 0.55);
   sun(scene, { pos: [10, 14, 12], color: cash ? 0xe6eaee : 0x9fb2d8, intensity: cash ? 0.9 : 0.5, size: 20 });
   if (!cash) scene.add(dust(900, [-14, 0, -6, 14, 9, 6], 0xb8c8e8, 0.025, 0.4)); // rain-ish
+  let walker = null;
+  if (cash) { walker = person(randPerson({ coat: true, top: 0x2f4a6d })); walker.position.set(0.4, 0.18, -3.9); walker.rotation.y = Math.PI / 2; scene.add(walker); }
+  return { people, walker };
 }
 
 // ---------------- FOOD BANK (night) ----------------
