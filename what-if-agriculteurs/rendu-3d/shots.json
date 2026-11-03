@@ -109,11 +109,12 @@
     "value": "0",
     "tl": "JOUR 1 · 08:00"
    },
-   "cap": "Aucun tracteur ne démarre. Aucun camion ne part vers les villes.",
-   "action": "Vue aérienne du bocage au lever du soleil : champs en patchwork, haies, fermes. Tracteurs et camions immobiles dans les cours.",
-   "move": "Drone en descente lente.",
-   "sfx": "Vent, oiseaux. Aucun moteur.",
+   "cap": "Aucun tracteur ne démarre. Les camions de collecte repartent à vide.",
+   "action": "Vue aérienne d’une ferme au lever du soleil : maison, stabulation, hangar à foin, silos, vaches au pré. Le tracteur reste garé dans la cour. Sur la départementale, les camions de collecte repartent à vide.",
+   "move": "Drone en descente lente, la route en diagonale.",
+   "sfx": "Vent, oiseaux, moteurs de camions qui s’éloignent. Aucun moteur de tracteur.",
    "fix": [
+    "D01",
     "D08"
    ],
    "src": []

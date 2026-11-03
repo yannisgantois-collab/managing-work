@@ -146,36 +146,124 @@ export function barn(scene, { variant }) {
   }
 }
 
-// ---------------- COUNTRYSIDE (aerial) ----------------
-export function countryside(scene) {
-  scene.background = gradientBg([[0, '#3d5f8a'], [0.45, '#c9a58a'], [0.62, '#f2c58e'], [1, '#f6d7a8']]);
-  scene.fog = new THREE.Fog(0xf0caa0, 140, 520); scene.environmentIntensity = 0.35;
-  seed(5);
-  const cols = [0x6f8f3e, 0x8aa04a, 0xb9a65a, 0x5d7a36, 0xa28a52, 0x7b9a48, 0xc8b46a, 0x4f6d33];
-  const S = 26;
-  for (let i = -6; i <= 6; i++) for (let j = -8; j <= 4; j++) {
-    const w = S - 1.5, d = S * rr(0.7, 1.0) - 1.5;
-    const f = mesh(new THREE.PlaneGeometry(w, d), new THREE.MeshStandardMaterial({ map: noiseTex('#' + pick(cols).toString(16).padStart(6, '0'), 22, 128, 128, [3, 3], 900), roughness: 1 }), i * S + rr(-2, 2), 0, j * S);
-    f.rotation.x = -Math.PI / 2; f.rotation.z = rr(-0.06, 0.06); scene.add(f);
+// ---------------- COUNTRYSIDE (aerial): one complete farm beside a departmental road, collection trucks leaving empty ----------------
+function ribbon(curve, segs, off, half, y, mat) {
+  const pos = [], idx = [];
+  for (let i = 0; i <= segs; i++) {
+    const u = i / segs, p = curve.getPointAt(u), t = curve.getTangentAt(u);
+    const l = Math.hypot(t.x, t.z) || 1, nx = -t.z / l, nz = t.x / l;
+    for (const s of [-1, 1]) { const d = off + s * half; pos.push(p.x + nx * d, y, p.z + nz * d); }
+    if (i < segs) { const a = i * 2; idx.push(a, a + 2, a + 1, a + 1, a + 2, a + 3); }
   }
-  scene.add(ground(900, M(0x55703a, 1), -0.05));
-  const hedgeM = M(0x3b5527, 0.95, 0, { flatShading: true });
-  for (let i = -7; i <= 7; i++) { const h = hedgeRow(330, hedgeM, 2.2); h.position.set(0, 0, i * S - 13); h.scale.set(1, 1.6, 1.6); scene.add(h); }
-  for (let i = -7; i <= 7; i++) { const h = hedgeRow(330, hedgeM, 2.2); h.rotation.y = Math.PI / 2; h.position.set(i * S - 13, 0, -60); h.scale.set(1, 1.6, 1.6); scene.add(h); }
-  const road = box(4, 0.06, 400, M(0x6d6a63, 0.9), 6, 0.03, -60); scene.add(road);
-  for (let k = 0; k < 120; k++) { const t = tree({ s: rr(1.1, 1.8) }); t.position.set(rr(-170, 170), 0, rr(-210, 100)); scene.add(t); }
-  const farms = [[-30, -8], [28, -30], [-60, -70], [50, 10], [-10, -120], [80, -95]];
-  farms.forEach(([x, z], k) => {
-    const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = rr(-0.6, 0.6);
-    g.add(farmhouse({ w: 9, d: 6, h: 5, roof: pick([0x9c4a2e, 0x4c565c]) }));
-    const sh = shed({ w: 16, d: 9, h: 5.5 }); sh.position.set(-14, 0, -4); g.add(sh);
-    const tr = tractor(); tr.position.set(6, 0, 7); tr.rotation.y = rr(0, 6); tr.scale.setScalar(1.4); g.add(tr);
-    if (k % 2 === 0) { const tk = truck({ color: 0xdedbd4, box: 0xc9ced3 }); tk.position.set(-2, 0, 9); tk.rotation.y = 0.3; g.add(tk); }
-    scene.add(g);
-  });
-  // a few cows in pastures
-  for (let k = 0; k < 18; k++) { const c = cow(); c.scale.setScalar(1.3); c.position.set(rr(-40, 10), 0, rr(10, 40)); c.rotation.y = rr(0, 6); scene.add(c); }
-  sun(scene, { pos: [-120, 45, -160], target: [0, 0, -30], color: 0xffc58a, intensity: 3.2, size: 160, far: 500, bias: -0.0006, map: 4096, radius: 3 });
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+  const m = new THREE.Mesh(g, mat); m.receiveShadow = true; return m;
+}
+function onRoad(curve, u, lane = 1.75) { // position + heading on the right-hand lane, driving toward u+
+  const p = curve.getPointAt(u), t = curve.getTangentAt(u); const l = Math.hypot(t.x, t.z) || 1;
+  return { x: p.x + (-t.z / l) * lane, z: p.z + (t.x / l) * lane, ry: Math.atan2(-t.z, t.x) };
+}
+function tanker(o = {}) {
+  const g = new THREE.Group();
+  const cabM = M(o.cab ?? 0xe9ecef, 0.45, 0.1), dark = M(0x1b1b1b, 0.9), steel = M(0xd3d9de, 0.22, 0.95), band = M(o.band ?? 0x1f5fa8, 0.5);
+  g.add(rbox(2.2, 2.5, 2.45, 0.18, cabM, 4.1, 1.95, 0));
+  g.add(box(0.12, 1.0, 2.1, glass(0x4f6f80, 0.75), 5.22, 2.45, 0));
+  g.add(box(9.6, 0.35, 1.3, M(0x2a2a2a, 0.7), 0.2, 0.8, 0));
+  const tank = mesh(new THREE.CapsuleGeometry(1.15, 5.6, 8, 24), steel, -0.95, 2.2, 0); tank.rotation.z = Math.PI / 2; g.add(tank);
+  const b = mesh(new THREE.CylinderGeometry(1.18, 1.18, 1.3, 24), band, -0.95, 2.2, 0); b.rotation.z = Math.PI / 2; g.add(b);
+  for (const x of [4.2, -2.0, -3.4, -4.6]) for (const s of [-1, 1]) { const w = mesh(new THREE.CylinderGeometry(0.52, 0.52, 0.4, 20), dark, x, 0.52, 1.05 * s); w.rotation.x = Math.PI / 2; g.add(w); }
+  for (const s of [-1, 1]) { g.add(box(0.06, 0.2, 0.32, E(0xfff3d0, 4), 5.24, 1.05, 0.85 * s)); g.add(box(0.06, 0.16, 0.26, E(0xff2a1a, 3), -4.95, 1.0, 0.95 * s)); }
+  g.traverse(o2 => { if (o2.isMesh) { o2.castShadow = true; o2.receiveShadow = true; } });
+  return g;
+}
+function silo(r, h) {
+  const g = new THREE.Group();
+  const tex = canvasTex(256, 64, (c, w, hh) => { for (let i = 0; i < 32; i++) { c.fillStyle = i % 2 ? '#cfd4d8' : '#b1b7bc'; c.fillRect(i * w / 32, 0, w / 32, hh); } c.fillStyle = 'rgba(0,0,0,.2)'; for (let j = 1; j < 6; j++) c.fillRect(0, j * hh / 6, w, 2); });
+  g.add(mesh(new THREE.CylinderGeometry(r, r, h, 40), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.35, metalness: 0.6 }), 0, h / 2, 0));
+  g.add(mesh(new THREE.ConeGeometry(r * 1.04, r * 0.65, 40), M(0xbcc2c6, 0.35, 0.6), 0, h + r * 0.32, 0));
+  g.add(sph(0.5, M(0xbcc2c6, 0.35, 0.6), 0, h + r * 0.68, 0, 12));
+  return g;
+}
+function hangar(w, d, h) {
+  const g = new THREE.Group(); const post = M(0x4a4f52, 0.5, 0.5);
+  for (let i = 0; i <= 4; i++) for (const z of [-d / 2, d / 2]) g.add(box(0.35, h, 0.35, post, -w / 2 + i * w / 4, h / 2, z));
+  g.add(box(w, h, 0.25, M(0x6f6a62, 0.9), 0, h / 2, -d / 2));
+  const roof = prism(w + 0.8, 1.6, d + 1.0, M(0x8a4a36, 0.65, 0.2)); roof.position.y = h; g.add(roof);
+  const baleM = M(0xd2b36c, 0.95);
+  for (let row = 0; row < 3; row++) for (let k = 0; k < 8 - row; k++) { const b = mesh(new THREE.CylinderGeometry(0.8, 0.8, 1.25, 20), baleM, -w / 2 + 1.6 + k * 1.75 + row * 0.85, 0.8 + row * 1.45, -d / 2 + 2.2); b.rotation.x = Math.PI / 2; g.add(b); }
+  return g;
+}
+export function countryside(scene) {
+  scene.background = gradientBg([[0, '#3d5f8a'], [0.42, '#c9a58a'], [0.6, '#f2c58e'], [1, '#f6d7a8']]);
+  scene.fog = new THREE.Fog(0xf0caa0, 160, 560); scene.environmentIntensity = 0.35;
+  seed(5);
+  // departmental road (D-road) crossing the frame diagonally
+  const road = new THREE.CatmullRomCurve3([[16, 0, 150], [12, 0, 90], [6, 0, 40], [2, 0, 4], [-4, 0, -36], [-16, 0, -100], [-26, 0, -180], [-34, 0, -300]].map(p => new THREE.Vector3(...p)));
+  const RS = road.getSpacedPoints(400);
+  const nearRoad = (x, z, d) => RS.some(p => (p.x - x) ** 2 + (p.z - z) ** 2 < d * d);
+  const F = new THREE.Vector3(-30, 0, 4);                    // farm centre, left of the road
+  const inFarm = (x, z) => x > -62 && x < -2 && z > -20 && z < 60;
+  // fields (patchwork), hedges and trees, kept clear of the farm and the road
+  const cols = [0x6f8f3e, 0x8aa04a, 0xb9a65a, 0x5d7a36, 0xa28a52, 0x7b9a48, 0xc8b46a, 0x4f6d33];
+  const S = 34;
+  for (let i = -7; i <= 7; i++) for (let j = -10; j <= 4; j++) {
+    const cx = i * S + rr(-2, 2), cz = j * S;
+    const f = mesh(new THREE.PlaneGeometry(S - 1.2, S - 1.2), new THREE.MeshStandardMaterial({ map: noiseTex('#' + pick(cols).toString(16).padStart(6, '0'), 22, 128, 128, [3, 3], 900), roughness: 1 }), cx, 0, cz, false, true);
+    f.rotation.x = -Math.PI / 2; scene.add(f);
+  }
+  scene.add(ground(1200, M(0x55703a, 1), -0.05));
+  const hedgeM = M(0xffffff, 0.95, 0, { flatShading: true });
+  const bush = new THREE.IcosahedronGeometry(1, 1); const bushes = [];
+  for (let i = -8; i <= 8; i++) for (let s = -320; s < 140; s += 2.4) {
+    for (const [x, z] of [[i * S - S / 2, s], [s * 0.8 + 20, i * S - S / 2]]) { if (!inFarm(x, z) && !nearRoad(x, z, 7.5)) bushes.push([x + rr(-0.3, 0.3), z + rr(-0.3, 0.3)]); }
+  }
+  scene.add(instanced(bush, hedgeM, bushes.length, (k, o) => { o.position.set(bushes[k][0], rr(0.6, 0.9), bushes[k][1]); o.scale.set(rr(1.0, 1.5), rr(1.0, 1.5), rr(1.0, 1.5)); return { color: pick([0x3b5527, 0x445f2b, 0x34502a]) }; }));
+  for (let k = 0; k < 140; k++) { const x = rr(-200, 200), z = rr(-300, 110); if (inFarm(x, z) || nearRoad(x, z, 9)) continue; const t = tree({ s: rr(1.3, 2.0) }); t.position.set(x, 0, z); scene.add(t); }
+  // the road itself: asphalt, shoulders, edge lines, dashed centre line
+  scene.add(ribbon(road, 400, 0, 4.6, 0.22, M(0x7d7564, 1, 0, { side: THREE.DoubleSide })));
+  scene.add(ribbon(road, 400, 0, 3.6, 0.3, M(0x3d3f42, 0.85, 0, { side: THREE.DoubleSide })));
+  const lineM = M(0xf2f0e8, 0.6, 0, { side: THREE.DoubleSide });
+  for (const off of [-3.25, 3.25]) scene.add(ribbon(road, 400, off, 0.09, 0.34, lineM));
+  for (let u = 0.004; u < 1; u += 0.012) { const p = road.getPointAt(u), t = road.getTangentAt(u); const d = box(0.16, 0.04, 3.2, lineM, p.x, 0.34, p.z); d.rotation.y = Math.atan2(t.x, t.z); d.castShadow = false; scene.add(d); }
+  // the farm
+  const farm = new THREE.Group(); farm.position.copy(F); scene.add(farm);
+  const yard = mesh(new THREE.PlaneGeometry(52, 34), new THREE.MeshStandardMaterial({ map: noiseTex('#9d9480', 30, 128, 128, [4, 3], 1200), roughness: 1 }), 0, 0.12, 0, false, true); yard.rotation.x = -Math.PI / 2; farm.add(yard);
+  const house = farmhouse({ w: 12, d: 7.5, h: 5.8, roof: 0x9c4a2e }); house.position.set(-15, 0, 9); farm.add(house);
+  const stab = shed({ w: 30, d: 14, h: 6.5, wall: 0x9aa494, roof: 0x5f6b6a }); stab.position.set(6, 0, -8); farm.add(stab);
+  seed(6); for (let k = 0; k < 9; k++) { const c = cow({ headDown: rnd() < 0.5 }); c.position.set(-6 + k * 3.0, 0, -9 + rr(-2, 2)); c.rotation.y = rr(-0.5, 0.5) + Math.PI / 2; farm.add(c); }
+  const hg = hangar(17, 10, 6.5); hg.position.set(-15, 0, -9); farm.add(hg);
+  for (const z of [5, 12]) { const s1 = silo(2.6, 9.5); s1.position.set(21, 0, z); farm.add(s1); }
+  const tr = tractor({ color: 0xb3261e }); tr.scale.setScalar(1.8); tr.position.set(-2, 0, 8); tr.rotation.y = 0.5; farm.add(tr);
+  const trailer = new THREE.Group(); trailer.add(rbox(4.6, 1.1, 2.3, 0.05, M(0x2f5d3a, 0.6), 0, 1.3, 0)); for (const s of [-1, 1]) { const w = mesh(new THREE.CylinderGeometry(0.6, 0.6, 0.35, 18), M(0x1b1b1b, 0.9), 0, 0.6, 1.25 * s); w.rotation.x = Math.PI / 2; trailer.add(w); }
+  trailer.position.set(-9.5, 0, 3.5); trailer.rotation.y = 0.5; farm.add(trailer);
+  const baleM = M(0xd2b36c, 0.95); for (let k = 0; k < 7; k++) { const b = mesh(new THREE.CylinderGeometry(0.8, 0.8, 1.25, 20), baleM, -24 + k * 1.75, 0.8, 2); b.rotation.x = Math.PI / 2; farm.add(b); }
+  farm.traverse(o2 => { if (o2.isMesh && o2 !== yard) { o2.castShadow = true; o2.receiveShadow = true; } });
+  // driveway from the yard to the road
+  let u0 = 0, best = 1e9; for (let i = 0; i <= 400; i++) { const q = road.getPointAt(i / 400), dz = Math.abs(q.z - (F.z + 10)); if (dz < best) { best = dz; u0 = i / 400; } }
+  const pj = road.getPointAt(u0);
+  const drive = new THREE.CatmullRomCurve3([new THREE.Vector3(F.x + 20, 0, F.z + 12), new THREE.Vector3((F.x + 20 + pj.x) / 2, 0, (F.z + 12 + pj.z) / 2 + 2), pj]);
+  scene.add(ribbon(drive, 40, 0, 2.8, 0.2, M(0x8f8672, 1, 0, { side: THREE.DoubleSide })));
+  // pasture with a fence, between the farm and the camera
+  const fenceM = M(0x6b5136, 0.9); const P0 = [-52, 30], P1 = [-10, 52];
+  for (let x = P0[0]; x <= P1[0]; x += 3) for (const z of [P0[1], P1[1]]) scene.add(cyl(0.08, 0.08, 1.3, fenceM, x, 0.65, z, 6));
+  for (let z = P0[1]; z <= P1[1]; z += 3) for (const x of [P0[0], P1[0]]) scene.add(cyl(0.08, 0.08, 1.3, fenceM, x, 0.65, z, 6));
+  for (const z of [P0[1], P1[1]]) scene.add(box(P1[0] - P0[0], 0.08, 0.08, fenceM, (P0[0] + P1[0]) / 2, 1.05, z));
+  for (const x of [P0[0], P1[0]]) scene.add(box(0.08, 0.08, P1[1] - P0[1], fenceM, x, 1.05, (P0[1] + P1[1]) / 2));
+  for (let k = 0; k < 11; k++) { const c = cow({ headDown: rnd() < 0.6 }); c.scale.setScalar(1.15); c.position.set(rr(P0[0] + 3, P1[0] - 3), 0, rr(P0[1] + 3, P1[1] - 3)); c.rotation.y = rr(0, 6.3); scene.add(c); }
+  // collection trucks driving away, empty
+  // driving toward the camera (toward the cities): right-hand lane = left of the +u tangent
+  const place = (obj, u) => { const q = onRoad(road, u, -1.75); obj.position.set(q.x, 0.3, q.z); obj.rotation.y = q.ry + Math.PI; scene.add(obj); };
+  place(tanker({ band: 0x1f5fa8 }), u0 - 0.025);
+  place(tanker({ band: 0x2f7a3a, cab: 0xf1f1ee }), 0.2);
+  const semi = truck({ color: 0xe2e0da, box: 0xd7dbdf }); for (const s of [-1, 1]) semi.add(box(0.06, 0.2, 0.3, E(0xfff3d0, 4), 2.52, 1.0, 0.85 * s)); place(semi, 0.47);
+  // distant farms
+  for (const [x, z, ry] of [[-118, -150, 0.4], [92, -175, -0.3], [-30, -250, 0.1]]) {
+    const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = ry;
+    g.add(farmhouse({ w: 10, d: 7, h: 5.5, roof: pick([0x9c4a2e, 0x4c565c]) }));
+    const sh = shed({ w: 20, d: 10, h: 6 }); sh.position.set(-16, 0, -4); g.add(sh);
+    const s1 = silo(2.4, 9); s1.position.set(10, 0, -3); g.add(s1);
+    g.traverse(o2 => { if (o2.isMesh) { o2.castShadow = true; o2.receiveShadow = true; } }); scene.add(g);
+  }
+  sun(scene, { pos: [-140, 55, -150], target: [-10, 0, 0], color: 0xffc58a, intensity: 3.2, size: 120, far: 500, bias: -0.0006, map: 4096, radius: 3 });
   hemi(scene, 0xb8cde8, 0x6a5a3a, 0.6);
 }
 
@@ -447,7 +535,7 @@ export const CAMS = {
   'bedroom:wake': [46, [2.45, 1.45, 1.0], [0.75, 0.82, -1.45], { bloom: [0.5, 0.5, 0.8] }],
   'barn:cows': [44, [-3.5, 1.55, 3.6], [1.5, 1.0, -0.4], { bloom: [0.55, 0.6, 0.8] }],
   'barn:milking': [40, [-1.6, 1.15, 3.9], [0.75, 1.05, 1.2], { bloom: [0.55, 0.6, 0.8] }],
-  'countryside:aerial': [50, [-6, 34, 30], [-34, 0, -32], { aoRadius: 2.0 }],
+  'countryside:aerial': [44, [20, 58, 128], [-12, 0, 36], { ao: false }],
   'supermarket:aisle': [56, [0.15, 1.6, 3.2], [0, 1.2, -16], { bloom: [0.35, 0.5, 0.9] }],
   'market:hall': [58, [0, 2.4, 10], [0, 3.2, -40], { bloom: [0.7, 0.6, 0.7] }],
   'stall:crates': [50, [0.05, 2.75, 2.15], [0, 0.95, 0.05], {}],
