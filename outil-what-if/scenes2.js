@@ -298,11 +298,11 @@ export function crossroads(scene, { variant }) {
       scene.add(p); walkers.push({ p, x0: p.position.x, z0: p.position.z, sp: rr(0.9, 1.4), ph: rr(0, 6) });
     }
     sun(scene, { pos: [40, 60, 30], color: 0xfff1d6, intensity: 2.8, size: 45, far: 200 }); hemi(scene, 0xbcd6f0, 0x6a5e50, 0.6);
-    const c0 = cars[0], c0z = c0.position.z;
+    const c2 = cars[2], c2z = c2.position.z;   // the far car rolls up and stops before the empty far crossing (the near ones carry pedestrians)
     anim.push((t) => {
       animPerson(cop, t, { wave: true, look: 0.6 }); cop.rotation.y = 0.8 + Math.sin(t * 0.6) * 0.25;
       for (const w of walkers) { const d = w.sp * t; w.p.position.x = w.x0 + Math.sin(w.p.rotation.y) * d; w.p.position.z = w.z0 + Math.cos(w.p.rotation.y) * d; animPerson(w.p, t, { walk: w.sp * 1.15, phase: w.ph, look: 0.3 }); }
-      c0.position.z = c0z - 3.2 * Math.max(0, t - 1.2);
+      c2.position.z = c2z + 4.7 * ease((t - 0.6) / 3.2);
     });
   } else {
     const PG = new THREE.Group(); scene.add(PG);
