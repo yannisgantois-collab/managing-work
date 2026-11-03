@@ -75,9 +75,10 @@ export function bedroom(scene, { variant }) {
   scene.add(box(0.5, 0.38, 0.03, M(0x3a2a1f, 0.6), 0.9, 1.75, -2.14)); scene.add(box(0.42, 0.3, 0.035, M(0x8aa080, 0.9), 0.9, 1.75, -2.13));
 
   // Hélène
+  let hel = null;
   if (variant === 'wake') {
     const h = person({ ...PYJAMA, ...SIT, rsh: [-0.75, -0.25], rel: -0.55, lsh: [0.05, 0.12], lel: -0.3, neck: [0.1, -0.35, 0], spine: 0.1 });
-    h.position.set(0.62, -0.3, -1.3); h.rotation.y = 1.25; scene.add(h);
+    h.position.set(0.62, -0.3, -1.3); h.rotation.y = 1.25; scene.add(h); hel = h;
     scene.add(rbox(1.5, 0.12, 1.2, 0.06, M(0xd9cfc0, 0.95), -0.15, 0.68, -0.75)); // pushed duvet
   } else {
     const h = person({ ...PYJAMA, neck: [0, 0, 0] });
@@ -96,11 +97,12 @@ export function bedroom(scene, { variant }) {
     spot(scene, 0x86a6ff, 14, -3.6, 2.4, -0.6, 0.4, 0.6, -1.1, 0.75, 0.45, false, 12);
   }
   scene.add(dust(160, [-1.8, 0.4, -1.8, 1.2, 2.2, 0.8], 0xbcd0ff, 0.012, 0.35));
-  return { clock };
+  return { clock, helene: hel };
 }
 
 // ---------------- BARN ----------------
 export function barn(scene, { variant }) {
+  let ret = {};
   scene.background = new THREE.Color(0x1d1a17); scene.environmentIntensity = 0.22;
   scene.fog = new THREE.Fog(0x3a2e24, 12, 38);
   scene.add(ground(80, new THREE.MeshStandardMaterial({ map: noiseTex('#7d7468', 26, 256, 256, [6, 6]), roughness: 0.9 })));
@@ -136,6 +138,7 @@ export function barn(scene, { variant }) {
     h.position.set(0.9, 0, 1.55); h.rotation.y = -Math.PI / 2 - 0.35; scene.add(h);
     // pitchfork with hay
     const fork = cyl(0.018, 0.018, 1.6, M(0x7a5a3a, 0.8), 0.45, 0.85, 1.25, 8); fork.rotation.z = 0.9; fork.rotation.x = 0.3; scene.add(fork);
+    ret = { helene: h, fork };
     for (let i = 0; i < 25; i++) { const s = box(rr(0.2, 0.5), 0.04, 0.04, straw, rr(-0.2, 0.6), rr(0.05, 0.25), rr(0.8, 1.3)); s.rotation.y = rr(0, 3); s.rotation.z = rr(-0.4, 0.4); scene.add(s); }
     // milk can
     scene.add(cyl(0.16, 0.18, 0.5, M(0xc9ced1, 0.25, 0.9), 2.2, 0.25, 1.9, 20)); scene.add(cyl(0.1, 0.14, 0.12, M(0xc9ced1, 0.25, 0.9), 2.2, 0.56, 1.9, 20));
@@ -144,6 +147,7 @@ export function barn(scene, { variant }) {
     const hose = cyl(0.015, 0.015, 1.4, M(0x1a1a1a, 0.6), 2.4, 2.0, 1.2, 8); scene.add(hose);
     scene.add(cyl(0.07, 0.09, 0.14, M(0xbfc5c8, 0.25, 0.9), 2.4, 1.25, 1.2, 16));
   }
+  return ret;
 }
 
 // ---------------- COUNTRYSIDE (aerial): one complete farm beside a departmental road, collection trucks leaving empty ----------------
@@ -251,7 +255,8 @@ export function countryside(scene) {
   for (let k = 0; k < 11; k++) { const c = cow({ headDown: rnd() < 0.6 }); c.scale.setScalar(1.15); c.position.set(rr(P0[0] + 3, P1[0] - 3), 0, rr(P0[1] + 3, P1[1] - 3)); c.rotation.y = rr(0, 6.3); scene.add(c); }
   // collection trucks driving away, empty
   // driving toward the camera (toward the cities): right-hand lane = left of the +u tangent
-  const place = (obj, u) => { const q = onRoad(road, u, -1.75); obj.position.set(q.x, 0.3, q.z); obj.rotation.y = q.ry + Math.PI; scene.add(obj); };
+  const trucks = [];
+  const place = (obj, u) => { const q = onRoad(road, u, -1.75); obj.position.set(q.x, 0.3, q.z); obj.rotation.y = q.ry + Math.PI; scene.add(obj); trucks.push({ obj, u }); };
   place(tanker({ band: 0x1f5fa8 }), u0 - 0.025);
   place(tanker({ band: 0x2f7a3a, cab: 0xf1f1ee }), 0.2);
   const semi = truck({ color: 0xe2e0da, box: 0xd7dbdf }); for (const s of [-1, 1]) semi.add(box(0.06, 0.2, 0.3, E(0xfff3d0, 4), 2.52, 1.0, 0.85 * s)); place(semi, 0.47);
@@ -265,6 +270,7 @@ export function countryside(scene) {
   }
   sun(scene, { pos: [-140, 55, -150], target: [-10, 0, 0], color: 0xffc58a, intensity: 3.2, size: 120, far: 500, bias: -0.0006, map: 4096, radius: 3 });
   hemi(scene, 0xb8cde8, 0x6a5a3a, 0.6);
+  return { road, trucks, onRoad };
 }
 
 // ---------------- SUPERMARKET ----------------
@@ -425,9 +431,11 @@ export function wheat(scene) {
   for (const s of [-1, 1]) { const w = mesh(new THREE.CylinderGeometry(0.9, 0.9, 0.5, 20), M(0x1b1b1b, 0.9), 0.8, 0.9, 1.3 * s); w.rotation.x = Math.PI / 2; cb.add(w); }
   scene.add(cb);
   // crows
-  for (let k = 0; k < 9; k++) { const c = new THREE.Group(); const bm = M(0x111111, 0.6); c.add(sph(0.12, bm, 0, 0, 0, 10)); const wg = box(0.5, 0.02, 0.14, bm, 0, 0.02, 0); wg.rotation.z = rr(-0.4, 0.4); c.add(wg); c.position.set(rr(-6, 6), rr(3, 6), rr(-22, -8)); c.scale.setScalar(0.8); scene.add(c); }
+  const crows = [];
+  for (let k = 0; k < 9; k++) { const c = new THREE.Group(); const bm = M(0x111111, 0.6); c.add(sph(0.12, bm, 0, 0, 0, 10)); const wg = box(0.5, 0.02, 0.14, bm, 0, 0.02, 0); wg.rotation.z = rr(-0.4, 0.4); c.add(wg); c.position.set(rr(-6, 6), rr(3, 6), rr(-22, -8)); c.scale.setScalar(0.8); scene.add(c); crows.push({ c, wg, x0: c.position.x, y0: c.position.y, ph: rr(0, 6.28), sp: rr(0.8, 1.6) }); }
   sun(scene, { pos: [-20, 18, -30], color: 0xffe2b5, intensity: 1.6, size: 30, far: 120 });
   hemi(scene, 0xc7c9cc, 0x4a3a28, 0.7);
+  return { crows };
 }
 
 // ---------------- PARK turned into vegetable patches ----------------
@@ -506,15 +514,15 @@ export function valley(scene, { variant }) {
   geo.computeVertexNormals();
   scene.add(mesh(geo, M(0x3f5a4c, 1, 0, { flatShading: true }))); scene.environmentIntensity = 0.03;
   seed(111);
-  const lastIdx = 7;
+  const lastIdx = 7; const farms = [];
   for (let k = 0; k < 46; k++) {
     const x = k === lastIdx ? 6 : rr(-110, 110), z = k === lastIdx ? -40 : rr(-230, 40); const y = hgt(x, z);
-    const lit = variant === 'last' ? k === lastIdx : rnd() < 0.68;
+    const lit = variant === 'last' ? k === lastIdx : ((rnd() < 0.68) || k === lastIdx);
     const g = new THREE.Group(); g.position.set(x, y, z); g.rotation.y = rr(0, 6);
     g.add(box(5, 3, 3.5, M(0x3b3a38, 0.95), 0, 1.5, 0));
     const rf = prism(5.4, 1.6, 4, M(0x2a2624, 0.9)); rf.position.y = 3; g.add(rf);
     g.add(box(8, 3.4, 5, M(0x2f3436, 0.9), -7, 1.7, -1));
-    if (lit) { g.add(box(0.7, 0.8, 0.1, E(0xffbf6a, 6), 0.8, 1.6, 1.78)); g.add(box(0.7, 0.8, 0.1, E(0xffbf6a, 5), -1.2, 1.6, 1.78)); scene.add(glow(0xffb45a, variant === 'last' ? 14 : 10, x, y + 2.5, z, 0.7)); if (k === lastIdx || k < 12) point(scene, 0xffa64d, k === lastIdx ? 260 : 90, 40, x, y + 3, z + 4); }
+    if (lit) { const w1 = box(0.7, 0.8, 0.1, E(0xffbf6a, 6), 0.8, 1.6, 1.78), w2 = box(0.7, 0.8, 0.1, E(0xffbf6a, 5), -1.2, 1.6, 1.78); g.add(w1); g.add(w2); const gl = glow(0xffb45a, variant === 'last' ? 14 : 10, x, y + 2.5, z, 0.7); scene.add(gl); const pl = (k === lastIdx || k < 12) ? point(scene, 0xffa64d, k === lastIdx ? 260 : 90, 40, x, y + 3, z + 4) : null; farms.push({ k, w: [w1, w2], gl, pl, last: k === lastIdx }); }
     else g.add(box(0.7, 0.8, 0.1, M(0x0c0e12, 0.4), 0.8, 1.6, 1.78));
     scene.add(g);
   }
@@ -523,6 +531,7 @@ export function valley(scene, { variant }) {
   const moon = new THREE.DirectionalLight(0x9db5e6, 2.4); moon.position.set(-60, 120, 40); scene.add(moon);
   hemi(scene, 0x3d5282, 0x0a0c10, 0.8);
   const stars = dust(1500, [-400, 120, -500, 400, 300, -300], 0xffffff, 0.8, 0.8); scene.add(stars);
+  return { farms };
 }
 
 export const SETS = { bedroom, barn, countryside, supermarket, market, stall, bakery, foodbank, wheat, park, fallow, gate, valley };

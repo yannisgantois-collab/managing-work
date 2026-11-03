@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Newsreader;font-weight:500;font-style:normal;src:url(node_modules/@fontsource/newsreader/files/newsreader-latin-500-normal.woff2)}
+@font-face{font-family:Newsreader;font-weight:600;font-style:normal;src:url(node_modules/@fontsource/newsreader/files/newsreader-latin-600-normal.woff2)}
+@font-face{font-family:Newsreader;font-weight:500;font-style:italic;src:url(node_modules/@fontsource/newsreader/files/newsreader-latin-500-italic.woff2)}
+@font-face{font-family:Newsreader;font-weight:600;font-style:italic;src:url(node_modules/@fontsource/newsreader/files/newsreader-latin-600-italic.woff2)}
+@font-face{font-family:Inter;font-weight:600;src:url(node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2)}
+@font-face{font-family:Inter;font-weight:700;src:url(node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2)}
+@font-face{font-family:Inter;font-weight:800;src:url(node_modules/@fontsource/inter/files/inter-latin-800-normal.woff2)}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;src:url(node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2)}
+@font-face{font-family:'IBM Plex Mono';font-weight:600;src:url(node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2)}
+html,body{margin:0;background:#000;overflow:hidden}
+#wrap{position:relative;width:var(--w);height:var(--h);overflow:hidden}
+#stage canvas{display:block;width:var(--w)!important;height:var(--h)!important}
+#ui{position:absolute;inset:0;pointer-events:none;color:#fff}
+.title{position:absolute;left:calc(80*var(--u));width:calc(840*var(--u));top:25%;text-align:center;font:500 calc(80*var(--u))/1.12 Newsreader;
+  text-shadow:0 calc(3*var(--u)) calc(22*var(--u)) rgba(0,0,0,.75),0 0 calc(3*var(--u)) rgba(0,0,0,.55)}
+.hud::before{content:'';position:absolute;left:calc(-90*var(--u));top:calc(-60*var(--u));right:calc(-160*var(--u));bottom:calc(-60*var(--u));background:radial-gradient(closest-side,rgba(0,0,0,.42),rgba(0,0,0,0));z-index:-1}
+.hud{z-index:1;position:absolute;left:calc(76*var(--u));top:44.5%;text-shadow:0 calc(2*var(--u)) calc(14*var(--u)) rgba(0,0,0,.6),0 0 calc(2*var(--u)) rgba(0,0,0,.45)}
+.hud .lab{font:600 calc(23*var(--u)) Inter;letter-spacing:.2em}
+.hud .val{font:500 calc(90*var(--u))/1.02 Newsreader;font-variant-numeric:lining-nums tabular-nums;margin:calc(4*var(--u)) 0 calc(6*var(--u))}
+.hud .tl{font:600 calc(21*var(--u)) Inter;letter-spacing:.22em;opacity:.95}
+.hud .sub{margin-top:calc(22*var(--u));font:600 calc(19*var(--u)) Inter;letter-spacing:.2em;opacity:.95}
+.hud .sub b{font:500 calc(44*var(--u)) Newsreader;letter-spacing:0;margin-left:calc(12*var(--u));vertical-align:-.12em}
+.cap{position:absolute;left:calc(70*var(--u));width:calc(860*var(--u));top:63%;text-align:center;font:italic 500 calc(54*var(--u))/1.2 Newsreader;
+  text-shadow:0 calc(2*var(--u)) calc(18*var(--u)) rgba(0,0,0,.8),0 0 calc(3*var(--u)) rgba(0,0,0,.6)}
+.capbg{position:absolute;left:0;right:0;top:57%;height:20%;background:radial-gradient(60% 50% at 50% 50%,rgba(0,0,0,.42),rgba(0,0,0,0))}
+.end{position:absolute;inset:0;background:#101113;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 calc(110*var(--u))}
+.end h1{font:500 calc(68*var(--u))/1.16 Newsreader;color:#f2f0ea;margin:0 0 calc(44*var(--u))}
+.end .mono{font:500 calc(26*var(--u))/1.75 'IBM Plex Mono';letter-spacing:.06em;color:rgba(242,240,234,.74)}
+.end svg{width:calc(84*var(--u));margin:calc(60*var(--u)) 0 calc(30*var(--u))}
+.end .cta{font:600 calc(30*var(--u))/1.65 'IBM Plex Mono';letter-spacing:.05em;color:#fff;text-decoration:underline;text-underline-offset:.32em;text-decoration-thickness:calc(2*var(--u))}
+.end .handle{position:absolute;bottom:22%;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:calc(14*var(--u));font:600 calc(27*var(--u)) Inter;color:rgba(255,255,255,.86)}
+.end .handle i{display:inline-block;width:calc(44*var(--u));height:calc(44*var(--u));border-radius:50%;background:#2f6b3a;border:calc(3*var(--u)) solid #d9b45a}
+</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+</head><body>
+<div id="wrap"><div id="stage"></div><div id="ui"></div></div>
+<script type="module">
+import * as L from './lib.js';
+import { SETS, CAMS } from './scenes.js';
+import { CAMANIM, objAnim, hudValue } from './anim.js';
+const q = new URLSearchParams(location.search);
+const W = +(q.get('w') || 1080), H = Math.round(W * 16 / 9), id = q.get('shot') || 'P01', fps = +(q.get('fps') || 30), sc = +(q.get('scale') || 1);
+const Wi = Math.round(W * sc), Hi = Math.round(H * sc);
+document.documentElement.style.setProperty('--w', W + 'px'); document.documentElement.style.setProperty('--h', H + 'px');
+document.documentElement.style.setProperty('--u', (W / 1080) + 'px');
+const nb = (s) => s.replace(/ ([?!:;»])/g, ' $1').replace(/« /g, '« ').replace(/(\d) (\d{3})/g, '$1 $2');
+try {
+  await Promise.all(['500 64px Newsreader', '600 64px Newsreader', 'italic 500 64px Newsreader', 'italic 600 64px Newsreader', '600 64px Inter', '700 64px Inter', '800 64px Inter', '500 30px "IBM Plex Mono"', '600 30px "IBM Plex Mono"'].map(f => document.fonts.load(f)));
+  const data = await (await fetch('./shots.json')).json();
+  const shot = data.shots.find(s => s.id === id);
+  const nFrames = Math.round(shot.dur * fps);
+  let renderer, scene, camera, comp, ctx, base, grain;
+  if (shot.set !== 'endcard') {
+    const [fov, pos, look, fin] = CAMS[shot.set + ':' + shot.cam];
+    ({ renderer, scene } = L.makeStage({ W: Wi, H: Hi, env: 0.3 }));
+    L.seed(7);
+    ctx = SETS[shot.set](scene, { variant: shot.cam });
+    camera = L.cam(Wi, Hi, fov, pos, look, fin.up);
+    comp = L.finish({ renderer, scene, camera, W: Wi, H: Hi, ...fin });
+    grain = comp.passes[comp.passes.length - 1];
+    base = { fov, pos, look, up: fin.up };
+  }
+  // overlay DOM, built once
+  const u = document.getElementById('ui'); let h = '';
+  if (shot.set === 'endcard') {
+    h += `<div class="end"><h1>${nb(data.title)}</h1><div class="mono">${shot.end.mono.map(nb).join('<br>')}</div>
+      <svg id="arrow" viewBox="0 0 64 56" fill="none"><path d="M36 4 L60 24 L36 44 V32 C20 32 10 37 3 50 C5 30 15 18 36 16 Z" fill="#fff"/></svg>
+      <div class="cta">${shot.end.cta.map(nb).join('<br>')}</div><div class="handle"><i></i>${data.handle}</div></div>`;
+  } else {
+    if (shot.cap) h += `<div class="capbg" id="capbg"></div>`;
+    if (shot.title) h += `<div class="title">${nb(data.title)}</div>`;
+    if (shot.hud) {
+      h += `<div class="hud"><div class="lab">${shot.hud.label}</div><div class="val" id="val">${nb(shot.hud.value)}</div><div class="tl">${shot.hud.tl}</div>`;
+      if (shot.hud.sub) h += `<div class="sub">${shot.hud.sub[0]}<b>${nb(shot.hud.sub[1])}</b></div>`;
+      h += `</div>`;
+    }
+    if (shot.cap) h += `<div class="cap" id="cap">${nb(shot.cap)}</div>`;
+  }
+  u.innerHTML = h;
+  const val = document.getElementById('val'), cap = document.getElementById('cap'), capbg = document.getElementById('capbg'), arrow = document.getElementById('arrow');
+  window.info = { nFrames, farms: ctx && ctx.farms ? ctx.farms.filter(f => !f.last).length : null };
+  window.frame = (i) => {
+    const t = i / fps, uu = Math.min(1, t / shot.dur), T = shot.t0 + t;
+    let st = {};
+    if (camera) {
+      const c = (CAMANIM[id] || ((x, b) => b))(uu, base, t);
+      camera.fov = c.fov; camera.position.set(...c.pos); if (c.up) camera.up.set(...c.up); camera.lookAt(...c.look); camera.updateProjectionMatrix();
+      st = objAnim(id, ctx, t, shot.dur, i);
+      grain.uniforms.seed.value = (i * 0.137) % 1;
+      comp.render();
+    }
+    if (val) { const v = hudValue(id, T, t, shot.dur, st); if (v !== null) val.textContent = v; }
+    if (cap) { const a = Math.min(1, Math.max(0, (t - 0.12) / 0.22)); cap.style.opacity = a; cap.style.transform = `translateY(${(1 - a) * 8 * W / 1080}px)`; capbg.style.opacity = a; }
+    if (arrow) { arrow.style.transform = `translateX(${Math.sin(t * 5) * 7 * W / 1080}px)`; }
+    if (shot.set === 'endcard') { const a = Math.min(1, t / 0.3); document.querySelector('.end').style.opacity = 0.35 + 0.65 * a; }
+    return st;
+  };
+  document.title = 'ready';
+} catch (e) { console.log('ERR ' + e.message + '\n' + e.stack); document.title = 'error'; }
+</script>
+</body></html>
