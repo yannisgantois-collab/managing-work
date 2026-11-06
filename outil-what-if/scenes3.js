@@ -274,7 +274,7 @@ function pharmacyCross(texts) {
 function umbrellaPerson() {
   const p = person({ ...SUMMER(), rsh: [-1.25, -0.1], rel: -1.0, top: 0xe7c86b }); const u = new THREE.Group();
   u.add(mesh(new THREE.ConeGeometry(0.62, 0.28, 16, 1, true), M(0x2c3e66, 0.7), 0, 0.82, 0)); u.add(cyl(0.008, 0.008, 0.85, M(0x222222, 0.5), 0, 0.4, 0, 6));
-  u.position.set(0, -0.32, 0.1); p.userData.rig.rEl.add(u); return p;
+  u.children[0].position.y = 0; u.children[1].position.y = -0.42; u.position.set(0.1, 1.3, 0.1); p.userData.rig.torso.add(u); return p;   // carried above the head, steady while she walks
 }
 function busGeneric() {
   const g = new THREE.Group(); g.add(rbox(12, 3.0, 2.5, 0.3, M(0xeeeeec, 0.4, 0.1), 0, 1.75, 0)); g.add(box(12.02, 0.9, 2.52, glass(0x1e2630, 0.85), 0, 2.2, 0)); g.add(box(12.04, 0.25, 2.54, M(0x3c6e9e, 0.5), 0, 0.85, 0));
@@ -319,7 +319,7 @@ export function street(scene, { variant }) {
     const ps = people(7, [5.4, 8.0, -42, -14], { y: 0.15 }); ps.forEach((p, i) => { p.rotation.y = (i % 2 ? Math.PI : 0) + rr(-0.08, 0.08); scene.add(p); walkers.push([p, rr(0.7, 1.05), p.position.z]); });
     const ls = people(3, [-8.2, -6.0, -60, -30], { y: 0.15 }); ls.forEach((p, i) => { p.rotation.y = i % 2 ? Math.PI : 0; scene.add(p); walkers.push([p, rr(0.9, 1.2), p.position.z]); });
     const bus = busGeneric(); bus.position.set(-2.2, 0, -90); bus.rotation.y = Math.PI / 2; scene.add(bus);
-    anim.push((t) => { walkers.forEach(([p, sp, z0], i) => { p.position.z = z0 + Math.cos(p.rotation.y) * sp * t; animPerson(p, t, { walk: sp * 1.35, stride: 0.36, look: 0.4, phase: i }); });
+    anim.push((t) => { walkers.forEach(([p, sp, z0], i) => { p.position.z = z0 + Math.cos(p.rotation.y) * sp * t; animPerson(p, t, { walk: sp * 1.35, stride: 0.36, look: 0.4, phase: i, armSwing: p === u ? 0 : 1 }); });
       animPerson(drinker, t, { breath: 1.3, look: 0.1, phase: 3 }); drinker.userData.rig.rSh.rotation.x += Math.sin(t * 1.4) * 0.12; bus.position.z = -90 + 5.5 * t; });
   } else if (peak) {
     const mist = new THREE.Group(); mist.position.set(5.2, 0.15, -8); scene.add(mist);
