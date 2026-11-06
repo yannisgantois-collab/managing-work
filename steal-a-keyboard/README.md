@@ -15,6 +15,10 @@ Un jeu Roblox qui fusionne deux concepts qui marchent :
 6. **Vole** les claviers des autres bases (maintiens E). Le propriétaire peut te **gifler avec son clavier** pour te le faire lâcher.
 7. **Protège ta base** en marchant sur la touche **LOCK** : 60 secondes de barrière.
 8. **Bonus : la tour ASMR** (la map de ta vidéo) derrière la place centrale. Arrive en haut sur la touche **ENTER** et tu gagnes un clavier gratuit de la zone suivante (une fois toutes les 10 minutes).
+9. **Rebirth** (boutique, à partir de $1M) : tu repars de zéro en argent, en Speed et en switch, mais tu **gardes tes claviers et tes emplacements**, avec un bonus permanent de +50 % d'argent et +50 % de Speed par rebirth.
+10. **Index** (bouton 📖, touche J) : la collection des 24 claviers en 3D. Ceux qu'il te manque sont des silhouettes « ??? ». Chaque zone complétée donne **+10 % d'argent pour toujours**.
+11. **Événements de serveur**, automatiques toutes les 12 minutes, pendant 3 minutes : ⚡ Double Speed, 💰 Double Cash, 🌟 Golden Hour (mutations ×3), ⌨️ Keyboard Rain (claviers ×4). Une bannière affiche le temps restant.
+12. **Classements** sur la place centrale : 💰 TOP EARNERS (argent gagné au total) et 🥷 TOP THIEVES (vols réussis), pour tous les serveurs.
 
 Ce qui est repris de la vidéo :
 
@@ -32,7 +36,7 @@ Ce qui est repris de la vidéo :
 2. Clique sur **Play** pour tester seul.
 3. Pour tester le vol à plusieurs : onglet **Test** > **Clients and Servers** > choisis **2 Players** > **Start**.
 
-Commandes : **E** pour ramasser ou voler, **clic** pour la gifle (outil « Keyboard Slap »), **B** pour la boutique, **N** pour les réglages ASMR. Sur téléphone, tout se fait aux boutons.
+Commandes : **E** pour ramasser ou voler, **clic** pour la gifle (outil « Keyboard Slap »), **B** pour la boutique, **J** pour l'index, **N** pour les réglages ASMR. Sur téléphone, tout se fait aux boutons.
 
 ## ✅ Avant de publier
 
@@ -43,6 +47,17 @@ Dans **Home > Game Settings** :
 - **Avatar** : R15 conseillé (R6 fonctionne aussi).
 
 Ensuite : **File > Publish to Roblox**.
+
+## 🔄 Mettre à jour un jeu déjà publié
+
+Quand je te donne une nouvelle version de `StealAKeyboard.rbxl` :
+
+1. Ouvre le nouveau fichier dans Studio (**File > Open from File**).
+2. Fais **File > Publish to Roblox As…**, choisis ton expérience « Steal a Keyboard », puis son lieu, et confirme le remplacement.
+
+Les données des joueurs (argent, claviers, rebirths…) sont gardées : elles sont sur les serveurs de Roblox, pas dans le fichier.
+
+⚠️ Tout ce que tu as modifié toi-même dans Studio (par exemple les IDs de sons collés dans `SoundConfig`) est remplacé par le nouveau fichier. Envoie-moi tes IDs : je les mets directement dans le code pour qu'ils restent dans toutes les versions.
 
 ## 🎧 Mettre les vrais sons ASMR (5 minutes)
 
@@ -82,6 +97,10 @@ Tu peux aussi mettre plusieurs IDs par profil (de vrais enregistrements de clavi
 | Couleurs des keycaps / RGB / bases | `Shared > Themes` |
 | Sons | `Shared > SoundConfig` |
 | Produits Robux (boosts de Speed ou de cash) | `Config.Products` : colle l'ID d'un Developer Product créé dans le Creator Hub |
+| Rebirths (prix, bonus) | `Config.Rebirth` |
+| Événements (fréquence, durée, liste) | `Config.Events` (`Enabled = false` pour les couper) |
+| Récompense de groupe | `Config.Group.Id` : l'ID de ton groupe Roblox (le nombre dans l'adresse de sa page) |
+| Classements | `Config.Leaderboards` (change `Version` pour les remettre à zéro) |
 
 **La map** est dans `Workspace > Map` et tu peux la modifier directement dans Studio. Une touche est un Model `Key` qui contient `Cap`, `Top` et `Glow`, avec le tag `Key`. **Duplique des touches pour construire de nouveaux chemins** : elles s'enfonceront, s'allumeront et feront du son automatiquement. Les touches spéciales utilisent l'attribut `Action` :
 
@@ -129,17 +148,17 @@ Structure :
 ```
 src/shared/   Config, Items, SoundConfig, Themes, Format, KeyboardBuilder, MapGenerator
 src/server/   Main + Services : Data (sauvegarde), Player, Plot (bases), Zone, Carry (porter/voler/gifler),
-              Speed (vitesse par touche), Shop, Tower, World, ItemModels
+              Speed (vitesse par touche), Shop, Tower, World, ItemModels, Bonus (multiplicateurs),
+              Event (événements), Leaderboard (classements)
 src/client/   Main + Controllers : KeyEngine (touches ASMR), SoundController, Settings, WorldController,
-              UI (Hud, ShopPanel, SettingsPanel)
+              UI (Hud, ShopPanel, SettingsPanel, IndexPanel)
 tools/        build-map.luau, check.luau, generate_sounds.py
 tests/        smoke-server.luau, smoke-client.luau (parties simulées dans Lune)
 ```
 
 ## 💡 Idées pour les prochaines mises à jour
 
-- **Rebirth** : remise à zéro contre un multiplicateur permanent.
 - **Gardiens** dans les zones, pour rendre la récupération des claviers plus dangereuse.
-- **Index** : un écran de collection de tous les claviers (les données `Index` sont déjà sauvegardées).
-- **Classement global** (OrderedDataStore) des plus gros voleurs et des plus riches.
-- **Événements** : pluie de claviers dorés, heure double Speed…
+- **Nouvelles zones** et nouveaux claviers (il suffit d'ajouter des lignes dans `Config.Zones` et `Items`, puis de régénérer la map).
+- **Quêtes quotidiennes** (« vole 3 claviers », « appuie sur 5 000 touches ») avec récompenses.
+- **Boutique de trails / effets de pas** (gratuits ou en Robux) qui changent la couleur des touches sous tes pieds.

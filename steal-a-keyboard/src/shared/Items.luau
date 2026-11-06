@@ -415,15 +415,16 @@ function Items.rollForZone(zoneIndex: number, rng: () -> number)
 	return pool[#pool]
 end
 
--- Tirage d'une mutation
-function Items.rollMutation(rng: () -> number): string
+-- Tirage d'une mutation. chanceMultiplier (optionnel) : 3 = chances x3 (Golden Hour)
+function Items.rollMutation(rng: () -> number, chanceMultiplier: number?): string
+	local multiplier = chanceMultiplier or 1
 	local roll = rng()
 	for i = #Items.Mutations, 2, -1 do
-		local mutation = Items.Mutations[i]
-		if roll < mutation.Chance then
-			return mutation.Name
+		local chance = Items.Mutations[i].Chance * multiplier
+		if roll < chance then
+			return Items.Mutations[i].Name
 		end
-		roll -= mutation.Chance
+		roll -= chance
 	end
 	return "None"
 end

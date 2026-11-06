@@ -23,6 +23,7 @@ local popupLayer: Frame
 local flash: Frame
 local cashValue, speedValue, switchLabel
 local banner, bannerText
+local eventBanner, eventText
 local statusLabel, towerLabel
 local notifCounter = 0
 
@@ -181,13 +182,28 @@ local function refreshStats()
 	local tier = player:GetAttribute("SwitchTier") or 1
 	local switch = Config.Switches[tier] or Config.Switches[1]
 	local income = player:GetAttribute("Income") or 0
+	local rebirths = player:GetAttribute("Rebirths") or 0
 	switchLabel.Text = string.format(
-		"⌨️ %s  •  +%s ⚡/key  •  🏃 %d  •  💸 %s/s",
+		"%s⌨️ %s  •  +%s ⚡/key  •  🏃 %d  •  💸 %s/s",
+		rebirths > 0 and ("🔁 " .. rebirths .. "  •  ") or "",
 		switch.Name,
-		Format.short(switch.Gain),
+		Format.short(switch.Gain * (player:GetAttribute("SpeedMultiplier") or 1)),
 		math.floor(Config.walkSpeedFor(speed)),
 		Format.cash(income)
 	)
+end
+
+-- Bannière de l'événement en cours (attributs posés sur ReplicatedStorage par le serveur)
+local function refreshEvent()
+	local name = ReplicatedStorage:GetAttribute("EventName")
+	local endsAt = ReplicatedStorage:GetAttribute("EventEndsAt") or 0
+	local remaining = endsAt - workspace:GetServerTimeNow()
+	if name and remaining > 0 then
+		eventBanner.Visible = true
+		eventText.Text = name .. "  •  " .. Format.time(remaining) .. "  —  " .. (ReplicatedStorage:GetAttribute("EventDescription") or "")
+	else
+		eventBanner.Visible = false
+	end
 end
 
 local function refreshBanner()
@@ -334,18 +350,39 @@ function Hud.init(deps)
 	Ui.autoScale(banner)
 	bannerText = Ui.label({ Size = UDim2.new(1, -20, 1, -8), Position = UDim2.new(0, 10, 0, 4), MaxTextSize = 24, Parent = banner })
 
+	-- Bannière d'événement de serveur
+	eventBanner = Ui.new("Frame", {
+		Name = "EventBanner",
+		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.new(0.5, 0, 0, 192),
+		Size = UDim2.new(0, 600, 0, 40),
+		BackgroundColor3 = Color3.fromRGB(70, 40, 10),
+		BackgroundTransparency = 0.1,
+		Visible = false,
+		Parent = gui,
+	}, { Ui.corner(14), Ui.stroke(Ui.Colors.Gold, 3) })
+	Ui.autoScale(eventBanner)
+	eventText = Ui.label({
+		TextColor3 = Ui.Colors.Gold,
+		Size = UDim2.new(1, -20, 1, -8),
+		Position = UDim2.new(0, 10, 0, 4),
+		MaxTextSize = 22,
+		Parent = eventBanner,
+	})
+
 	-- Gauche : boutons
 	local side = Ui.new("Frame", {
 		Name = "Buttons",
 		AnchorPoint = Vector2.new(0, 0.5),
 		Position = UDim2.new(0, 12, 0.5, 0),
-		Size = UDim2.new(0, 86, 0, 190),
+		Size = UDim2.new(0, 86, 0, 290),
 		BackgroundTransparency = 1,
 		Parent = gui,
 	}, { Ui.list(Enum.FillDirection.Vertical, 14) })
 	Ui.autoScale(side)
 	sideButton(side, "🛒", "SHOP", Ui.Colors.Gold, 1, deps.onShop)
-	sideButton(side, "⚙️", "ASMR", Ui.Colors.Speed, 2, deps.onSettings)
+	sideButton(side, "📖", "INDEX", Color3.fromRGB(190, 120, 255), 2, deps.onIndex)
+	sideButton(side, "⚙️", "ASMR", Ui.Colors.Speed, 3, deps.onSettings)
 
 	-- Droite : notifications
 	notifications = Ui.new("Frame", {
@@ -361,7 +398,7 @@ function Hud.init(deps)
 	popupLayer = Ui.new("Frame", { Name = "Popups", Size = UDim2.fromScale(1, 1), BackgroundTransparency = 1, Parent = gui })
 
 	-- Mises à jour
-	for _, name in { "Cash", "Speed", "SwitchTier", "Income" } do
+	for _, name in { "Cash", "Speed", "SwitchTier", "Income", "Rebirths", "SpeedMultiplier" } do
 		player:GetAttributeChangedSignal(name):Connect(refreshStats)
 	end
 	for _, name in { "CarryingName", "CarryingStolen" } do
@@ -384,10 +421,11 @@ function Hud.init(deps)
 		while true do
 			task.wait(0.35)
 			if gained >= 1 then
-				popup("+" .. Format.short(gained) .. " ⚡", Ui.Colors.Speed, UDim2.new(0.5, 130 * (math.random() - 0.5), 0, 190), 30)
+				popup("+" .. Format.short(gained) .. " ⚡", Ui.Colors.Speed, UDim2.new(0.5, 130 * (math.random() - 0.5), 0, 250), 30)
 				gained = 0
 			end
 			refreshStatus()
+			refreshEvent()
 		end
 	end)
 

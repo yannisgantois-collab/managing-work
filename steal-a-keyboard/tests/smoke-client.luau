@@ -12,6 +12,11 @@ local process = require("@lune/process")
 local serde = require("@lune/serde")
 
 local Vector3, CFrame, Enum = roblox.Vector3, roblox.CFrame, roblox.Enum
+-- sécurité : si un test plante au milieu, on quitte au lieu de rester bloqué
+task.delay(120, function()
+	print("⏱️ Le test a dépassé 120 s : arrêt.")
+	process.exit(1)
+end)
 local PLACE = "build/StealAKeyboard.rbxl"
 local dm = roblox.deserializePlace(fs.readFile(PLACE))
 
@@ -708,6 +713,62 @@ assertTrue(last and last[1] == "SaveSettings" and last[2].SoundProfile == "Water
 mocks.UserInputService.InputBegan:Fire({ KeyCode = Enum.KeyCode.B }, false)
 task.wait(0.05)
 assertTrue(shopPanel.Visible, "touche B ouvre la boutique")
+
+-- Mise à jour 1 : index 3D, bannière d'événement, carte rebirth
+do
+	setAttr("IndexList", "office_basic,gamer_tkl")
+	setAttr("CompletedZones", 0)
+	local IndexModule = module("IndexPanel")
+	IndexModule.open()
+	local indexPanel = hud:FindFirstChild("IndexPanel")
+	assertTrue(indexPanel and indexPanel.Visible, "index ouvert")
+	assertTrue(findText(indexPanel, "2 / 24 found") ~= nil, "compteur de l'index (2 / 24)")
+	assertTrue(findText(indexPanel, "Office Keyboard") ~= nil and findText(indexPanel, "???") ~= nil, "claviers trouvés et silhouettes ???")
+	local viewports, models = 0, 0
+	for _, d in indexPanel:GetDescendants() do
+		if d:IsA("ViewportFrame") then
+			viewports += 1
+			if d:FindFirstChildOfClass("Model") and d:FindFirstChildOfClass("Camera") then
+				models += 1
+			end
+		end
+	end
+	assertTrue(viewports == 24 and models == 24, "24 aperçus 3D avec caméra (" .. models .. ")")
+	setAttr("IndexList", "office_basic,office_laptop,office_numpad,office_ergo,gamer_tkl")
+	setAttr("CompletedZones", 1)
+	task.wait(0.05)
+	assertTrue(findText(indexPanel, "+10% cash") ~= nil, "zone complète affichée dans l'index")
+	IndexModule.close()
+
+	-- bannière d'événement
+	local replicated = dm:GetService("ReplicatedStorage")
+	replicated:SetAttribute("EventName", "⚡ DOUBLE SPEED")
+	replicated:SetAttribute("EventDescription", "Every key gives 2x Speed!")
+	replicated:SetAttribute("EventEndsAt", ext(Workspace).GetServerTimeNow() + 90)
+	task.wait(0.5)
+	local banner = hud:FindFirstChild("EventBanner")
+	assertTrue(banner and banner.Visible and findText(banner, "DOUBLE SPEED") ~= nil, "bannière d'événement affichée")
+	replicated:SetAttribute("EventName", nil)
+	task.wait(0.5)
+	assertTrue(not banner.Visible, "bannière cachée après l'événement")
+
+	-- carte rebirth (2 appuis)
+	setAttr("Cash", 2000000)
+	local Shop2 = module("ShopPanel")
+	Shop2.open()
+	local shopPanel2 = hud:FindFirstChild("ShopPanel")
+	local rebirthButton = findText(shopPanel2, "REBIRTH $1M")
+	assertTrue(rebirthButton ~= nil, "bouton REBIRTH $1M")
+	if rebirthButton then
+		ext(rebirthButton).Activated:Fire()
+		task.wait(0.05)
+		assertTrue(rebirthButton.Text == "TAP AGAIN TO CONFIRM", "le rebirth demande une confirmation")
+		ext(rebirthButton).Activated:Fire()
+		task.wait(0.1)
+		assertTrue(findText(hud, "ok Rebirth") ~= nil, "rebirth envoyé au serveur après confirmation")
+	end
+	Shop2.close()
+end
 
 print(string.format("\n%d erreur(s)", #errors))
 for _, e in errors do

@@ -101,7 +101,7 @@ local function update(dt: number)
 					-- le bonus x3 ne marche que sur la piste de TA base
 					local ownTraining = key:GetAttribute("Training") and key:GetAttribute("PlotIndex") == player:GetAttribute("PlotIndex")
 					local multiplier = ownTraining and Config.Speed.TrainingMultiplier or 1
-					Game.Data.addSpeed(player, presses * switch.Gain * multiplier)
+					Game.Data.addSpeed(player, presses * switch.Gain * multiplier * Game.Bonus.speed(player))
 					SpeedService.applyWalkSpeed(player)
 				end
 			end

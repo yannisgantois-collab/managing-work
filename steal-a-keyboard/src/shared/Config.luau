@@ -176,6 +176,71 @@ Config.Tower = {
 }
 
 ----------------------------------------------------------------------
+-- 🔁 REBIRTH
+-- Remet à zéro l'argent, la Speed et le switch, mais GARDE tes claviers et
+-- tes emplacements. En échange : bonus permanents d'argent et de Speed.
+----------------------------------------------------------------------
+Config.Rebirth = {
+	BaseCost = 1000000, -- prix du 1er rebirth ($1M)
+	CostMultiplier = 5, -- chaque rebirth coûte 5x plus cher que le précédent
+	CashBonus = 0.5, -- +50 % d'argent par rebirth
+	SpeedBonus = 0.5, -- +50 % de Speed par touche par rebirth
+	Max = 30,
+}
+
+function Config.rebirthCost(rebirths: number): number
+	return Config.Rebirth.BaseCost * Config.Rebirth.CostMultiplier ^ rebirths
+end
+
+----------------------------------------------------------------------
+-- 📖 INDEX : trouver tous les claviers d'une zone = bonus d'argent permanent
+----------------------------------------------------------------------
+Config.Index = {
+	ZoneBonus = 0.1, -- +10 % d'argent par zone complétée
+}
+
+----------------------------------------------------------------------
+-- 🎉 ÉVÉNEMENTS DE SERVEUR (automatiques, pour tout le serveur)
+----------------------------------------------------------------------
+Config.Events = {
+	Enabled = true,
+	FirstDelay = 4 * 60, -- premier événement 4 min après l'ouverture du serveur
+	Interval = 12 * 60, -- puis un événement toutes les 12 minutes
+	Duration = 3 * 60, -- chaque événement dure 3 minutes
+	SpeedMultiplier = 2, -- DoubleSpeed
+	CashMultiplier = 2, -- DoubleCash
+	MutationMultiplier = 3, -- GoldenHour
+	SpawnSpeedup = 4, -- KeyboardRain
+	List = {
+		{ Id = "DoubleSpeed", Name = "⚡ DOUBLE SPEED", Description = "Every key gives 2x Speed!" },
+		{ Id = "DoubleCash", Name = "💰 DOUBLE CASH", Description = "Your keyboards earn 2x cash!" },
+		{ Id = "GoldenHour", Name = "🌟 GOLDEN HOUR", Description = "Gold, Diamond and Rainbow keyboards are 3x more common!" },
+		{ Id = "KeyboardRain", Name = "⌨️ KEYBOARD RAIN", Description = "Keyboards spawn 4x faster in every zone!" },
+	},
+}
+
+----------------------------------------------------------------------
+-- 👥 RÉCOMPENSE DE GROUPE
+-- Colle l'ID de ton groupe Roblox (communauté) : ses membres reçoivent ce
+-- bonus une seule fois. 0 = désactivé.
+----------------------------------------------------------------------
+Config.Group = {
+	Id = 0,
+	RewardSpeed = 2500,
+	RewardCash = 1000,
+}
+
+----------------------------------------------------------------------
+-- 🏆 CLASSEMENTS (les 2 panneaux de la place centrale)
+----------------------------------------------------------------------
+Config.Leaderboards = {
+	RefreshInterval = 60, -- secondes entre deux mises à jour des panneaux
+	SaveInterval = 120, -- secondes entre deux envois des scores
+	Size = 10, -- lignes affichées (10 maximum)
+	Version = "v1", -- change ce texte pour remettre les classements à zéro
+}
+
+----------------------------------------------------------------------
 -- 🌍 MONDE
 ----------------------------------------------------------------------
 Config.World = {

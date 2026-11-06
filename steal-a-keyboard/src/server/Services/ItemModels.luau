@@ -34,7 +34,8 @@ function ItemModels.describe(record): string
 end
 
 -- record = { Id = "gamer_tkl", Mutation = "Gold" }
-function ItemModels.build(record, baseCFrame: CFrame)
+-- incomeMultiplier (optionnel) : bonus du propriétaire, pour afficher le vrai "$/s"
+function ItemModels.build(record, baseCFrame: CFrame, incomeMultiplier: number?)
 	local item = Items.get(record.Id)
 	if not item then
 		warn("[Items] Clavier inconnu :", record.Id)
@@ -45,7 +46,7 @@ function ItemModels.build(record, baseCFrame: CFrame)
 		Rarity = Items.Rarities[item.Rarity],
 		RarityName = item.Rarity,
 		Mutation = Items.getMutation(record.Mutation),
-		IncomeText = Format.cash(Items.incomeOf(record)) .. "/s",
+		IncomeText = Format.cash(Items.incomeOf(record) * (incomeMultiplier or 1)) .. "/s",
 		BaseCFrame = baseCFrame,
 	})
 	model:SetAttribute("Rarity", item.Rarity)

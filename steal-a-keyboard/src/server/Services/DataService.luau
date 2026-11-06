@@ -36,9 +36,11 @@ local DEFAULT_DATA = {
 	Speed = 0,
 	SwitchTier = 1,
 	SlotCount = Config.Slots.Start,
+	Rebirths = 0,
+	GroupRewardClaimed = false,
 	Slots = {}, -- ["1"] = { Id = "office_basic", Mutation = "None", Pending = 0 }
 	Index = {}, -- ["office_basic"] = true (claviers déjà possédés)
-	Stats = { Steals = 0, TimesStolen = 0, Collected = 0, TowerWins = 0 },
+	Stats = { Steals = 0, TimesStolen = 0, Collected = 0, TowerWins = 0, TotalEarned = 0 },
 	Settings = {
 		SoundProfile = SoundConfig.DefaultProfile,
 		GlowMode = Themes.DefaultGlowMode,
@@ -205,6 +207,7 @@ function DataService.sync(player: Player)
 	player:SetAttribute("Speed", data.Speed)
 	player:SetAttribute("SwitchTier", data.SwitchTier)
 	player:SetAttribute("SlotCount", data.SlotCount)
+	player:SetAttribute("Rebirths", data.Rebirths or 0)
 	local leaderstats = player:FindFirstChild("leaderstats")
 	if leaderstats then
 		local cash = leaderstats:FindFirstChild("Cash")
@@ -215,7 +218,27 @@ function DataService.sync(player: Player)
 		if speed then
 			speed.Value = math.floor(data.Speed)
 		end
+		local rebirths = leaderstats:FindFirstChild("Rebirths")
+		if rebirths then
+			rebirths.Value = data.Rebirths or 0
+		end
 	end
+end
+
+-- Liste des claviers déjà trouvés, envoyée à l'interface ("id1,id2,...")
+function DataService.syncIndex(player: Player)
+	local profile = DataService.Profiles[player]
+	if not profile then
+		return
+	end
+	local ids = {}
+	for id, found in profile.Data.Index do
+		if found then
+			table.insert(ids, id)
+		end
+	end
+	table.sort(ids)
+	player:SetAttribute("IndexList", table.concat(ids, ","))
 end
 
 function DataService.applySettingsAttributes(player: Player)
@@ -245,11 +268,15 @@ function DataService.register(player: Player, profile)
 	local speed = Instance.new("IntValue")
 	speed.Name = "Speed"
 	speed.Parent = leaderstats
+	local rebirths = Instance.new("IntValue")
+	rebirths.Name = "Rebirths"
+	rebirths.Parent = leaderstats
 	leaderstats.Parent = player
 	player:SetAttribute("DataSaving", profile.CanSave)
 	player:SetAttribute("TowerReadyAt", profile.Data.TowerReadyAt or 0)
 	DataService.applySettingsAttributes(player)
 	DataService.sync(player)
+	DataService.syncIndex(player)
 end
 
 -- Sauvegarde finale + libération quand le joueur quitte
@@ -268,6 +295,9 @@ function DataService.addCash(player: Player, amount: number)
 		return
 	end
 	profile.Data.Cash = math.max(0, profile.Data.Cash + amount)
+	if amount > 0 then
+		profile.Data.Stats.TotalEarned = (profile.Data.Stats.TotalEarned or 0) + amount
+	end
 	DataService.sync(player)
 end
 

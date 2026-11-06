@@ -14,6 +14,7 @@ local WorldController = require(Controllers:WaitForChild("WorldController"))
 local Hud = require(UI:WaitForChild("Hud"))
 local ShopPanel = require(UI:WaitForChild("ShopPanel"))
 local SettingsPanel = require(UI:WaitForChild("SettingsPanel"))
+local IndexPanel = require(UI:WaitForChild("IndexPanel"))
 
 local player = Players.LocalPlayer
 
@@ -37,27 +38,41 @@ local gui = Hud.init({
 	SoundController = SoundController,
 	onShop = function()
 		SettingsPanel.close()
+		IndexPanel.close()
 		ShopPanel.toggle()
+	end,
+	onIndex = function()
+		ShopPanel.close()
+		SettingsPanel.close()
+		IndexPanel.toggle()
 	end,
 	onSettings = function()
 		ShopPanel.close()
+		IndexPanel.close()
 		SettingsPanel.toggle()
 	end,
 })
 ShopPanel.init(gui, Hud)
 SettingsPanel.init(gui, Settings, SoundController)
+IndexPanel.init(gui)
 
--- Raccourcis PC : B = boutique, N = réglages ASMR
+-- Raccourcis PC : B = boutique, N = réglages ASMR, J = index
 UserInputService.InputBegan:Connect(function(input, processed)
 	if processed then
 		return
 	end
 	if input.KeyCode == Enum.KeyCode.B then
 		SettingsPanel.close()
+		IndexPanel.close()
 		ShopPanel.toggle()
 	elseif input.KeyCode == Enum.KeyCode.N then
 		ShopPanel.close()
+		IndexPanel.close()
 		SettingsPanel.toggle()
+	elseif input.KeyCode == Enum.KeyCode.J then
+		ShopPanel.close()
+		SettingsPanel.close()
+		IndexPanel.toggle()
 	end
 end)
 

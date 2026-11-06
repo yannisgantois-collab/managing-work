@@ -22,7 +22,11 @@ local function roll(): number
 end
 
 local function nextDelay(): number
-	return rng:NextNumber(Config.Spawning.MinDelay, Config.Spawning.MaxDelay)
+	local delay = rng:NextNumber(Config.Spawning.MinDelay, Config.Spawning.MaxDelay)
+	if Game and Game.Event.isActive("KeyboardRain") then
+		delay /= Config.Events.SpawnSpeedup
+	end
+	return delay
 end
 
 local function despawn(pedestal)
@@ -64,7 +68,8 @@ local function spawnOnPedestal(zone, pedestal)
 		pedestal.NextSpawn = os.clock() + nextDelay()
 		return
 	end
-	local record = { Id = item.Id, Mutation = Items.rollMutation(roll) }
+	local mutationBoost = Game.Event.isActive("GoldenHour") and Config.Events.MutationMultiplier or 1
+	local record = { Id = item.Id, Mutation = Items.rollMutation(roll, mutationBoost) }
 	local model = ItemModels.build(record, pedestal.Anchor.CFrame)
 	if not model then
 		pedestal.NextSpawn = os.clock() + nextDelay()
@@ -126,6 +131,18 @@ end
 
 function ZoneService.getZone(index: number)
 	return zones[index]
+end
+
+-- Keyboard Rain : les socles vides se remplissent presque tout de suite
+function ZoneService.hurrySpawns()
+	local clock = os.clock()
+	for _, zone in zones do
+		for _, pedestal in zone.Pedestals do
+			if not pedestal.Model then
+				pedestal.NextSpawn = math.min(pedestal.NextSpawn, clock + rng:NextNumber(0.2, 1.5))
+			end
+		end
+	end
 end
 
 local function isInside(part: BasePart?, position: Vector3): boolean

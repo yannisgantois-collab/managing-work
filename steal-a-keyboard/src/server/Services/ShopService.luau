@@ -50,6 +50,36 @@ local function handle(player: Player, action)
 		Game.Plot.refresh(player)
 		Game.Player.effect(player, "Upgrade")
 		return true, "🏠 Slot " .. data.SlotCount .. " unlocked!"
+	elseif action == "Rebirth" then
+		local rebirths = data.Rebirths or 0
+		if rebirths >= Config.Rebirth.Max then
+			return false, "Max rebirth reached! 🏆"
+		end
+		if Game.Carry.isCarrying(player) then
+			return false, "Bring your keyboard home before you rebirth!"
+		end
+		local cost = Config.rebirthCost(rebirths)
+		if data.Cash < cost then
+			return false, "You need " .. Format.cash(cost) .. " to rebirth"
+		end
+		-- on garde les claviers et les emplacements ; on remet à zéro le reste
+		data.Cash = 0
+		data.Speed = 0
+		data.SwitchTier = 1
+		data.Rebirths = rebirths + 1
+		Game.Data.sync(player)
+		Game.Bonus.sync(player)
+		Game.Speed.applyWalkSpeed(player)
+		Game.Plot.refreshLabels(player)
+		Game.Player.effect(player, "TowerWin")
+		Game.Player.notifyAll("🔁 " .. player.DisplayName .. " reached REBIRTH " .. data.Rebirths .. "!", "Rare")
+		return true,
+			string.format(
+				"🔁 REBIRTH %d! Cash x%s, Speed x%s forever",
+				data.Rebirths,
+				tostring(1 + data.Rebirths * Config.Rebirth.CashBonus),
+				tostring(1 + data.Rebirths * Config.Rebirth.SpeedBonus)
+			)
 	end
 	return false, "Unknown action"
 end

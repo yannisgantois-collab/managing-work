@@ -63,6 +63,22 @@ check(Config.walkSpeedFor(1000) > Config.walkSpeedFor(100), "walkSpeedFor doit a
 check(Config.allowedZone(0) == 1, "allowedZone(0) doit être 1")
 check(Config.allowedZone(1e12) == #Config.Zones, "allowedZone(énorme) doit être la dernière zone")
 
+-- Rebirth, événements, classements
+check(Config.rebirthCost(1) > Config.rebirthCost(0), "Chaque rebirth doit coûter plus cher")
+check(Config.Rebirth.CashBonus > 0 and Config.Rebirth.SpeedBonus > 0, "Les bonus de rebirth doivent être > 0")
+check(Config.Index.ZoneBonus >= 0, "Bonus d'index négatif")
+local KNOWN_EVENTS = { DoubleSpeed = true, DoubleCash = true, GoldenHour = true, KeyboardRain = true }
+local eventIds = {}
+for _, event in Config.Events.List do
+	check(KNOWN_EVENTS[event.Id] == true, "Événement inconnu du code : " .. tostring(event.Id))
+	check(not eventIds[event.Id], "Événement en double : " .. tostring(event.Id))
+	eventIds[event.Id] = true
+	check(type(event.Name) == "string" and type(event.Description) == "string", "Événement sans nom/description")
+end
+check(Config.Events.Duration < Config.Events.Interval, "Un événement doit durer moins longtemps que l'intervalle")
+check(Config.Leaderboards.Size >= 1 and Config.Leaderboards.Size <= 10, "Les panneaux ont 10 lignes maximum")
+check(type(Config.Group.Id) == "number", "Config.Group.Id doit être un nombre (0 = désactivé)")
+
 -- 3. Items
 local ids = {}
 for _, item in Items.List do
@@ -78,6 +94,7 @@ for i = 2, #Items.Mutations do
 	totalChance += Items.Mutations[i].Chance
 end
 check(totalChance < 1, "Les chances de mutation dépassent 100 %")
+check(totalChance * Config.Events.MutationMultiplier < 1, "Golden Hour : les chances de mutation dépassent 100 %")
 
 -- tirages
 local seed = 1
@@ -98,6 +115,14 @@ for _ = 1, 20000 do
 end
 check((mutationCounts.None or 0) > 16000, "Trop de mutations")
 check((mutationCounts.Gold or 0) > (mutationCounts.Diamond or 0), "Gold doit être plus fréquent que Diamond")
+local boosted = 0
+for _ = 1, 20000 do
+	if Items.rollMutation(rng, Config.Events.MutationMultiplier) ~= "None" then
+		boosted += 1
+	end
+end
+local normal = 20000 - (mutationCounts.None or 0)
+check(boosted > normal * 2, "Golden Hour doit multiplier les mutations (" .. boosted .. " vs " .. normal .. ")")
 check(Items.incomeOf({ Id = "office_basic", Mutation = "Gold" }) == 2, "incomeOf avec mutation Gold")
 
 -- 4. Sons

@@ -81,7 +81,7 @@ local function spawnSlotModel(plot, s)
 	if not entry or not anchor then
 		return
 	end
-	local model = ItemModels.build(entry, anchor.CFrame)
+	local model = ItemModels.build(entry, anchor.CFrame, Game.Bonus.permanentCash(owner))
 	if not model then
 		profile.Data.Slots[tostring(s)] = nil -- clavier supprimé de la config
 		return
@@ -174,7 +174,23 @@ function PlotService.totalIncome(player: Player): number
 	for _, entry in profile.Data.Slots do
 		total += Items.incomeOf(entry)
 	end
-	return total
+	return total * Game.Bonus.cash(player)
+end
+
+-- Recrée les claviers posés (après un changement de bonus, pour mettre à jour "$/s")
+function PlotService.refreshLabels(player: Player)
+	local plot = PlotService.getPlot(player)
+	local profile = Game.Data.get(player)
+	if not plot or not profile then
+		return
+	end
+	for s = 1, Config.Slots.Max do
+		local state = plot.Slots[s]
+		if state and state.Model and not state.Stealing and profile.Data.Slots[tostring(s)] then
+			spawnSlotModel(plot, s)
+		end
+	end
+	player:SetAttribute("Income", PlotService.totalIncome(player))
 end
 
 -- Met à jour les emplacements (débloqués / verrouillés) et les claviers posés
@@ -219,9 +235,10 @@ function PlotService.assign(player: Player)
 			local profile = Game.Data.get(player)
 			if profile and (profile.Data.LastSeen or 0) > 0 then
 				local offline = math.clamp(os.time() - profile.Data.LastSeen, 0, Config.Base.OfflineMaxSeconds)
+				local bonus = Game.Bonus.permanentCash(player)
 				local earned = 0
 				for _, entry in profile.Data.Slots do
-					local gain = Items.incomeOf(entry) * offline * Config.Base.OfflineRate
+					local gain = Items.incomeOf(entry) * offline * Config.Base.OfflineRate * bonus
 					entry.Pending = (entry.Pending or 0) + gain
 					earned += gain
 				end
@@ -274,7 +291,24 @@ function PlotService.addItem(player: Player, record)
 		local key = tostring(s)
 		if profile.Data.Slots[key] == nil and not plot.Slots[s].Stealing then
 			profile.Data.Slots[key] = { Id = record.Id, Mutation = record.Mutation or "None", Pending = 0 }
+			local isNew = not profile.Data.Index[record.Id]
+			local zonesBefore = Game.Bonus.completedZones(profile)
 			profile.Data.Index[record.Id] = true
+			if isNew then
+				local item = Items.get(record.Id)
+				Game.Data.syncIndex(player)
+				Game.Player.notify(player, "📖 NEW in your Index: " .. (item and item.Name or record.Id) .. "!", "Success")
+				if Game.Bonus.completedZones(profile) > zonesBefore then
+					local zone = item and Config.Zones[item.Zone]
+					Game.Player.notify(
+						player,
+						"🏆 " .. (zone and zone.Name or "Zone") .. " Index complete! +" .. math.floor(Config.Index.ZoneBonus * 100) .. "% cash forever",
+						"Rare"
+					)
+					Game.Bonus.sync(player)
+					PlotService.refreshLabels(player)
+				end
+			end
 			spawnSlotModel(plot, s)
 			updatePending(plot, s, profile.Data.Slots[key])
 			player:SetAttribute("Income", PlotService.totalIncome(player))
@@ -463,11 +497,12 @@ function PlotService.init(registry)
 				local owner = plot.Owner
 				local profile = owner and Game.Data.get(owner)
 				if profile then
+					local multiplier = Game.Bonus.cash(owner)
 					for s = 1, profile.Data.SlotCount do
 						local entry = profile.Data.Slots[tostring(s)]
 						local state = plot.Slots[s]
 						if entry and state and not state.Stealing then
-							entry.Pending = (entry.Pending or 0) + Items.incomeOf(entry)
+							entry.Pending = (entry.Pending or 0) + Items.incomeOf(entry) * multiplier
 							updatePending(plot, s, entry)
 						end
 					end

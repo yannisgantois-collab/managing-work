@@ -344,6 +344,23 @@ function MapGenerator.build(env, Config, Themes)
 		}, "SignGui", 18)
 		neon(plaza, "HowToGlow", Vector3.new(1.2, 0.5, 40.4), CFrame.new(33, 18.6, 0), Color3.fromRGB(80, 220, 255))
 		newPart(plaza, "HowToPole", Vector3.new(1, 4, 1), CFrame.new(33, 1.5, 0), DARK)
+
+		-- 🏆 classements (texte mis à jour par LeaderboardService), lisibles des deux côtés
+		local function leaderboard(name, heading, color, x)
+			local board = newPart(plaza, name, Vector3.new(12, 15, 0.8), CFrame.new(x, 11.5, 34), DARK)
+			newPart(plaza, name .. "Pole", Vector3.new(0.8, 6.5, 0.8), CFrame.new(x - 4, 0.75, 34), DARK)
+			newPart(plaza, name .. "Pole", Vector3.new(0.8, 6.5, 0.8), CFrame.new(x + 4, 0.75, 34), DARK)
+			neon(plaza, name .. "Glow", Vector3.new(12.4, 0.4, 1), CFrame.new(x, 19.2, 34), color)
+			for _, face in { Enum.NormalId.Front, Enum.NormalId.Back } do
+				local lines = { { Name = "Title", Text = heading, Color = color, Height = 0.13 } }
+				for i = 1, 10 do
+					table.insert(lines, { Name = "Row" .. i, Text = i == 1 and "Loading..." or "", Height = 0.075 })
+				end
+				surfaceText(board, face, lines, face == Enum.NormalId.Front and "BoardFront" or "BoardBack", 20)
+			end
+		end
+		leaderboard("RichestBoard", "💰 TOP EARNERS", Color3.fromRGB(255, 205, 60), -23)
+		leaderboard("ThievesBoard", "🥷 TOP THIEVES", Color3.fromRGB(255, 80, 90), 23)
 	end
 
 	--------------------------------------------------------------------

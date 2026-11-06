@@ -123,6 +123,7 @@ local function onPlayerAdded(player: Player)
 	end
 	Game.Data.register(player, profile)
 	Game.Plot.assign(player)
+	Game.Bonus.sync(player)
 	player:SetAttribute("TowerStage", 0)
 	player:SetAttribute("Loaded", true)
 	if player.Character then
@@ -133,6 +134,34 @@ local function onPlayerAdded(player: Player)
 	if not profile.CanSave then
 		PlayerService.notify(player, "⚠️ Saving is OFF (Studio without API access).", "Error")
 	end
+	task.spawn(PlayerService.checkGroupReward, player)
+end
+
+-- 👥 Bonus unique pour les membres du groupe Roblox (Config.Group)
+function PlayerService.checkGroupReward(player: Player)
+	local group = Config.Group
+	if not group or group.Id == 0 then
+		return
+	end
+	local ok, inGroup = pcall(function()
+		return player:IsInGroup(group.Id)
+	end)
+	local profile = Game.Data.get(player)
+	if not ok or not profile or player.Parent ~= Players then
+		return
+	end
+	if inGroup then
+		if not profile.Data.GroupRewardClaimed then
+			profile.Data.GroupRewardClaimed = true
+			Game.Data.addSpeed(player, group.RewardSpeed or 0)
+			Game.Data.addCash(player, group.RewardCash or 0)
+			Game.Speed.applyWalkSpeed(player)
+			PlayerService.notify(player, "👥 Thanks for joining the group! Free reward received 🎁", "Rare")
+		end
+	elseif not profile.Data.GroupRewardClaimed then
+		task.wait(20)
+		PlayerService.notify(player, "👥 Join the group for a FREE bonus (+" .. (group.RewardSpeed or 0) .. " Speed)!", "Info")
+	end
 end
 
 local function onPlayerRemoving(player: Player)
@@ -140,6 +169,7 @@ local function onPlayerRemoving(player: Player)
 	Game.Speed.onPlayerRemoving(player)
 	Game.Tower.onPlayerRemoving(player)
 	Game.Plot.unassign(player)
+	Game.Leaderboard.submit(player)
 	Game.Data.release(player)
 end
 

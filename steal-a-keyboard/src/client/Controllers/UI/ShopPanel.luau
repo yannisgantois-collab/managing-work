@@ -40,7 +40,7 @@ end
 
 local function card(parent: Instance, order: number, title: string, color: Color3)
 	local frame = Ui.new("Frame", {
-		Size = UDim2.new(0.5, -8, 1, 0),
+		Size = UDim2.new(1 / 3, -11, 1, 0),
 		BackgroundColor3 = Ui.Colors.PanelLight,
 		LayoutOrder = order,
 		Parent = parent,
@@ -112,6 +112,56 @@ local function buildSlotCard(parent: Instance)
 	end)
 end
 
+-- 🔁 Rebirth : il faut appuyer deux fois (confirmation)
+local function buildRebirthCard(parent: Instance)
+	local purple = Color3.fromRGB(190, 110, 255)
+	local frame, line1, line2, line3 = card(parent, 3, "🔁 REBIRTH", purple)
+	local armedUntil = 0
+	local buy
+	buy = Ui.button({
+		Size = UDim2.new(1, -20, 0, 52),
+		Position = UDim2.new(0, 10, 1, -62),
+		BackgroundColor3 = purple,
+		Text = "REBIRTH",
+		Parent = frame,
+	}, function()
+		local rebirths = player:GetAttribute("Rebirths") or 0
+		if rebirths >= Config.Rebirth.Max then
+			return
+		end
+		if os.clock() < armedUntil then
+			armedUntil = 0
+			request("Rebirth")
+		else
+			armedUntil = os.clock() + 3
+			buy.Text = "TAP AGAIN TO CONFIRM"
+			task.delay(3.05, function()
+				if os.clock() >= armedUntil then
+					for _, refresh in refreshers do
+						refresh()
+					end
+				end
+			end)
+		end
+	end)
+	table.insert(refreshers, function()
+		local rebirths = player:GetAttribute("Rebirths") or 0
+		local nextCash = 1 + (rebirths + 1) * Config.Rebirth.CashBonus
+		local nextSpeed = 1 + (rebirths + 1) * Config.Rebirth.SpeedBonus
+		line1.Text = "Rebirth " .. rebirths .. " → " .. (rebirths + 1)
+		line2.Text = "Forever: 💵 x" .. nextCash .. "  •  ⚡ x" .. nextSpeed
+		line3.Text = "Keeps keyboards & slots. Resets cash, Speed, switch."
+		if rebirths >= Config.Rebirth.Max then
+			buy.Text = "MAX"
+			buy.BackgroundColor3 = Ui.Colors.Grey
+			return
+		end
+		local cost = Config.rebirthCost(rebirths)
+		buy.Text = "REBIRTH " .. Format.cash(cost)
+		buy.BackgroundColor3 = (player:GetAttribute("Cash") or 0) >= cost and purple or Ui.Colors.Grey
+	end)
+end
+
 function ShopPanel.open()
 	for _, refresh in refreshers do
 		refresh()
@@ -148,7 +198,7 @@ function ShopPanel.init(gui: ScreenGui, hud)
 		Name = "ShopPanel",
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.fromScale(0.5, 0.52),
-		Size = UDim2.new(0, 600, 0, #products > 0 and 440 or 360),
+		Size = UDim2.new(0, 800, 0, #products > 0 and 440 or 360),
 		BackgroundColor3 = Ui.Colors.Panel,
 		BackgroundTransparency = 0.04,
 		Visible = false,
@@ -173,6 +223,7 @@ function ShopPanel.init(gui: ScreenGui, hud)
 	}, { Ui.list(Enum.FillDirection.Horizontal, 16) })
 	buildSwitchCard(cards)
 	buildSlotCard(cards)
+	buildRebirthCard(cards)
 
 	if #products > 0 then
 		local row = Ui.new("Frame", {
@@ -194,7 +245,7 @@ function ShopPanel.init(gui: ScreenGui, hud)
 		end
 	end
 
-	for _, name in { "Cash", "SwitchTier", "SlotCount" } do
+	for _, name in { "Cash", "SwitchTier", "SlotCount", "Rebirths" } do
 		player:GetAttributeChangedSignal(name):Connect(function()
 			if panel.Visible then
 				for _, refresh in refreshers do

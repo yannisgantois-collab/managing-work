@@ -12,6 +12,11 @@ local process = require("@lune/process")
 local serde = require("@lune/serde")
 
 local Vector3, CFrame, Enum = roblox.Vector3, roblox.CFrame, roblox.Enum
+-- sécurité : si un test plante au milieu, on quitte au lieu de rester bloqué
+task.delay(240, function()
+	print("⏱️ Le test a dépassé 240 s : arrêt.")
+	process.exit(1)
+end)
 local PLACE = "build/StealAKeyboard.rbxl"
 local dm = roblox.deserializePlace(fs.readFile(PLACE))
 
@@ -219,7 +224,41 @@ local function deepCopy(v)
 	end
 	return t
 end
+local orderedData = {}
+local function orderedStore(name)
+	orderedData[name] = orderedData[name] or {}
+	local values = orderedData[name]
+	return {
+		SetAsync = function(_, key, value)
+			values[key] = value
+		end,
+		GetSortedAsync = function(_, ascending, size)
+			local list = {}
+			for key, value in values do
+				table.insert(list, { key = key, value = value })
+			end
+			table.sort(list, function(a, b)
+				if ascending then
+					return a.value < b.value
+				end
+				return a.value > b.value
+			end)
+			local page = {}
+			for i = 1, math.min(size, #list) do
+				page[i] = list[i]
+			end
+			return {
+				GetCurrentPage = function()
+					return page
+				end,
+			}
+		end,
+	}
+end
 local DataStoreService = {
+	GetOrderedDataStore = function(_, name)
+		return orderedStore(name)
+	end,
 	GetDataStore = function(_, name)
 		return {
 			UpdateAsync = function(_, key, fn)
@@ -270,6 +309,9 @@ ext(PlayersReal).GetPlayerByUserId = function(_, id)
 		end
 	end
 	return nil
+end
+ext(PlayersReal).GetNameFromUserIdAsync = function(_, id)
+	return "User" .. tostring(id)
 end
 ext(PlayersReal).PlayerAdded = Signal("PlayerAdded")
 ext(PlayersReal).PlayerRemoving = Signal("PlayerRemoving")
@@ -456,6 +498,9 @@ local function module(name)
 	end
 end
 local Data, Plot, Config = module("DataService"), module("PlotService"), module("Config")
+local Items, Event, Carry = module("Items"), module("EventService"), module("CarryService")
+local Leaderboard, PlayerService = module("LeaderboardService"), module("PlayerService")
+local ReplicatedReal = dm:GetService("ReplicatedStorage")
 
 local function makePlayer(userId, name)
 	local pl = roblox.Instance.new("Player")
@@ -798,6 +843,101 @@ do
 		assertTrue(findItem(function(m) return m:GetAttribute("PlotIndex") == 1 and tostring(m:GetAttribute("SlotIndex")) == slotKey end) ~= nil, "le voleur part : le clavier revient chez Alice")
 		assertTrue(storeData["Player_1"] ~= nil, "données d'Alice toujours là")
 	end
+end
+
+
+-- 16. Mise à jour 1 : index, bonus de zone, rebirth, événements, classements, groupe
+do
+	local index = A:GetAttribute("IndexList") or ""
+	assertTrue(#index > 0, "IndexList envoyé au client : " .. index)
+	-- compléter la zone Office
+	local profileA = Data.get(wrap(A))
+	profileA.Data.SlotCount = 12
+	Plot.refresh(wrap(A))
+	for _, item in Items.forZone(1) do
+		if not profileA.Data.Index[item.Id] then
+			Plot.addItem(wrap(A), { Id = item.Id, Mutation = "None" })
+		end
+	end
+	assertTrue(A:GetAttribute("CompletedZones") == 1, "zone Office complétée dans l'index")
+	assertTrue(math.abs((A:GetAttribute("CashMultiplier") or 0) - 1.1) < 1e-6, "bonus d'index : argent x1.1 (" .. tostring(A:GetAttribute("CashMultiplier")) .. ")")
+	local office = 0
+	for _, list in notifications.Alice or {} do
+		if string.find(list, "Index complete", 1, true) then
+			office += 1
+		end
+	end
+	assertTrue(office == 1, "notification de zone complétée")
+
+	-- rebirth refusé en portant un clavier, puis accepté
+	local shop = ext(remotesReal.Shop).Invoke
+	local slotsBefore = 0
+	for _ in profileA.Data.Slots do
+		slotsBefore += 1
+	end
+	Data.addCash(wrap(A), 2000000)
+	if A:GetAttribute("CarryingName") then
+		local okCarry, msgCarry = shop(wrap(A), "Rebirth")
+		assertTrue(okCarry == false and string.find(msgCarry, "home", 1, true) ~= nil, "rebirth refusé en portant un clavier")
+		Carry.fail(wrap(A), "Timeout")
+	end
+	local okR, msgR = shop(wrap(A), "Rebirth")
+	assertTrue(okR == true, "rebirth : " .. tostring(msgR))
+	assertTrue(A:GetAttribute("Rebirths") == 1 and A:GetAttribute("Cash") == 0 and A:GetAttribute("Speed") == 0 and A:GetAttribute("SwitchTier") == 1, "rebirth remet à zéro argent / Speed / switch")
+	local slotsAfter = 0
+	for _ in profileA.Data.Slots do
+		slotsAfter += 1
+	end
+	assertTrue(slotsAfter == slotsBefore, "rebirth garde les claviers (" .. slotsAfter .. ")")
+	assertTrue(math.abs((A:GetAttribute("CashMultiplier") or 0) - 1.65) < 1e-6, "bonus après rebirth : argent x1.65")
+	assertTrue(math.abs((A:GetAttribute("SpeedMultiplier") or 0) - 1.5) < 1e-6, "bonus après rebirth : Speed x1.5")
+	assertTrue(A.leaderstats.Rebirths.Value == 1, "colonne Rebirths du classement")
+	local okR2 = shop(wrap(A), "Rebirth")
+	assertTrue(okR2 == false, "2e rebirth impossible sans argent")
+
+	-- la Speed gagnée suit le bonus
+	local before = A:GetAttribute("Speed")
+	for i = 0, 12 do
+		standAt(A, Vector3.new(0, 0, 40 + i * 2.5))
+		tick(1)
+	end
+	local gained = A:GetAttribute("Speed") - before
+	assertTrue(gained > 0 and math.abs(gained / 1.5 - math.floor(gained / 1.5 + 0.5)) < 1e-6, "Speed gagnée x1.5 (" .. gained .. ")")
+
+	-- événements
+	assertTrue(Event.start("DoubleSpeed", 1.5) == true, "événement Double Speed lancé")
+	assertTrue(ReplicatedReal:GetAttribute("EventId") == "DoubleSpeed", "événement visible par les clients")
+	assertTrue(math.abs((A:GetAttribute("SpeedMultiplier") or 0) - 3) < 1e-6, "Double Speed : Speed x3 avec le rebirth")
+	task.wait(1.8)
+	assertTrue(ReplicatedReal:GetAttribute("EventId") == nil, "l'événement se termine tout seul")
+	assertTrue(math.abs((A:GetAttribute("SpeedMultiplier") or 0) - 1.5) < 1e-6, "retour au bonus normal après l'événement")
+	assertTrue(Event.start("KeyboardRain", 1) == true and Event.start("GoldenHour", 1) == true, "Keyboard Rain et Golden Hour")
+	assertTrue(Event.start("DoubleCash", 1) == true and math.abs((A:GetAttribute("CashMultiplier") or 0) - 3.3) < 1e-6, "Double Cash : argent x3.3")
+	Event.stop(true)
+	assertTrue(Event.start("Nope") == false, "événement inconnu refusé")
+
+	-- classements
+	Leaderboard.submit(wrap(A))
+	assertTrue((orderedData["LB_Earned_v1"] or {})["1"] ~= nil, "score envoyé au classement")
+	Leaderboard.refresh()
+	local row1 = mapReal.Plaza.RichestBoard.BoardFront.Row1.Text
+	assertTrue(string.find(row1, "Alice", 1, true) ~= nil, "panneau TOP EARNERS : " .. row1)
+	local back1 = mapReal.Plaza.RichestBoard.BoardBack.Row1.Text
+	assertTrue(back1 == row1, "panneau lisible des deux côtés")
+
+	-- récompense de groupe
+	Config.Group.Id = 777
+	local C = makePlayer(3, "Cara")
+	task.wait(0.5)
+	ext(C).IsInGroup = function(_, id)
+		return id == 777
+	end
+	local speedBefore = C:GetAttribute("Speed") or 0
+	PlayerService.checkGroupReward(wrap(C))
+	assertTrue(Data.get(wrap(C)).Data.GroupRewardClaimed == true and (C:GetAttribute("Speed") or 0) == speedBefore + Config.Group.RewardSpeed, "récompense de groupe donnée")
+	PlayerService.checkGroupReward(wrap(C))
+	assertTrue((C:GetAttribute("Speed") or 0) == speedBefore + Config.Group.RewardSpeed, "récompense de groupe donnée une seule fois")
+	Config.Group.Id = 0
 end
 
 -- 14. Fermeture du serveur
