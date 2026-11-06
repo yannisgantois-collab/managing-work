@@ -18,6 +18,7 @@ def fr(t):
     t = re.sub(r' ([?!:;»])', NB + r'\1', t)
     t = t.replace('« ', '«' + NB)
     t = re.sub(r'(\d) (\d{3})', r'\1' + NB + r'\2', t)
+    t = re.sub(r'(\d) (°C|%)', r'\1' + NB + r'\2', t)
     return t
 def e(t): return html.escape(fr(t), quote=True)
 def tc(x):

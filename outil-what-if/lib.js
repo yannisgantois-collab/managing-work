@@ -65,6 +65,8 @@ export function signTex(lines, { w = 512, h = 256, bg = '#f4efe2', fg = '#1d1d1d
     if (border) { g.strokeStyle = borderColor; g.lineWidth = border; g.strokeRect(border / 2 + 6, border / 2 + 6, w - border - 12, h - border - 12); }
     g.fillStyle = fg; g.textAlign = align; g.textBaseline = 'middle';
     g.font = `${italic ? 'italic ' : ''}${weight} ${size}px "${font}"`;
+    const widest = Math.max(...lines.map(l => g.measureText(l).width));
+    if (widest > w * 0.94) { size = Math.floor(size * w * 0.94 / widest); g.font = `${italic ? 'italic ' : ''}${weight} ${size}px "${font}"`; }
     const n = lines.length; const total = n * size * lineH;
     lines.forEach((ln, i) => {
       const y = h / 2 - total / 2 + size * lineH * (i + 0.5);
@@ -168,7 +170,7 @@ export function person(o = {}) {
     hip.add(cap(0.088, 0.3, pantsM, 0, -0.22, 0));
     const knee = new THREE.Group(); knee.position.y = -0.45; hip.add(knee); knee.rotation.x = side < 0 ? p.lkn : p.rkn;
     rig[side < 0 ? 'lHip' : 'rHip'] = hip; rig[side < 0 ? 'lKn' : 'rKn'] = knee;
-    knee.add(cap(0.075, 0.3, pantsM, 0, -0.2, 0));
+    knee.add(cap(0.075, 0.3, p.shorts ? skinM : pantsM, 0, -0.2, 0));
     knee.add(rbox(0.12, 0.09, 0.27, 0.04, shoeM, 0, -0.43, 0.05));
   }
   hips.add(rbox(0.36, 0.18, 0.24, 0.08, pantsM, 0, 0.02, 0));

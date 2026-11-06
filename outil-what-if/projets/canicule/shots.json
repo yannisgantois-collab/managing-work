@@ -1,0 +1,648 @@
+{
+ "title": "Et si Paris atteignait 50 °C ?",
+ "handle": "",
+ "page": {
+  "eyebrow": "Storyboard · What if · épisode 3",
+  "lead": "Paris s’enfonce dans une canicule de cinq jours qui culmine à 50 °C. On suit Inès, 21 ans, étudiante dans une chambre de bonne de 9 m² sous les toits en zinc. À la fin, la fiction rejoint la réalité : l’exercice « Paris à 50 °C » de 2023, la canicule de 2003 et le record de 2019.",
+  "facts": [
+   "9:16 · 1080 × 1920",
+   "78,5 s",
+   "19 plans",
+   "Sans voix off",
+   "Images rendues en 3D par code"
+  ],
+  "acts": {
+   "1": [
+    "Acte 1",
+    "Le dôme de chaleur"
+   ],
+   "2": [
+    "Acte 2",
+    "50 °C"
+   ],
+   "3": [
+    "Acte 3",
+    "Paris s’y prépare déjà"
+   ]
+  },
+  "new": [
+   "Sujet : une canicule qui pousse Paris jusqu’à 50 °C.",
+   "Déclencheur : les toits en zinc qui brûlent sous un soleil blanc.",
+   "Personnage : Inès, 21 ans, étudiante dans une chambre de bonne.",
+   "Chute : l’exercice « Paris à 50 °C », la canicule de 2003 et le record de 2019, puis les cours d’école plantées d’arbres.",
+   "Appel au partage : « Envoie ça à quelqu’un qui vit sous les toits. »",
+   "Durée : 78,5 s, comme les deux premiers épisodes."
+  ],
+  "defects": {
+   "D01": [
+    "Chaque conséquence suit une cause vérifiable : le zinc chauffe la chambre, l’acier des rails se dilate, l’eau des rivières refroidit les centrales, les climatiseurs rejettent leur chaleur dehors.",
+    "P02, P04, P05, P07"
+   ],
+   "D02": [
+    "Le compteur, la croix de la pharmacie et les sous-titres affichent le même chiffre, tiré d’une seule table.",
+    "P03, P11, P16, P17"
+   ],
+   "D03": [
+    "Tout texte du décor (croix de pharmacie, affiche de l’école, panneau de mesure, écrans de crise) est écrit proprement.",
+    "P03, P05, P06, P15"
+   ],
+   "D04": [
+    "Fiche personnage unique : Inès (débardeur jaune pâle, short en jean, chignon noir), identique dans chaque plan.",
+    "P02, P09, P10, P14"
+   ],
+   "D06": [
+    "Deux lignes au plus, coupées à la main sur les groupes de sens ; environ 17 caractères par seconde.",
+    "Tous"
+   ],
+   "D07": [
+    "Les toits brûlants dès la première image, sous un titre grand et contrasté ; le thermomètre grimpe dès 0:03.",
+    "P01, P02"
+   ],
+   "D08": [
+    "78,5 s en trois actes ; le thermomètre fait monter la tension de 36 à 50 °C, puis l’orage relâche.",
+    "Tous"
+   ],
+   "D09": [
+    "Aucun plan vide. Carton final de 4 s qui boucle sur les toits brûlants du premier plan.",
+    "P19"
+   ],
+   "D10": [
+    "La fiction rejoint la réalité chiffrée (2003, 2019, l’exercice de 2023), puis une note d’espoir : les cours d’école plantées d’arbres.",
+    "P14 à P18"
+   ],
+   "D12": [
+    "Chaque phrase a un sujet explicite.",
+    "P04, P05, P12"
+   ],
+   "D13": [
+    "Le libellé dit toujours ce que mesure le chiffre : température à Paris, canicule simulée, morts en excès, record de France, cours oasis.",
+    "P01, P15, P16, P17, P18"
+   ],
+   "D14": [
+    "Chaque chiffre réel renvoie à une source. Le zinc « jusqu’à 80 °C » reste à recouper : 70 ou 80 °C selon les sources.",
+    "P02 à P10, P15 à P18"
+   ],
+   "D16": [
+    "Un seul compteur à l’écran, toujours à la même place.",
+    "Tous"
+   ]
+  },
+  "sources": [
+   [
+    "S1",
+    "Ville de Paris : exercice grandeur nature « Paris à 50 °C » le 13 octobre 2023 (13e et 19e arrondissements), dôme de chaleur fictif avec un pic à 50 °C, puis exercice en salle de crise le 17 octobre.",
+    "https://www.paris.fr/pages/paris-50-c-un-exercice-grandeur-nature-pour-se-preparer-aux-chaleurs-extremes-24322",
+    "P14, P15",
+    "Vérifié"
+   ],
+   [
+    "S2",
+    "Inserm, rapport d’étape du 25 septembre 2003 : 14 802 décès en excès en France du 1er au 20 août 2003 (+60 %), surtout des personnes âgées.",
+    "https://www.inserm.fr/wp-content/uploads/2017-11/inserm-rapportthematique-surmortalitecaniculeaout2003-rapportetape.pdf",
+    "P12, P16",
+    "Vérifié"
+   ],
+   [
+    "S3",
+    "Météo-France (validation du 19 juillet 2019) : record national de 46,0 °C à Vérargues (Hérault), le 28 juin 2019.",
+    "https://www.futura-sciences.com/planete/breves/meteorologie-record-absolu-temperature-france-eleve-finalement-46-c-919/",
+    "P17",
+    "Vérifié"
+   ],
+   [
+    "S4",
+    "Ville de Paris : record de 42,6 °C à Paris-Montsouris le 25 juillet 2019 (ancien record : 40,4 °C en 1947).",
+    "https://www.paris.fr/pages/temperatures-extremes-tempetes-tous-les-records-meteo-a-paris-20612",
+    "P03",
+    "Vérifié"
+   ],
+   [
+    "S5",
+    "Météo-France, synthèse sur le climat d’une France à +4 °C (mars 2025) : des records locaux de 50 °C « possibles dès l’horizon 2050 », « probables » en fin de siècle.",
+    "https://www.banquedesterritoires.fr/canicules-secheresses-inondations-quoi-se-preparer-dans-une-france-plus-chaude-de-4degc",
+    "P17",
+    "Vérifié"
+   ],
+   [
+    "S6",
+    "Santé publique France, synthèse des études InVS sur 2003 : avoir sa chambre sous les toits multipliait par 4 le risque de décès des personnes âgées vivant chez elles (OR 4,1).",
+    "https://www.santepubliquefrance.fr/index.php/climat/fortes-chaleurs-canicule/rapportsynthese/synthese-des-etudes-de-linvs-sur-les-facteurs-de-risquesimpacts-sanitaires-des-vagues-de-chaleur-en",
+    "P09",
+    "Vérifié"
+   ],
+   [
+    "S7",
+    "AFP / Euronews (juin 2026) : en plein soleil, le zinc des toits parisiens monte jusqu’à 70 à 80 °C ; les chambres de bonne comptent parmi les logements les plus dangereux en canicule.",
+    "https://fr.euronews.com/2026/06/25/a-paris-les-habitants-des-chambres-de-bonne-cuisent-sous-les-jolis-toits-en-zinc",
+    "P02",
+    "À recouper (70 ou 80 °C selon les sources)"
+   ],
+   [
+    "S8",
+    "SNCF Réseau (AFP) : le rail peut atteindre 60 °C quand l’air avoisine 40 °C ; l’acier se dilate et les trains doivent ralentir.",
+    "https://www.linfodurable.fr/sncf-la-canicule-met-les-rails-sous-tension-12199",
+    "P04",
+    "Vérifié"
+   ],
+   [
+    "S9",
+    "AFP : à Golfech, la réglementation oblige EDF à réduire ou arrêter la production quand la Garonne dépasse 28 °C.",
+    "https://www.linfodurable.fr/canicule-la-centrale-nucleaire-de-golfech-au-bord-de-la-garonne-arretee-57250",
+    "P05",
+    "Vérifié"
+   ],
+   [
+    "S10",
+    "Ministère de l’Éducation nationale : canicule de juin 2019, les épreuves écrites du brevet sont reportées aux 1er et 2 juillet.",
+    "https://www.education.gouv.fr/canicule-les-epreuves-ecrites-du-diplome-national-du-brevet-sont-reportees-aux-1er-et-2-juillet-456471",
+    "P06",
+    "Vérifié"
+   ],
+   [
+    "S11",
+    "Météo-France, brochure sur l’îlot de chaleur urbain : plus de 8 °C d’écart la nuit entre Paris et la campagne en août 2003.",
+    "https://meteofrance.fr/sites/meteofrance.fr/files/files/editorial/Brochure_ICU_web_V11.pdf",
+    "P08",
+    "Vérifié"
+   ],
+   [
+    "S12",
+    "Ville de Paris : en canicule, des parcs et jardins restent ouverts toute la nuit, en plus de ceux ouverts 24 h sur 24.",
+    "https://www.paris.fr/pages/canicule-a-chacun-son-coin-d-ombre-35681",
+    "P10",
+    "Vérifié"
+   ],
+   [
+    "S13",
+    "Ville de Paris : 203 « cours oasis » aménagées au début de 2025, objectif 360 en 2030.",
+    "https://www.paris.fr/pages/les-cours-oasis-7389",
+    "P18",
+    "À recouper (chiffre à mettre à jour)"
+   ]
+  ],
+  "fiction": "Chiffres inventés pour la fiction : les températures de Paris (de 36 à 50 °C), les jours et les heures de la canicule, la chute de 20 degrés pendant l’orage et la température de la chambre d’Inès. Tous les autres chiffres sont réels et sourcés.",
+  "validate": [
+   "Le sujet, les 19 sous-titres et la chute."
+  ],
+  "page_title": "Storyboard What if Canicule",
+  "music": "Une nappe sourde qui monte avec le thermomètre (P01 à P11), un silence écrasé à 50 °C (P11), l’orage qui libère la tension (P13), puis un piano en majeur sur la cour d’école plantée d’arbres (P18).",
+  "light": "Acte 1 soleil blanc et ombres dures, acte 2 nuits orangées sans fraîcheur puis l’orage, acte 3 lumière froide de la salle de crise, cartes vues de nuit et cour d’école verte à l’ombre."
+ },
+ "shots": [
+  {
+   "id": "P01",
+   "act": 1,
+   "t0": 0.0,
+   "dur": 3.0,
+   "set": "roofs",
+   "cam": "noon",
+   "title": true,
+   "hud": {
+    "label": "TEMPÉRATURE À PARIS",
+    "value": "36 °C",
+    "tl": "JOUR 1 · 14:00"
+   },
+   "cap": "",
+   "action": "Les toits en zinc de Paris sous un soleil blanc ; l’air tremble au-dessus des cheminées. Au loin, un dôme et des grues immobiles.",
+   "move": "Lent travelling latéral au ras des toits.",
+   "sfx": "Vent chaud, rumeur lointaine de la ville, le zinc qui craque.",
+   "fix": [
+    "D07",
+    "D11",
+    "D05"
+   ],
+   "src": []
+  },
+  {
+   "id": "P02",
+   "act": 1,
+   "t0": 3.0,
+   "dur": 4.0,
+   "set": "attic",
+   "cam": "day",
+   "hud": {
+    "label": "TEMPÉRATURE À PARIS",
+    "value": "37 °C",
+    "tl": "JOUR 1 · 15:10"
+   },
+   "cap": "Jour 1. Le zinc du toit monte à 80 °C.\nInès, 21 ans, vit juste dessous.",
+   "action": "La chambre de bonne d’Inès, 9 m² sous le toit : le soleil tombe par le vasistas, le ventilateur souffle de l’air brûlant. Assise sur son lit, Inès s’évente avec un cahier.",
+   "move": "Plan fixe, léger zoom avant.",
+   "sfx": "Ventilateur, le zinc qui claque en se dilatant.",
+   "fix": [
+    "D04",
+    "D01"
+   ],
+   "src": [
+    "S7"
+   ]
+  },
+  {
+   "id": "P03",
+   "act": 1,
+   "t0": 7.0,
+   "dur": 4.0,
+   "set": "street",
+   "cam": "pharmacy",
+   "hud": {
+    "label": "TEMPÉRATURE À PARIS",
+    "value": "43 °C",
+    "tl": "JOUR 2 · 16:30"
+   },
+   "cap": "Jour 2. 43 °C. Le record de Paris,\n42,6 °C en 2019, vient de tomber.",
+   "action": "Une rue haussmannienne écrasée de soleil : la croix verte de la pharmacie affiche 43 °C. Les passants rasent les murs, une femme s’abrite sous un parapluie.",
+   "move": "Travelling arrière lent.",
+   "sfx": "Rue au ralenti, un bus au loin, le bip de la croix de pharmacie.",
+   "fix": [
+    "D03",
+    "D02",
+    "D14"
+   ],
+   "src": [
+    "S4"
+   ]
+  },
+  {
+   "id": "P04",
+   "act": 1,
+   "t0": 11.0,
+   "dur": 4.0,
+   "set": "rails",
+   "cam": "heat",
+   "hud": {
+    "label": "TEMPÉRATURE À PARIS",
+    "value": "43 °C",
+    "tl": "JOUR 2 · 17:15"
+   },
+   "cap": "Les rails chauffent jusqu’à 60 °C.\nLes trains doivent ralentir.",
+   "action": "Une voie de banlieue sous la chaleur : l’air ondule au-dessus des rails, un train avance au pas devant un panneau « 40 ».",
+   "move": "Plan fixe au ras du ballast.",
+   "sfx": "Crissement des rails, grésillement des caténaires.",
+   "fix": [
+    "D01",
+    "D14"
+   ],
+   "src": [
+    "S8"
+   ]
+  },
+  {
+   "id": "P05",
+   "act": 1,
+   "t0": 15.0,
+   "dur": 4.0,
+   "set": "plant",
+   "cam": "river",
+   "hud": {
+    "label": "TEMPÉRATURE À PARIS",
+    "value": "42 °C",
+    "tl": "JOUR 2 · 18:30"
+   },
+   "cap": "Les rivières sont trop chaudes :\ndes centrales nucléaires ralentissent.",
+   "action": "Une centrale au bord d’une rivière basse : les tours de refroidissement fument à peine, les berges sont craquelées. Le panneau de mesure affiche « EAU 28 °C ».",
+   "move": "Lent panoramique.",
+   "sfx": "Bourdonnement électrique qui baisse d’un ton.",
+   "fix": [
+    "D01",
+    "D03",
+    "D14"
+   ],
+   "src": [
+    "S9"
+   ]
+  },
+  {
+   "id": "P06",
+   "act": 1,
+   "t0": 19.0,
+   "dur": 4.0,
+   "set": "school",
+   "cam": "closed",
+   "hud": {
+    "label": "TEMPÉRATURE À PARIS",
+    "value": "39 °C",
+    "tl": "JOUR 3 · 08:30"
+   },
+   "cap": "Jour 3. Écoles fermées.\nLe brevet est reporté, comme en 2019.",
+   "action": "La grille d’une école élémentaire, fermée. Une affiche : « ÉCOLE FERMÉE – CANICULE. BREVET REPORTÉ. » La cour en bitume tremble de chaleur.",
+   "move": "Travelling avant vers l’affiche.",
+   "sfx": "Cour vide, une alarme de voiture au loin.",
+   "fix": [
+    "D03",
+    "D14"
+   ],
+   "src": [
+    "S10"
+   ]
+  },
+  {
+   "id": "P07",
+   "act": 2,
+   "t0": 23.0,
+   "dur": 4.0,
+   "set": "facade",
+   "cam": "ac",
+   "hud": {
+    "label": "TEMPÉRATURE À PARIS",
+    "value": "47 °C",
+    "tl": "JOUR 3 · 15:00"
+   },
+   "cap": "Jour 3. 47 °C. Les climatiseurs\nrecrachent leur chaleur dans la rue.",
+   "action": "Une façade couverte de climatiseurs qui soufflent de l’air chaud ; en bas, un livreur à vélo pédale au ralenti dans l’air qui ondule.",
+   "move": "Contre-plongée qui descend le long de la façade.",
+   "sfx": "Ronronnement de dizaines de compresseurs.",
+   "fix": [
+    "D01",
+    "D12"
+   ],
+   "src": []
+  },
+  {
+   "id": "P08",
+   "act": 2,
+   "t0": 27.0,
+   "dur": 4.5,
+   "set": "roofs",
+   "cam": "night",
+   "hud": {
+    "label": "TEMPÉRATURE À PARIS",
+    "value": "34 °C",
+    "tl": "JOUR 4 · 00:30"
+   },
+   "cap": "La nuit, Paris reste jusqu’à 8 °C\nplus chaud que la campagne.",
+   "action": "Paris la nuit, fenêtres grandes ouvertes, des silhouettes sur les balcons et sur les toits, sans un souffle d’air.",
+   "move": "Lent travelling latéral.",
+   "sfx": "Ventilateurs aux fenêtres, une sirène lointaine.",
+   "fix": [
+    "D14",
+    "D13"
+   ],
+   "src": [
+    "S11"
+   ]
+  },
+  {
+   "id": "P09",
+   "act": 2,
+   "t0": 31.5,
+   "dur": 4.0,
+   "set": "attic",
+   "cam": "night",
+   "hud": {
+    "label": "TEMPÉRATURE À PARIS",
+    "value": "33 °C",
+    "tl": "JOUR 4 · 02:00"
+   },
+   "cap": "En 2003, vivre sous les toits\nmultipliait par 4 le risque de mourir.",
+   "action": "Dans sa chambre, Inès ne dort pas : drap mouillé, ventilateur, écran du téléphone. Le thermomètre de la chambre affiche 38 °C.",
+   "move": "Plan fixe en plongée.",
+   "sfx": "Ventilateur, souffle court, horloge.",
+   "fix": [
+    "D04",
+    "D14"
+   ],
+   "src": [
+    "S6"
+   ]
+  },
+  {
+   "id": "P10",
+   "act": 2,
+   "t0": 35.5,
+   "dur": 4.0,
+   "set": "park",
+   "cam": "night",
+   "hud": {
+    "label": "TEMPÉRATURE À PARIS",
+    "value": "32 °C",
+    "tl": "JOUR 4 · 04:00"
+   },
+   "cap": "Les parcs restent ouverts toute la nuit.\nOn vient dormir sous les arbres.",
+   "action": "Un parc la nuit : des Parisiens dorment sur des draps dans l’herbe, sous les arbres et les réverbères. Inès arrive avec son oreiller.",
+   "move": "Lent travelling au ras de l’herbe.",
+   "sfx": "Grillons, murmures, un arrosage automatique.",
+   "fix": [
+    "D04",
+    "D14"
+   ],
+   "src": [
+    "S12"
+   ]
+  },
+  {
+   "id": "P11",
+   "act": 2,
+   "t0": 39.5,
+   "dur": 4.5,
+   "set": "street",
+   "cam": "peak",
+   "hud": {
+    "label": "TEMPÉRATURE À PARIS",
+    "value": "50,0 °C",
+    "tl": "JOUR 4 · 16:00"
+   },
+   "cap": "Jour 4, 16 h. 50,0 °C.\nParis n’a jamais eu aussi chaud.",
+   "action": "La même rue qu’au jour 2, vide : la croix de la pharmacie passe à 50 °C, l’asphalte miroite, un brumisateur souffle dans le vide.",
+   "move": "Plan fixe, l’air ondule.",
+   "sfx": "Silence, le brumisateur, la croix qui bipe.",
+   "fix": [
+    "D02",
+    "D16"
+   ],
+   "src": []
+  },
+  {
+   "id": "P12",
+   "act": 2,
+   "t0": 44.0,
+   "dur": 4.0,
+   "set": "street",
+   "cam": "ambulance",
+   "hud": {
+    "label": "TEMPÉRATURE À PARIS",
+    "value": "50 °C",
+    "tl": "JOUR 4 · 16:40"
+   },
+   "cap": "Les secours enchaînent les malaises.\nD’abord chez les plus âgés.",
+   "action": "Une ambulance gyrophares allumés devant un immeuble ; deux secouristes sortent un homme âgé sur un brancard.",
+   "move": "Plan moyen, caméra portée.",
+   "sfx": "Sirène qui s’arrête, portes, radio des secours.",
+   "fix": [
+    "D12"
+   ],
+   "src": [
+    "S2"
+   ]
+  },
+  {
+   "id": "P13",
+   "act": 2,
+   "t0": 48.0,
+   "dur": 4.0,
+   "set": "roofs",
+   "cam": "storm",
+   "hud": {
+    "label": "TEMPÉRATURE À PARIS",
+    "value": "29 °C",
+    "tl": "JOUR 5 · 18:00"
+   },
+   "cap": "Jour 5. L’orage éclate enfin.\nLa température chute de 20 degrés.",
+   "action": "Les toits de Paris sous un ciel noir : un éclair, puis une pluie violente ; le zinc brûlant fume sous l’averse.",
+   "move": "Plan large fixe.",
+   "sfx": "Tonnerre, pluie sur le zinc, sifflement de vapeur.",
+   "fix": [
+    "D08"
+   ],
+   "src": []
+  },
+  {
+   "id": "P14",
+   "act": 2,
+   "t0": 52.0,
+   "dur": 4.0,
+   "set": "attic",
+   "cam": "rain",
+   "hud": {
+    "label": "TEMPÉRATURE À PARIS",
+    "value": "26 °C",
+    "tl": "JOUR 5 · 19:00"
+   },
+   "cap": "Une fiction ? Paris s’est pourtant\nentraîné à ce scénario.",
+   "action": "Inès ouvre grand le vasistas et tend le visage à la pluie.",
+   "move": "Contre-plongée sous le vasistas.",
+   "sfx": "Pluie, Inès qui rit.",
+   "fix": [
+    "D10"
+   ],
+   "src": []
+  },
+  {
+   "id": "P15",
+   "act": 3,
+   "t0": 56.0,
+   "dur": 4.5,
+   "set": "crisis",
+   "cam": "room",
+   "hud": {
+    "label": "CANICULE SIMULÉE",
+    "value": "50 °C",
+    "tl": "PARIS · 13 OCTOBRE 2023"
+   },
+   "cap": "13 octobre 2023 : Paris simule\nune canicule à 50 °C, pour de vrai.",
+   "action": "Une salle de crise : des écrans montrent Paris en rouge et « DÔME DE CHALEUR · PIC À 50 °C » ; des agents au téléphone.",
+   "move": "Travelling latéral le long des tables.",
+   "sfx": "Téléphones, voix posées, claviers.",
+   "fix": [
+    "D13",
+    "D14"
+   ],
+   "src": [
+    "S1"
+   ]
+  },
+  {
+   "id": "P16",
+   "act": 3,
+   "t0": 60.5,
+   "dur": 4.5,
+   "set": "heatmap",
+   "cam": "2003",
+   "hud": {
+    "label": "MORTS EN EXCÈS",
+    "value": "14 802",
+    "tl": "FRANCE · 1ER–20 AOÛT 2003"
+   },
+   "cap": "Août 2003 : 14 802 morts de plus\nque d’habitude, en vingt jours.",
+   "action": "La France vue de nuit, teintée de rouge ; le compteur monte de 0 à 14 802.",
+   "move": "Lent zoom arrière.",
+   "sfx": "Un battement grave et lent.",
+   "fix": [
+    "D02",
+    "D13",
+    "D14"
+   ],
+   "src": [
+    "S2"
+   ]
+  },
+  {
+   "id": "P17",
+   "act": 3,
+   "t0": 65.0,
+   "dur": 5.0,
+   "set": "heatmap",
+   "cam": "record",
+   "hud": {
+    "label": "RECORD DE FRANCE",
+    "value": "46,0 °C",
+    "tl": "VÉRARGUES (HÉRAULT) · 28 JUIN 2019"
+   },
+   "cap": "46,0 °C en 2019. Pour Météo-France,\n50 °C sera possible dès 2050.",
+   "action": "Une épingle se plante dans l’Hérault : 46,0 °C. Puis toute la carte rougit.",
+   "move": "Plan fixe en plongée.",
+   "sfx": "Le « clic » de l’épingle, puis un souffle chaud.",
+   "fix": [
+    "D02",
+    "D13",
+    "D14"
+   ],
+   "src": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "id": "P18",
+   "act": 3,
+   "t0": 70.0,
+   "dur": 4.5,
+   "set": "school",
+   "cam": "oasis",
+   "hud": {
+    "label": "COURS OASIS À PARIS",
+    "value": "203",
+    "tl": "BILAN 2025 · OBJECTIF 360"
+   },
+   "cap": "Pour tenir, Paris plante ses cours\nd’école : déjà 203 « cours oasis ».",
+   "action": "La même école qu’au jour 3, transformée : arbres, herbe, fontaine, enfants qui jouent à l’ombre.",
+   "move": "Lent travelling avant.",
+   "sfx": "Rires d’enfants, oiseaux, fontaine. Piano en majeur.",
+   "fix": [
+    "D10",
+    "D13"
+   ],
+   "src": [
+    "S13"
+   ]
+  },
+  {
+   "id": "P19",
+   "act": 3,
+   "t0": 74.5,
+   "dur": 4.0,
+   "set": "endcard",
+   "cam": "",
+   "end": {
+    "mono": [
+     "VOLETS FERMÉS LE JOUR, OUVERTS LA NUIT.",
+     "DE L’EAU. UN LIEU FRAIS PAS LOIN."
+    ],
+    "cta": [
+     "ENVOIE ÇA À QUELQU’UN",
+     "QUI VIT SOUS LES TOITS."
+    ]
+   },
+   "cap": "",
+   "action": "Carton final : le même titre qu’en ouverture, deux conseils, la flèche de partage et l’appel à l’action.",
+   "move": "Fixe ; la flèche de partage s’anime.",
+   "sfx": "La musique se pose, 0,5 s de silence, puis boucle sur les toits du premier plan.",
+   "fix": [
+    "D09",
+    "D11",
+    "D05"
+   ],
+   "src": []
+  }
+ ],
+ "anim": "anim3.js"
+}

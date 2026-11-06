@@ -1,0 +1,360 @@
+<title>Storyboard What if Canicule</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: production sheet. Header + act timeline, defect ledger, then a grid of horizontal shot cards (frame | notes), charter and sources. */
+:root {
+  --bg: #eef0f3; --surface: #ffffff; --ink: #151a22; --muted: #5a6372; --line: #d6dbe3;
+  --gold: #8a6a1f; --gold-soft: #f3ead3; --fix: #2f6b3a; --fix-soft: #e3efe4; --warn: #9a5a12; --warn-soft: #f6ead8;
+  --a1: #2c4675; --a2: #8a5d1c; --a3: #a03b2a;
+  --display: "Newsreader", Georgia, "Times New Roman", serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0e131c; --surface: #151c28; --ink: #e8ebf0; --muted: #9ba4b3; --line: #273142;
+  --gold: #d8b766; --gold-soft: #2a2416; --fix: #86c48d; --fix-soft: #17271b; --warn: #e2a65a; --warn-soft: #2c2114;
+  --a1: #86a3d8; --a2: #dcaa5c; --a3: #e98068; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0e131c; --surface: #151c28; --ink: #e8ebf0; --muted: #9ba4b3; --line: #273142;
+  --gold: #d8b766; --gold-soft: #2a2416; --fix: #86c48d; --fix-soft: #17271b; --warn: #e2a65a; --warn-soft: #2c2114;
+  --a1: #86a3d8; --a2: #dcaa5c; --a3: #e98068; color-scheme: dark; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+.wrap > *, section { min-width: 0; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 40px 72px; display: grid; gap: 56px; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.eyebrow { font: 500 12px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+h1 { font: 500 clamp(30px, 5vw, 52px)/1.08 var(--display); margin: 10px 0 0; text-wrap: balance; max-width: 22ch; }
+h2 { font: 500 clamp(24px, 3vw, 32px)/1.15 var(--display); margin: 0; text-wrap: balance; }
+.lead { font-size: 17px; max-width: 68ch; margin: 18px 0 0; color: var(--ink); }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; padding: 0; list-style: none; }
+.facts li { font: 500 12.5px/1 var(--mono); padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+section > header { display: grid; gap: 8px; margin-bottom: 20px; }
+section > header p { margin: 0; color: var(--muted); max-width: 72ch; }
+/* act timeline */
+.timeline { margin-top: 28px; display: grid; gap: 6px; }
+.acts { display: flex; gap: 4px; }
+.act { min-width: 0; border-top: 4px solid; padding-top: 8px; display: grid; gap: 2px; }
+.act.a1 { border-color: var(--a1); } .act.a2 { border-color: var(--a2); } .act.a3 { border-color: var(--a3); }
+.act-n { font: 500 11.5px/1.3 var(--mono); color: var(--muted); }
+.act-t { font: 500 15px/1.25 var(--display); }
+.ticks { display: flex; gap: 2px; }
+.tick { min-width: 0; text-align: center; text-decoration: none; font: 500 10.5px/22px var(--mono); color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 2px; overflow: hidden; }
+.tick:hover { color: var(--ink); border-color: var(--gold); }
+/* two-column analysis */
+.split { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 20px 22px; min-width: 0; }
+.panel h3 { font: 600 13px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; color: var(--muted); }
+.panel ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+/* tables */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 14px; }
+th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-top: 1px solid var(--line); }
+thead th { border-top: 0; font: 600 11.5px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: var(--bg); }
+tbody th { font-weight: 600; width: 22%; }
+.code { display: block; font: 600 12px/1.4 var(--mono); color: var(--fix); margin-bottom: 2px; }
+td.where { font: 500 12.5px/1.5 var(--mono); white-space: nowrap; color: var(--muted); }
+tr:target { background: var(--gold-soft); }
+/* storyboard */
+.board { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 500px), 1fr)); gap: 18px; }
+.shot { display: grid; grid-template-columns: clamp(112px, 32%, 176px) minmax(0, 1fr); gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px; border-top: 4px solid; }
+.shot.a1 { border-top-color: var(--a1); } .shot.a2 { border-top-color: var(--a2); } .shot.a3 { border-top-color: var(--a3); }
+.shot:target { box-shadow: 0 0 0 2px var(--gold); }
+.frame { padding: 0; border: 0; background: #000; border-radius: 4px; overflow: hidden; cursor: zoom-in; align-self: start; display: block; width: 100%; }
+.frame img { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; }
+.meta { min-width: 0; display: grid; gap: 10px; align-content: start; }
+.meta header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; font-family: var(--mono); }
+.id { font: 600 20px/1 var(--display); }
+.tc { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.dur { font-size: 12px; padding: 2px 6px; border: 1px solid var(--line); border-radius: 3px; }
+.onscreen { margin: 0; font: italic 400 17px/1.35 var(--display); }
+.onscreen em { font-style: normal; font-family: var(--body); font-size: 13px; color: var(--muted); }
+.onscreen .mono { font: 500 11.5px/1.6 var(--mono); font-style: normal; letter-spacing: .04em; color: var(--muted); }
+.lbl { display: block; font: 600 10.5px/1.4 var(--mono); font-style: normal; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: 2px; }
+dl { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 4px 10px; margin: 0; font-size: 13.5px; line-height: 1.45; }
+dt { font: 600 10.5px/1.9 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+dd { margin: 0; }
+dd b { font-variant-numeric: tabular-nums; }
+.sub { color: var(--muted); } .note { color: var(--warn); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 600 11.5px/1 var(--mono); padding: 5px 7px; border-radius: 3px; text-decoration: none; }
+.chip.fix { background: var(--fix-soft); color: var(--fix); }
+.chip.src { background: var(--gold-soft); color: var(--gold); }
+@media (max-width: 420px) { .shot { grid-template-columns: 1fr; } .frame { max-width: 220px; } }
+/* charter */
+.spec { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+.spec dl { grid-template-columns: 110px minmax(0, 1fr); font-size: 14px; }
+.status { font: 600 11.5px/1.3 var(--mono); padding: 4px 6px; border-radius: 3px; display: inline-block; }
+.status.ok { background: var(--fix-soft); color: var(--fix); } .status.warn { background: var(--warn-soft); color: var(--warn); }
+.lnk { margin-top: 4px; font: 500 12.5px/1.4 var(--mono); } .muted { color: var(--muted); }
+.next { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 6px; padding: 20px 22px; max-width: 80ch; }
+.next p { margin: 0 0 8px; } .next p:last-child { margin: 0; }
+/* viewer */
+.viewer { position: fixed; inset: 0; z-index: 20; background: rgba(5, 7, 12, .92); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.viewer img { max-height: 86vh; max-width: 100%; width: auto; border-radius: 6px; }
+.viewer .bar { display: flex; gap: 10px; align-items: center; justify-content: center; margin-top: 12px; color: #e8ebf0; font: 500 13px/1 var(--mono); }
+.viewer button { font: 600 13px/1 var(--mono); color: #e8ebf0; background: #1b2331; border: 1px solid #36435a; border-radius: 4px; padding: 10px 12px; cursor: pointer; }
+@media (prefers-reduced-motion: no-preference) { .tick, .shot { transition: border-color .15s, box-shadow .15s; } }
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Storyboard · What if · épisode 3</div>
+  <h1>Et si Paris atteignait 50 °C ?</h1>
+  <p class="lead">Paris s’enfonce dans une canicule de cinq jours qui culmine à 50 °C. On suit Inès, 21 ans, étudiante dans une chambre de bonne de 9 m² sous les toits en zinc. À la fin, la fiction rejoint la réalité : l’exercice « Paris à 50 °C » de 2023, la canicule de 2003 et le record de 2019.</p>
+  <ul class="facts"><li>9:16 · 1080 × 1920</li><li>78,5 s</li><li>19 plans</li><li>Sans voix off</li><li>Images rendues en 3D par code</li></ul>
+  <div class="timeline"><div class="acts" role="img" aria-label="Répartition des 19 plans dans les trois actes, sur 78,5 secondes"><div class="act a1" style="flex:23.00"><span class="act-n">Acte 1 · 0:00,0–0:23,0</span><span class="act-t">Le dôme de chaleur</span></div><div class="act a2" style="flex:33.00"><span class="act-n">Acte 2 · 0:23,0–0:56,0</span><span class="act-t">50 °C</span></div><div class="act a3" style="flex:22.50"><span class="act-n">Acte 3 · 0:56,0–1:18,5</span><span class="act-t">Paris s’y prépare déjà</span></div></div><div class="ticks" aria-hidden="true"><a href="#p01" class="tick a1" style="flex:3.00" title="P01 · 0:00,0">01</a><a href="#p02" class="tick a1" style="flex:4.00" title="P02 · 0:03,0">02</a><a href="#p03" class="tick a1" style="flex:4.00" title="P03 · 0:07,0">03</a><a href="#p04" class="tick a1" style="flex:4.00" title="P04 · 0:11,0">04</a><a href="#p05" class="tick a1" style="flex:4.00" title="P05 · 0:15,0">05</a><a href="#p06" class="tick a1" style="flex:4.00" title="P06 · 0:19,0">06</a><a href="#p07" class="tick a2" style="flex:4.00" title="P07 · 0:23,0">07</a><a href="#p08" class="tick a2" style="flex:4.50" title="P08 · 0:27,0">08</a><a href="#p09" class="tick a2" style="flex:4.00" title="P09 · 0:31,5">09</a><a href="#p10" class="tick a2" style="flex:4.00" title="P10 · 0:35,5">10</a><a href="#p11" class="tick a2" style="flex:4.50" title="P11 · 0:39,5">11</a><a href="#p12" class="tick a2" style="flex:4.00" title="P12 · 0:44,0">12</a><a href="#p13" class="tick a2" style="flex:4.00" title="P13 · 0:48,0">13</a><a href="#p14" class="tick a2" style="flex:4.00" title="P14 · 0:52,0">14</a><a href="#p15" class="tick a3" style="flex:4.50" title="P15 · 0:56,0">15</a><a href="#p16" class="tick a3" style="flex:4.50" title="P16 · 1:00,5">16</a><a href="#p17" class="tick a3" style="flex:5.00" title="P17 · 1:05,0">17</a><a href="#p18" class="tick a3" style="flex:4.50" title="P18 · 1:10,0">18</a><a href="#p19" class="tick a3" style="flex:4.00" title="P19 · 1:14,5">19</a></div></div>
+</header>
+
+<section aria-labelledby="h-ref">
+  <header><div class="eyebrow">Analyse des deux vidéos de référence</div><h2 id="h-ref">Le style est repris, l’histoire est neuve</h2>
+  <p>Les deux vidéos fournies (1:53 et 2:42) servent uniquement de référence visuelle. Aucune scène, réplique, prémisse ni personnage n’en est repris.</p></header>
+  <div class="split">
+    <div class="panel"><h3>Repris du style</h3><ul>
+      <li>3D stylisée, personnages simples aux traits minimalistes, lumière de cinéma.</li>
+      <li>Un compteur qui raconte l’histoire, avec un repère de temps (jour, semaine, mois).</li>
+      <li>Sous-titres en serif italique, centrés, une idée par plan.</li>
+      <li>Aucune voix off : le texte et le sound design portent le récit.</li>
+      <li>Un personnage qui ouvre et ferme l’histoire.</li>
+      <li>Carton final sombre avec un appel au partage.</li></ul></div>
+    <div class="panel"><h3>Nouveau dans ce What if</h3><ul><li>Sujet : une canicule qui pousse Paris jusqu’à 50 °C.</li><li>Déclencheur : les toits en zinc qui brûlent sous un soleil blanc.</li><li>Personnage : Inès, 21 ans, étudiante dans une chambre de bonne.</li><li>Chute : l’exercice « Paris à 50 °C », la canicule de 2003 et le record de 2019, puis les cours d’école plantées d’arbres.</li><li>Appel au partage : « Envoie ça à quelqu’un qui vit sous les toits. »</li><li>Durée : 78,5 s, comme les deux premiers épisodes.</li></ul></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-def">
+  <header><div class="eyebrow">16 défauts relevés · 16 corrections</div><h2 id="h-def">Ce que le storyboard corrige</h2>
+  <p>Chaque plan du storyboard renvoie aux codes ci-dessous (pastilles vertes).</p></header>
+  <div class="tbl"><table><thead><tr><th scope="col">Défaut</th><th scope="col">Constaté dans les références</th><th scope="col">Correction</th><th scope="col">Plans</th></tr></thead><tbody><tr id="d01"><th scope="row"><span class="code">D01</span>Incohérences logiques</th><td>Vidéo 2, 0:12–0:34 : les hommes enceints ont leurs règles et achètent des protections. Vidéo 1, 0:54–1:00 : « la criminalité augmente de 80 % » alors que « les femmes ne commettaient que 20 % des crimes violents ». Vidéo 1, 1:08 : le compteur des soins non rémunérés tombe à 0 alors que « les pères s’en chargent seuls ».</td><td>Chaque conséquence suit une cause vérifiable : le zinc chauffe la chambre, l’acier des rails se dilate, l’eau des rivières refroidit les centrales, les climatiseurs rejettent leur chaleur dehors.</td><td class="where">P02, P04, P05, P07</td></tr><tr id="d02"><th scope="row"><span class="code">D02</span>Le chiffre à l’image contredit le texte</th><td>Vidéo 2, 1:22 : la facture affiche 18 640,75 $, le sous-titre dit 18 865 $. Vidéo 1, 1:02 : le compteur montre 12,42 milliards, le texte dit 12,5 milliards.</td><td>Le compteur, la croix de la pharmacie et les sous-titres affichent le même chiffre, tiré d’une seule table.</td><td class="where">P03, P11, P16, P17</td></tr><tr id="d03"><th scope="row"><span class="code">D03</span>Texte déformé dans l’image</th><td>Vidéo 1, 0:54 : enseigne « SUPERMA KET ».</td><td>Tout texte du décor (croix de pharmacie, affiche de l’école, panneau de mesure, écrans de crise) est écrit proprement.</td><td class="where">P03, P05, P06, P15</td></tr><tr id="d04"><th scope="row"><span class="code">D04</span>Le personnage change d’un plan à l’autre</th><td>Vidéo 2 : le héros passe d’un sweat gris à un sweat marine, la coiffure varie.</td><td>Fiche personnage unique : Inès (débardeur jaune pâle, short en jean, chignon noir), identique dans chaque plan.</td><td class="where">P02, P09, P10, P14</td></tr><tr id="d05"><th scope="row"><span class="code">D05</span>Sous-titres peu lisibles</th><td>Vidéo 1, 0:32–0:44 : petit italique blanc sans ombre sur des fonds clairs (couloir ensoleillé, bougies).</td><td>Corps 54 px au lieu d’environ 34 px, ombre portée et voile sombre local derrière les sous-titres et le compteur.</td><td class="where">Tous</td></tr><tr id="d06"><th scope="row"><span class="code">D06</span>Sous-titres trop longs pour le plan</th><td>Vidéo 2, 1:06 : trois lignes à lire en quatre secondes.</td><td>Deux lignes au plus, coupées à la main sur les groupes de sens ; environ 17 caractères par seconde.</td><td class="where">Tous</td></tr><tr id="d07"><th scope="row"><span class="code">D07</span>Accroche lente</th><td>Les deux vidéos posent l’événement vers 0:08–0:10, avec un titre petit sur un fond chargé.</td><td>Les toits brûlants dès la première image, sous un titre grand et contrasté ; le thermomètre grimpe dès 0:03.</td><td class="where">P01, P02</td></tr><tr id="d08"><th scope="row"><span class="code">D08</span>Trop long, milieu répétitif</th><td>1:53 et 2:42. La vidéo 2 enchaîne une quinzaine de faits au même rythme.</td><td>78,5 s en trois actes ; le thermomètre fait monter la tension de 36 à 50 °C, puis l’orage relâche.</td><td class="where">Tous</td></tr><tr id="d09"><th scope="row"><span class="code">D09</span>Temps morts</th><td>Vidéo 2, 2:09 : deux secondes d’écran noir. Cartons finaux de sept secondes.</td><td>Aucun plan vide. Carton final de 4 s qui boucle sur les toits brûlants du premier plan.</td><td class="where">P19</td></tr><tr id="d10"><th scope="row"><span class="code">D10</span>Chute « tout ça n’était qu’un rêve »</th><td>Vidéo 2, 2:22 : le rêve annule tout l’enjeu de l’histoire.</td><td>La fiction rejoint la réalité chiffrée (2003, 2019, l’exercice de 2023), puis une note d’espoir : les cours d’école plantées d’arbres.</td><td class="where">P14 à P18</td></tr><tr id="d11"><th scope="row"><span class="code">D11</span>Titre différent entre l’accroche et la fin</th><td>Vidéo 1 : « What if every Woman on Earth disappeared? » au début, « What if all women disappeared? » à la fin.</td><td>Titre identique au caractère près, typographie française (espaces insécables, guillemets).</td><td class="where">P01, P19</td></tr><tr id="d12"><th scope="row"><span class="code">D12</span>Phrases ambiguës</th><td>Vidéo 1, 0:44 : « Over a billion of them are children » (de qui parle-t-on ?).</td><td>Chaque phrase a un sujet explicite.</td><td class="where">P04, P05, P12</td></tr><tr id="d13"><th scope="row"><span class="code">D13</span>Le compteur change de sens sans prévenir</th><td>Vidéo 2 : « PREGNANT MEN » reste affiché en année 2, bien après les naissances.</td><td>Le libellé dit toujours ce que mesure le chiffre : température à Paris, canicule simulée, morts en excès, record de France, cours oasis.</td><td class="where">P01, P15, P16, P17, P18</td></tr><tr id="d14"><th scope="row"><span class="code">D14</span>Chiffres sans source</th><td>Vidéo 1 : « la criminalité augmente de 80 % », sans origine.</td><td>Chaque chiffre réel renvoie à une source. Le zinc « jusqu’à 80 °C » reste à recouper : 70 ou 80 °C selon les sources.</td><td class="where">P02 à P10, P15 à P18</td></tr><tr id="d15"><th scope="row"><span class="code">D15</span>Fautes de langue</th><td>Vidéo 2, 1:52 : « 1 in 8 new mothers go ».</td><td>Relecture orthographique et typographique du français.</td><td class="where">Tous</td></tr><tr id="d16"><th scope="row"><span class="code">D16</span>Deux compteurs qui se disputent l’écran</th><td>Vidéo 1, 1:02 : deux grands compteurs empilés.</td><td>Un seul compteur à l’écran, toujours à la même place.</td><td class="where">Tous</td></tr></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-sb">
+  <header><div class="eyebrow">19 plans · cliquer une image pour l’agrandir</div><h2 id="h-sb">Storyboard</h2>
+  <p>Images de travail rendues en 3D, avec les textes à leur taille finale. Les pastilles vertes renvoient aux défauts corrigés, les dorées aux sources.</p></header>
+  <div class="board">
+<article class="shot a1" id="p01">
+  <button class="frame" type="button" data-i="0" aria-label="Agrandir le plan P01"><img src="frames/P01.jpg" alt="Plan P01 : Les toits en zinc de Paris sous un soleil blanc ; l’air tremble au-dessus des cheminées. Au loin, un dôme et des grues immobiles." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P01</span><span class="tc">0:00,0 → 0:03,0</span><span class="dur">3,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span><em>Titre :</em> Et si Paris atteignait 50 °C ?</p>
+    <dl><dt>Compteur</dt><dd>TEMPÉRATURE À PARIS · <b>36 °C</b> · JOUR 1 · 14:00</dd><dt>Image</dt><dd>Les toits en zinc de Paris sous un soleil blanc ; l’air tremble au-dessus des cheminées. Au loin, un dôme et des grues immobiles.</dd><dt>Caméra</dt><dd>Lent travelling latéral au ras des toits.</dd><dt>Son</dt><dd>Vent chaud, rumeur lointaine de la ville, le zinc qui craque.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d07" title="Accroche lente">D07</a><a class="chip fix" href="#d11" title="Titre différent entre l’accroche et la fin">D11</a><a class="chip fix" href="#d05" title="Sous-titres peu lisibles">D05</a></div>
+  </div>
+</article>
+<article class="shot a1" id="p02">
+  <button class="frame" type="button" data-i="1" aria-label="Agrandir le plan P02"><img src="frames/P02.jpg" alt="Plan P02 : La chambre de bonne d’Inès, 9 m² sous le toit : le soleil tombe par le vasistas, le ventilateur souffle de l’air brûlant. Assise sur son lit, Inès s’évente avec un cahier." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P02</span><span class="tc">0:03,0 → 0:07,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Jour 1. Le zinc du toit monte à 80 °C. Inès, 21 ans, vit juste dessous. »</p>
+    <dl><dt>Compteur</dt><dd>TEMPÉRATURE À PARIS · <b>37 °C</b> · JOUR 1 · 15:10</dd><dt>Image</dt><dd>La chambre de bonne d’Inès, 9 m² sous le toit : le soleil tombe par le vasistas, le ventilateur souffle de l’air brûlant. Assise sur son lit, Inès s’évente avec un cahier.</dd><dt>Caméra</dt><dd>Plan fixe, léger zoom avant.</dd><dt>Son</dt><dd>Ventilateur, le zinc qui claque en se dilatant.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d04" title="Le personnage change d’un plan à l’autre">D04</a><a class="chip fix" href="#d01" title="Incohérences logiques">D01</a><a class="chip src" href="#s7">S7</a></div>
+  </div>
+</article>
+<article class="shot a1" id="p03">
+  <button class="frame" type="button" data-i="2" aria-label="Agrandir le plan P03"><img src="frames/P03.jpg" alt="Plan P03 : Une rue haussmannienne écrasée de soleil : la croix verte de la pharmacie affiche 43 °C. Les passants rasent les murs, une femme s’abrite sous un parapluie." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P03</span><span class="tc">0:07,0 → 0:11,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Jour 2. 43 °C. Le record de Paris, 42,6 °C en 2019, vient de tomber. »</p>
+    <dl><dt>Compteur</dt><dd>TEMPÉRATURE À PARIS · <b>43 °C</b> · JOUR 2 · 16:30</dd><dt>Image</dt><dd>Une rue haussmannienne écrasée de soleil : la croix verte de la pharmacie affiche 43 °C. Les passants rasent les murs, une femme s’abrite sous un parapluie.</dd><dt>Caméra</dt><dd>Travelling arrière lent.</dd><dt>Son</dt><dd>Rue au ralenti, un bus au loin, le bip de la croix de pharmacie.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d03" title="Texte déformé dans l’image">D03</a><a class="chip fix" href="#d02" title="Le chiffre à l’image contredit le texte">D02</a><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip src" href="#s4">S4</a></div>
+  </div>
+</article>
+<article class="shot a1" id="p04">
+  <button class="frame" type="button" data-i="3" aria-label="Agrandir le plan P04"><img src="frames/P04.jpg" alt="Plan P04 : Une voie de banlieue sous la chaleur : l’air ondule au-dessus des rails, un train avance au pas devant un panneau « 40 »." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P04</span><span class="tc">0:11,0 → 0:15,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Les rails chauffent jusqu’à 60 °C. Les trains doivent ralentir. »</p>
+    <dl><dt>Compteur</dt><dd>TEMPÉRATURE À PARIS · <b>43 °C</b> · JOUR 2 · 17:15</dd><dt>Image</dt><dd>Une voie de banlieue sous la chaleur : l’air ondule au-dessus des rails, un train avance au pas devant un panneau « 40 ».</dd><dt>Caméra</dt><dd>Plan fixe au ras du ballast.</dd><dt>Son</dt><dd>Crissement des rails, grésillement des caténaires.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d01" title="Incohérences logiques">D01</a><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip src" href="#s8">S8</a></div>
+  </div>
+</article>
+<article class="shot a1" id="p05">
+  <button class="frame" type="button" data-i="4" aria-label="Agrandir le plan P05"><img src="frames/P05.jpg" alt="Plan P05 : Une centrale au bord d’une rivière basse : les tours de refroidissement fument à peine, les berges sont craquelées. Le panneau de mesure affiche « EAU 28 °C »." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P05</span><span class="tc">0:15,0 → 0:19,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Les rivières sont trop chaudes : des centrales nucléaires ralentissent. »</p>
+    <dl><dt>Compteur</dt><dd>TEMPÉRATURE À PARIS · <b>42 °C</b> · JOUR 2 · 18:30</dd><dt>Image</dt><dd>Une centrale au bord d’une rivière basse : les tours de refroidissement fument à peine, les berges sont craquelées. Le panneau de mesure affiche « EAU 28 °C ».</dd><dt>Caméra</dt><dd>Lent panoramique.</dd><dt>Son</dt><dd>Bourdonnement électrique qui baisse d’un ton.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d01" title="Incohérences logiques">D01</a><a class="chip fix" href="#d03" title="Texte déformé dans l’image">D03</a><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip src" href="#s9">S9</a></div>
+  </div>
+</article>
+<article class="shot a1" id="p06">
+  <button class="frame" type="button" data-i="5" aria-label="Agrandir le plan P06"><img src="frames/P06.jpg" alt="Plan P06 : La grille d’une école élémentaire, fermée. Une affiche : « ÉCOLE FERMÉE – CANICULE. BREVET REPORTÉ. » La cour en bitume tremble de chaleur." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P06</span><span class="tc">0:19,0 → 0:23,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Jour 3. Écoles fermées. Le brevet est reporté, comme en 2019. »</p>
+    <dl><dt>Compteur</dt><dd>TEMPÉRATURE À PARIS · <b>39 °C</b> · JOUR 3 · 08:30</dd><dt>Image</dt><dd>La grille d’une école élémentaire, fermée. Une affiche : « ÉCOLE FERMÉE – CANICULE. BREVET REPORTÉ. » La cour en bitume tremble de chaleur.</dd><dt>Caméra</dt><dd>Travelling avant vers l’affiche.</dd><dt>Son</dt><dd>Cour vide, une alarme de voiture au loin.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d03" title="Texte déformé dans l’image">D03</a><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip src" href="#s10">S10</a></div>
+  </div>
+</article>
+<article class="shot a2" id="p07">
+  <button class="frame" type="button" data-i="6" aria-label="Agrandir le plan P07"><img src="frames/P07.jpg" alt="Plan P07 : Une façade couverte de climatiseurs qui soufflent de l’air chaud ; en bas, un livreur à vélo pédale au ralenti dans l’air qui ondule." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P07</span><span class="tc">0:23,0 → 0:27,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Jour 3. 47 °C. Les climatiseurs recrachent leur chaleur dans la rue. »</p>
+    <dl><dt>Compteur</dt><dd>TEMPÉRATURE À PARIS · <b>47 °C</b> · JOUR 3 · 15:00</dd><dt>Image</dt><dd>Une façade couverte de climatiseurs qui soufflent de l’air chaud ; en bas, un livreur à vélo pédale au ralenti dans l’air qui ondule.</dd><dt>Caméra</dt><dd>Contre-plongée qui descend le long de la façade.</dd><dt>Son</dt><dd>Ronronnement de dizaines de compresseurs.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d01" title="Incohérences logiques">D01</a><a class="chip fix" href="#d12" title="Phrases ambiguës">D12</a></div>
+  </div>
+</article>
+<article class="shot a2" id="p08">
+  <button class="frame" type="button" data-i="7" aria-label="Agrandir le plan P08"><img src="frames/P08.jpg" alt="Plan P08 : Paris la nuit, fenêtres grandes ouvertes, des silhouettes sur les balcons et sur les toits, sans un souffle d’air." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P08</span><span class="tc">0:27,0 → 0:31,5</span><span class="dur">4,5 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« La nuit, Paris reste jusqu’à 8 °C plus chaud que la campagne. »</p>
+    <dl><dt>Compteur</dt><dd>TEMPÉRATURE À PARIS · <b>34 °C</b> · JOUR 4 · 00:30</dd><dt>Image</dt><dd>Paris la nuit, fenêtres grandes ouvertes, des silhouettes sur les balcons et sur les toits, sans un souffle d’air.</dd><dt>Caméra</dt><dd>Lent travelling latéral.</dd><dt>Son</dt><dd>Ventilateurs aux fenêtres, une sirène lointaine.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip fix" href="#d13" title="Le compteur change de sens sans prévenir">D13</a><a class="chip src" href="#s11">S11</a></div>
+  </div>
+</article>
+<article class="shot a2" id="p09">
+  <button class="frame" type="button" data-i="8" aria-label="Agrandir le plan P09"><img src="frames/P09.jpg" alt="Plan P09 : Dans sa chambre, Inès ne dort pas : drap mouillé, ventilateur, écran du téléphone. Le thermomètre de la chambre affiche 38 °C." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P09</span><span class="tc">0:31,5 → 0:35,5</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« En 2003, vivre sous les toits multipliait par 4 le risque de mourir. »</p>
+    <dl><dt>Compteur</dt><dd>TEMPÉRATURE À PARIS · <b>33 °C</b> · JOUR 4 · 02:00</dd><dt>Image</dt><dd>Dans sa chambre, Inès ne dort pas : drap mouillé, ventilateur, écran du téléphone. Le thermomètre de la chambre affiche 38 °C.</dd><dt>Caméra</dt><dd>Plan fixe en plongée.</dd><dt>Son</dt><dd>Ventilateur, souffle court, horloge.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d04" title="Le personnage change d’un plan à l’autre">D04</a><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip src" href="#s6">S6</a></div>
+  </div>
+</article>
+<article class="shot a2" id="p10">
+  <button class="frame" type="button" data-i="9" aria-label="Agrandir le plan P10"><img src="frames/P10.jpg" alt="Plan P10 : Un parc la nuit : des Parisiens dorment sur des draps dans l’herbe, sous les arbres et les réverbères. Inès arrive avec son oreiller." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P10</span><span class="tc">0:35,5 → 0:39,5</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Les parcs restent ouverts toute la nuit. On vient dormir sous les arbres. »</p>
+    <dl><dt>Compteur</dt><dd>TEMPÉRATURE À PARIS · <b>32 °C</b> · JOUR 4 · 04:00</dd><dt>Image</dt><dd>Un parc la nuit : des Parisiens dorment sur des draps dans l’herbe, sous les arbres et les réverbères. Inès arrive avec son oreiller.</dd><dt>Caméra</dt><dd>Lent travelling au ras de l’herbe.</dd><dt>Son</dt><dd>Grillons, murmures, un arrosage automatique.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d04" title="Le personnage change d’un plan à l’autre">D04</a><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip src" href="#s12">S12</a></div>
+  </div>
+</article>
+<article class="shot a2" id="p11">
+  <button class="frame" type="button" data-i="10" aria-label="Agrandir le plan P11"><img src="frames/P11.jpg" alt="Plan P11 : La même rue qu’au jour 2, vide : la croix de la pharmacie passe à 50 °C, l’asphalte miroite, un brumisateur souffle dans le vide." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P11</span><span class="tc">0:39,5 → 0:44,0</span><span class="dur">4,5 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Jour 4, 16 h. 50,0 °C. Paris n’a jamais eu aussi chaud. »</p>
+    <dl><dt>Compteur</dt><dd>TEMPÉRATURE À PARIS · <b>50,0 °C</b> · JOUR 4 · 16:00</dd><dt>Image</dt><dd>La même rue qu’au jour 2, vide : la croix de la pharmacie passe à 50 °C, l’asphalte miroite, un brumisateur souffle dans le vide.</dd><dt>Caméra</dt><dd>Plan fixe, l’air ondule.</dd><dt>Son</dt><dd>Silence, le brumisateur, la croix qui bipe.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d02" title="Le chiffre à l’image contredit le texte">D02</a><a class="chip fix" href="#d16" title="Deux compteurs qui se disputent l’écran">D16</a></div>
+  </div>
+</article>
+<article class="shot a2" id="p12">
+  <button class="frame" type="button" data-i="11" aria-label="Agrandir le plan P12"><img src="frames/P12.jpg" alt="Plan P12 : Une ambulance gyrophares allumés devant un immeuble ; deux secouristes sortent un homme âgé sur un brancard." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P12</span><span class="tc">0:44,0 → 0:48,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Les secours enchaînent les malaises. D’abord chez les plus âgés. »</p>
+    <dl><dt>Compteur</dt><dd>TEMPÉRATURE À PARIS · <b>50 °C</b> · JOUR 4 · 16:40</dd><dt>Image</dt><dd>Une ambulance gyrophares allumés devant un immeuble ; deux secouristes sortent un homme âgé sur un brancard.</dd><dt>Caméra</dt><dd>Plan moyen, caméra portée.</dd><dt>Son</dt><dd>Sirène qui s’arrête, portes, radio des secours.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d12" title="Phrases ambiguës">D12</a><a class="chip src" href="#s2">S2</a></div>
+  </div>
+</article>
+<article class="shot a2" id="p13">
+  <button class="frame" type="button" data-i="12" aria-label="Agrandir le plan P13"><img src="frames/P13.jpg" alt="Plan P13 : Les toits de Paris sous un ciel noir : un éclair, puis une pluie violente ; le zinc brûlant fume sous l’averse." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P13</span><span class="tc">0:48,0 → 0:52,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Jour 5. L’orage éclate enfin. La température chute de 20 degrés. »</p>
+    <dl><dt>Compteur</dt><dd>TEMPÉRATURE À PARIS · <b>29 °C</b> · JOUR 5 · 18:00</dd><dt>Image</dt><dd>Les toits de Paris sous un ciel noir : un éclair, puis une pluie violente ; le zinc brûlant fume sous l’averse.</dd><dt>Caméra</dt><dd>Plan large fixe.</dd><dt>Son</dt><dd>Tonnerre, pluie sur le zinc, sifflement de vapeur.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d08" title="Trop long, milieu répétitif">D08</a></div>
+  </div>
+</article>
+<article class="shot a2" id="p14">
+  <button class="frame" type="button" data-i="13" aria-label="Agrandir le plan P14"><img src="frames/P14.jpg" alt="Plan P14 : Inès ouvre grand le vasistas et tend le visage à la pluie." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P14</span><span class="tc">0:52,0 → 0:56,0</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Une fiction ? Paris s’est pourtant entraîné à ce scénario. »</p>
+    <dl><dt>Compteur</dt><dd>TEMPÉRATURE À PARIS · <b>26 °C</b> · JOUR 5 · 19:00</dd><dt>Image</dt><dd>Inès ouvre grand le vasistas et tend le visage à la pluie.</dd><dt>Caméra</dt><dd>Contre-plongée sous le vasistas.</dd><dt>Son</dt><dd>Pluie, Inès qui rit.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d10" title="Chute « tout ça n’était qu’un rêve »">D10</a></div>
+  </div>
+</article>
+<article class="shot a3" id="p15">
+  <button class="frame" type="button" data-i="14" aria-label="Agrandir le plan P15"><img src="frames/P15.jpg" alt="Plan P15 : Une salle de crise : des écrans montrent Paris en rouge et « DÔME DE CHALEUR · PIC À 50 °C » ; des agents au téléphone." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P15</span><span class="tc">0:56,0 → 1:00,5</span><span class="dur">4,5 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« 13 octobre 2023 : Paris simule une canicule à 50 °C, pour de vrai. »</p>
+    <dl><dt>Compteur</dt><dd>CANICULE SIMULÉE · <b>50 °C</b> · PARIS · 13 OCTOBRE 2023</dd><dt>Image</dt><dd>Une salle de crise : des écrans montrent Paris en rouge et « DÔME DE CHALEUR · PIC À 50 °C » ; des agents au téléphone.</dd><dt>Caméra</dt><dd>Travelling latéral le long des tables.</dd><dt>Son</dt><dd>Téléphones, voix posées, claviers.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d13" title="Le compteur change de sens sans prévenir">D13</a><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip src" href="#s1">S1</a></div>
+  </div>
+</article>
+<article class="shot a3" id="p16">
+  <button class="frame" type="button" data-i="15" aria-label="Agrandir le plan P16"><img src="frames/P16.jpg" alt="Plan P16 : La France vue de nuit, teintée de rouge ; le compteur monte de 0 à 14 802." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P16</span><span class="tc">1:00,5 → 1:05,0</span><span class="dur">4,5 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Août 2003 : 14 802 morts de plus que d’habitude, en vingt jours. »</p>
+    <dl><dt>Compteur</dt><dd>MORTS EN EXCÈS · <b>14 802</b> · FRANCE · 1ER–20 AOÛT 2003</dd><dt>Image</dt><dd>La France vue de nuit, teintée de rouge ; le compteur monte de 0 à 14 802.</dd><dt>Caméra</dt><dd>Lent zoom arrière.</dd><dt>Son</dt><dd>Un battement grave et lent.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d02" title="Le chiffre à l’image contredit le texte">D02</a><a class="chip fix" href="#d13" title="Le compteur change de sens sans prévenir">D13</a><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip src" href="#s2">S2</a></div>
+  </div>
+</article>
+<article class="shot a3" id="p17">
+  <button class="frame" type="button" data-i="16" aria-label="Agrandir le plan P17"><img src="frames/P17.jpg" alt="Plan P17 : Une épingle se plante dans l’Hérault : 46,0 °C. Puis toute la carte rougit." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P17</span><span class="tc">1:05,0 → 1:10,0</span><span class="dur">5,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« 46,0 °C en 2019. Pour Météo-France, 50 °C sera possible dès 2050. »</p>
+    <dl><dt>Compteur</dt><dd>RECORD DE FRANCE · <b>46,0 °C</b> · VÉRARGUES (HÉRAULT) · 28 JUIN 2019</dd><dt>Image</dt><dd>Une épingle se plante dans l’Hérault : 46,0 °C. Puis toute la carte rougit.</dd><dt>Caméra</dt><dd>Plan fixe en plongée.</dd><dt>Son</dt><dd>Le « clic » de l’épingle, puis un souffle chaud.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d02" title="Le chiffre à l’image contredit le texte">D02</a><a class="chip fix" href="#d13" title="Le compteur change de sens sans prévenir">D13</a><a class="chip fix" href="#d14" title="Chiffres sans source">D14</a><a class="chip src" href="#s3">S3</a><a class="chip src" href="#s5">S5</a></div>
+  </div>
+</article>
+<article class="shot a3" id="p18">
+  <button class="frame" type="button" data-i="17" aria-label="Agrandir le plan P18"><img src="frames/P18.jpg" alt="Plan P18 : La même école qu’au jour 3, transformée : arbres, herbe, fontaine, enfants qui jouent à l’ombre." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P18</span><span class="tc">1:10,0 → 1:14,5</span><span class="dur">4,5 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>« Pour tenir, Paris plante ses cours d’école : déjà 203 « cours oasis ». »</p>
+    <dl><dt>Compteur</dt><dd>COURS OASIS À PARIS · <b>203</b> · BILAN 2025 · OBJECTIF 360</dd><dt>Image</dt><dd>La même école qu’au jour 3, transformée : arbres, herbe, fontaine, enfants qui jouent à l’ombre.</dd><dt>Caméra</dt><dd>Lent travelling avant.</dd><dt>Son</dt><dd>Rires d’enfants, oiseaux, fontaine. Piano en majeur.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d10" title="Chute « tout ça n’était qu’un rêve »">D10</a><a class="chip fix" href="#d13" title="Le compteur change de sens sans prévenir">D13</a><a class="chip src" href="#s13">S13</a></div>
+  </div>
+</article>
+<article class="shot a3" id="p19">
+  <button class="frame" type="button" data-i="18" aria-label="Agrandir le plan P19"><img src="frames/P19.jpg" alt="Plan P19 : Carton final : le même titre qu’en ouverture, deux conseils, la flèche de partage et l’appel à l’action." width="720" height="1280" loading="lazy"></button>
+  <div class="meta">
+    <header><span class="id">P19</span><span class="tc">1:14,5 → 1:18,5</span><span class="dur">4,0 s</span></header>
+    <p class="onscreen"><span class="lbl">À l’écran</span>Et si Paris atteignait 50 °C ?<br><span class="mono">VOLETS FERMÉS LE JOUR, OUVERTS LA NUIT. DE L’EAU. UN LIEU FRAIS PAS LOIN.</span><br><span class="mono">ENVOIE ÇA À QUELQU’UN QUI VIT SOUS LES TOITS.</span></p>
+    <dl><dt>Compteur</dt><dd>Aucun : carton final.</dd><dt>Image</dt><dd>Carton final : le même titre qu’en ouverture, deux conseils, la flèche de partage et l’appel à l’action.</dd><dt>Caméra</dt><dd>Fixe ; la flèche de partage s’anime.</dd><dt>Son</dt><dd>La musique se pose, 0,5 s de silence, puis boucle sur les toits du premier plan.</dd></dl>
+    <div class="chips"><a class="chip fix" href="#d09" title="Temps morts">D09</a><a class="chip fix" href="#d11" title="Titre différent entre l’accroche et la fin">D11</a><a class="chip fix" href="#d05" title="Sous-titres peu lisibles">D05</a></div>
+  </div>
+</article></div>
+</section>
+
+<section aria-labelledby="h-ch">
+  <header><div class="eyebrow">Pour la fabrication</div><h2 id="h-ch">Charte de production</h2></header>
+  <div class="spec">
+    <div class="panel"><h3>Textes à l’écran</h3><dl>
+      <dt>Compteur</dt><dd>Libellé Inter SemiBold 23 px, interlettrage 0,2 em. Valeur Newsreader Medium 90 px, chiffres tabulaires. Repère de temps Inter SemiBold 21 px.</dd>
+      <dt>Sous-titres</dt><dd>Newsreader Medium Italique 54 px, interligne 1,2. Ombre portée et voile sombre local.</dd>
+      <dt>Titre</dt><dd>Newsreader Medium 80 px, identique en P01 et P19.</dd>
+      <dt>Carton</dt><dd>Newsreader 68 px, IBM Plex Mono 26 et 30 px.</dd></dl></div>
+    <div class="panel"><h3>Règles</h3><dl>
+      <dt>Lecture</dt><dd>Deux lignes et 80 caractères au plus, 4 s minimum par sous-titre.</dd>
+      <dt>Nombres</dt><dd>Espace fine insécable pour les milliers (496 365), virgule décimale.</dd>
+      <dt>Ponctuation</dt><dd>Espace insécable avant ? ! : ; et à l’intérieur des guillemets.</dd>
+      <dt>Zones TikTok</dt><dd>Rien d’important dans les 160 px du haut, les 420 px du bas ni les 140 px de droite.</dd></dl></div>
+    <div class="panel"><h3>Son et lumière</h3><dl>
+      <dt>Voix</dt><dd>Aucune voix off. Ambiances et bruitages listés plan par plan.</dd>
+      <dt>Musique</dt><dd>Une nappe sourde qui monte avec le thermomètre (P01 à P11), un silence écrasé à 50 °C (P11), l’orage qui libère la tension (P13), puis un piano en majeur sur la cour d’école plantée d’arbres (P18).</dd>
+      <dt>Mixage</dt><dd>−14 LUFS intégrés, crêtes à −1 dBTP.</dd>
+      <dt>Lumière</dt><dd>Acte 1 soleil blanc et ombres dures, acte 2 nuits orangées sans fraîcheur puis l’orage, acte 3 lumière froide de la salle de crise, cartes vues de nuit et cour d’école verte à l’ombre.</dd></dl></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-src">
+  <header><div class="eyebrow">Chiffres réels</div><h2 id="h-src">Sources</h2>
+  <p>Chiffres inventés pour la fiction : les températures de Paris (de 36 à 50 °C), les jours et les heures de la canicule, la chute de 20 degrés pendant l’orage et la température de la chambre d’Inès. Tous les autres chiffres sont réels et sourcés.</p></header>
+  <div class="tbl"><table><thead><tr><th scope="col">Réf.</th><th scope="col">Donnée</th><th scope="col">Plans</th><th scope="col">Statut</th></tr></thead><tbody><tr id="s1"><th scope="row">S1</th><td>Ville de Paris : exercice grandeur nature « Paris à 50 °C » le 13 octobre 2023 (13e et 19e arrondissements), dôme de chaleur fictif avec un pic à 50 °C, puis exercice en salle de crise le 17 octobre.<div class="lnk"><a href="https://www.paris.fr/pages/paris-50-c-un-exercice-grandeur-nature-pour-se-preparer-aux-chaleurs-extremes-24322" rel="noopener" target="_blank">www.paris.fr</a></div></td><td>P14, P15</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s2"><th scope="row">S2</th><td>Inserm, rapport d’étape du 25 septembre 2003 : 14 802 décès en excès en France du 1er au 20 août 2003 (+60 %), surtout des personnes âgées.<div class="lnk"><a href="https://www.inserm.fr/wp-content/uploads/2017-11/inserm-rapportthematique-surmortalitecaniculeaout2003-rapportetape.pdf" rel="noopener" target="_blank">www.inserm.fr</a></div></td><td>P12, P16</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s3"><th scope="row">S3</th><td>Météo-France (validation du 19 juillet 2019) : record national de 46,0 °C à Vérargues (Hérault), le 28 juin 2019.<div class="lnk"><a href="https://www.futura-sciences.com/planete/breves/meteorologie-record-absolu-temperature-france-eleve-finalement-46-c-919/" rel="noopener" target="_blank">www.futura-sciences.com</a></div></td><td>P17</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s4"><th scope="row">S4</th><td>Ville de Paris : record de 42,6 °C à Paris-Montsouris le 25 juillet 2019 (ancien record : 40,4 °C en 1947).<div class="lnk"><a href="https://www.paris.fr/pages/temperatures-extremes-tempetes-tous-les-records-meteo-a-paris-20612" rel="noopener" target="_blank">www.paris.fr</a></div></td><td>P03</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s5"><th scope="row">S5</th><td>Météo-France, synthèse sur le climat d’une France à +4 °C (mars 2025) : des records locaux de 50 °C « possibles dès l’horizon 2050 », « probables » en fin de siècle.<div class="lnk"><a href="https://www.banquedesterritoires.fr/canicules-secheresses-inondations-quoi-se-preparer-dans-une-france-plus-chaude-de-4degc" rel="noopener" target="_blank">www.banquedesterritoires.fr</a></div></td><td>P17</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s6"><th scope="row">S6</th><td>Santé publique France, synthèse des études InVS sur 2003 : avoir sa chambre sous les toits multipliait par 4 le risque de décès des personnes âgées vivant chez elles (OR 4,1).<div class="lnk"><a href="https://www.santepubliquefrance.fr/index.php/climat/fortes-chaleurs-canicule/rapportsynthese/synthese-des-etudes-de-linvs-sur-les-facteurs-de-risquesimpacts-sanitaires-des-vagues-de-chaleur-en" rel="noopener" target="_blank">www.santepubliquefrance.fr</a></div></td><td>P09</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s7"><th scope="row">S7</th><td>AFP / Euronews (juin 2026) : en plein soleil, le zinc des toits parisiens monte jusqu’à 70 à 80 °C ; les chambres de bonne comptent parmi les logements les plus dangereux en canicule.<div class="lnk"><a href="https://fr.euronews.com/2026/06/25/a-paris-les-habitants-des-chambres-de-bonne-cuisent-sous-les-jolis-toits-en-zinc" rel="noopener" target="_blank">fr.euronews.com</a></div></td><td>P02</td><td><span class="status warn">À recouper (70 ou 80 °C selon les sources)</span></td></tr><tr id="s8"><th scope="row">S8</th><td>SNCF Réseau (AFP) : le rail peut atteindre 60 °C quand l’air avoisine 40 °C ; l’acier se dilate et les trains doivent ralentir.<div class="lnk"><a href="https://www.linfodurable.fr/sncf-la-canicule-met-les-rails-sous-tension-12199" rel="noopener" target="_blank">www.linfodurable.fr</a></div></td><td>P04</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s9"><th scope="row">S9</th><td>AFP : à Golfech, la réglementation oblige EDF à réduire ou arrêter la production quand la Garonne dépasse 28 °C.<div class="lnk"><a href="https://www.linfodurable.fr/canicule-la-centrale-nucleaire-de-golfech-au-bord-de-la-garonne-arretee-57250" rel="noopener" target="_blank">www.linfodurable.fr</a></div></td><td>P05</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s10"><th scope="row">S10</th><td>Ministère de l’Éducation nationale : canicule de juin 2019, les épreuves écrites du brevet sont reportées aux 1er et 2 juillet.<div class="lnk"><a href="https://www.education.gouv.fr/canicule-les-epreuves-ecrites-du-diplome-national-du-brevet-sont-reportees-aux-1er-et-2-juillet-456471" rel="noopener" target="_blank">www.education.gouv.fr</a></div></td><td>P06</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s11"><th scope="row">S11</th><td>Météo-France, brochure sur l’îlot de chaleur urbain : plus de 8 °C d’écart la nuit entre Paris et la campagne en août 2003.<div class="lnk"><a href="https://meteofrance.fr/sites/meteofrance.fr/files/files/editorial/Brochure_ICU_web_V11.pdf" rel="noopener" target="_blank">meteofrance.fr</a></div></td><td>P08</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s12"><th scope="row">S12</th><td>Ville de Paris : en canicule, des parcs et jardins restent ouverts toute la nuit, en plus de ceux ouverts 24 h sur 24.<div class="lnk"><a href="https://www.paris.fr/pages/canicule-a-chacun-son-coin-d-ombre-35681" rel="noopener" target="_blank">www.paris.fr</a></div></td><td>P10</td><td><span class="status ok">Vérifié</span></td></tr><tr id="s13"><th scope="row">S13</th><td>Ville de Paris : 203 « cours oasis » aménagées au début de 2025, objectif 360 en 2030.<div class="lnk"><a href="https://www.paris.fr/pages/les-cours-oasis-7389" rel="noopener" target="_blank">www.paris.fr</a></div></td><td>P18</td><td><span class="status warn">À recouper (chiffre à mettre à jour)</span></td></tr></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-next">
+  <div class="next"><div class="eyebrow">Avant l’animation</div><h2 id="h-next" style="margin:6px 0 10px">À valider</h2>
+  <p>Le sujet, les 19 sous-titres et la chute.</p></div>
+</section>
+</div>
+
+<div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Plan agrandi">
+  <div><img id="v-img" alt=""><div class="bar"><button type="button" id="v-prev" aria-label="Plan précédent">←</button><span id="v-cap"></span><button type="button" id="v-next" aria-label="Plan suivant">→</button><button type="button" id="v-close">Fermer</button></div></div>
+</div>
+<script>
+(() => {
+  const F = [{"src": "frames/P01.jpg", "id": "P01", "tc": "0:00,0"}, {"src": "frames/P02.jpg", "id": "P02", "tc": "0:03,0"}, {"src": "frames/P03.jpg", "id": "P03", "tc": "0:07,0"}, {"src": "frames/P04.jpg", "id": "P04", "tc": "0:11,0"}, {"src": "frames/P05.jpg", "id": "P05", "tc": "0:15,0"}, {"src": "frames/P06.jpg", "id": "P06", "tc": "0:19,0"}, {"src": "frames/P07.jpg", "id": "P07", "tc": "0:23,0"}, {"src": "frames/P08.jpg", "id": "P08", "tc": "0:27,0"}, {"src": "frames/P09.jpg", "id": "P09", "tc": "0:31,5"}, {"src": "frames/P10.jpg", "id": "P10", "tc": "0:35,5"}, {"src": "frames/P11.jpg", "id": "P11", "tc": "0:39,5"}, {"src": "frames/P12.jpg", "id": "P12", "tc": "0:44,0"}, {"src": "frames/P13.jpg", "id": "P13", "tc": "0:48,0"}, {"src": "frames/P14.jpg", "id": "P14", "tc": "0:52,0"}, {"src": "frames/P15.jpg", "id": "P15", "tc": "0:56,0"}, {"src": "frames/P16.jpg", "id": "P16", "tc": "1:00,5"}, {"src": "frames/P17.jpg", "id": "P17", "tc": "1:05,0"}, {"src": "frames/P18.jpg", "id": "P18", "tc": "1:10,0"}, {"src": "frames/P19.jpg", "id": "P19", "tc": "1:14,5"}];
+  const v = document.getElementById('viewer'), img = document.getElementById('v-img'), cap = document.getElementById('v-cap');
+  let i = 0;
+  const show = (k) => { i = (k + F.length) % F.length; img.src = F[i].src; img.alt = 'Plan ' + F[i].id; cap.textContent = F[i].id + ' · ' + F[i].tc; v.hidden = false; };
+  document.querySelectorAll('.frame').forEach(b => b.addEventListener('click', () => show(+b.dataset.i)));
+  document.getElementById('v-prev').addEventListener('click', (ev) => { ev.stopPropagation(); show(i - 1); });
+  document.getElementById('v-next').addEventListener('click', (ev) => { ev.stopPropagation(); show(i + 1); });
+  document.getElementById('v-close').addEventListener('click', () => { v.hidden = true; });
+  v.addEventListener('click', (ev) => { if (ev.target === v) v.hidden = true; });
+  document.addEventListener('keydown', (ev) => { if (v.hidden) return; if (ev.key === 'Escape') v.hidden = true; if (ev.key === 'ArrowRight') show(i + 1); if (ev.key === 'ArrowLeft') show(i - 1); });
+})();
+</script>

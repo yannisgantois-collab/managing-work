@@ -25,7 +25,7 @@ Puis, dans ce dossier, lancer le petit serveur local (à laisser ouvert) :
 | `render-video.js`, `assemble.py` | Non | Rendu image par image puis montage final. |
 
 ## Plusieurs projets
-Chaque What if a son dossier dans `projets/<nom>/` avec son `shots.json` (scénario, et section `page` pour les textes du storyboard : accroche, sources, corrections). Déjà présents : `projets/agriculteurs` (épisode 1) et `projets/coupure` (épisode 2). Choisir le projet avec la variable `DATA` :
+Chaque What if a son dossier dans `projets/<nom>/` avec son `shots.json` (scénario, et section `page` pour les textes du storyboard : accroche, sources, corrections). Déjà présents : `projets/agriculteurs` (épisode 1), `projets/coupure` (épisode 2) et `projets/canicule` (épisode 3, dont le script est généré par `projets/canicule/ecrire_script.py`). Choisir le projet avec la variable `DATA` :
 
 ```bash
 DATA=projets/coupure/shots.json node render-all.js 720 "" 1 projets/coupure/frames
@@ -35,7 +35,7 @@ python3 synth2.py projets/coupure/soundtrack.wav projets/coupure/shots.json
 DATA=projets/coupure/shots.json SEG=projets/coupure/segments WAV=projets/coupure/soundtrack.wav python3 assemble.py ../what-if-coupure/video/ma-video.mp4
 ```
 
-Décors : `scenes.js` (épisode 1 : chambre, stabulation, bocage, supermarché, halle, étal, boulangerie ou épicerie, distribution alimentaire, blé, parc, friche, portail, vallée) et `scenes2.js` (épisode 2 : Paris vu d'une fenêtre avec la tour Eiffel, salon, carrefour de nuit ou rue espagnole, métro, téléphone, cuisine, station-service, hôpital, cartes de nuit Ibérie et France). Un plan peut demander une caméra plus profonde avec `far` / `near` dans son cadrage.
+Décors : `scenes.js` (épisode 1 : chambre, stabulation, bocage, supermarché, halle, étal, boulangerie ou épicerie, distribution alimentaire, blé, parc, friche, portail, vallée) `scenes2.js` (épisode 2 : Paris vu d'une fenêtre avec la tour Eiffel, salon, carrefour de nuit ou rue espagnole, métro, téléphone, cuisine, station-service, hôpital, cartes de nuit Ibérie et France) et `scenes3.js` (épisode 3 : toits en zinc de midi, de nuit ou sous l'orage, chambre de bonne, rue haussmannienne avec croix de pharmacie, voie ferrée, centrale nucléaire, école fermée ou « cour oasis », façade à climatiseurs, parc la nuit, salle de crise, cartes de chaleur de la France). Un plan peut demander une caméra plus profonde avec `far` / `near` dans son cadrage.
 
 ## Les commandes
 1. Storyboard (images fixes, rapide) : `node render-all.js 720 "" 1 frames` puis `python3 build_page.py ../storyboard`
@@ -54,6 +54,7 @@ Pour refaire un seul plan : modifier, relancer `render-video.js P05 0.75`, puis 
 4. Storyboard → vérifier → rendu vidéo → montage.
 
 ## Animer les personnages et les décors
+- `person({ ..., shorts: true, sleeves: false })` habille un personnage pour l'été (short, débardeur).
 - `animPerson(perso, t, options)` (dans `lib.js`) anime un personnage créé par `person()` : respiration et regard par défaut, plus `walk` (pas par seconde), `stride`, `wave` (salut), `talk` (parle avec les mains), `sip` (boit), `nod`, `look`, `sway`, et `phase` pour décaler les personnages entre eux.
 - Pour faire marcher quelqu'un : déplacer `perso.position` à chaque image et appeler `animPerson(perso, t, { walk: 1.4 })`.
 - `flick(t, graine)` donne un scintillement naturel (bougies, néons qui grésillent, lampes torches).
@@ -63,4 +64,5 @@ Pour refaire un seul plan : modifier, relancer `render-video.js P05 0.75`, puis 
 - Sous-titres (`cap`) : `\n` force un retour à la ligne. Couper sur les groupes de sens et ne jamais laisser un mot seul sur la dernière ligne ; 860 px au plus par ligne (environ 38 caractères).
 - L'occlusion ambiante (GTAO) peut laisser des rectangles sombres sur les grands sols plats : mettre `{ ao: false }` dans le cadrage concerné.
 - Les nombres et textes visibles dans l'image viennent tous de `shots.json` : une seule source, pas de chiffres incohérents.
+- Les panneaux écrits avec `signTex` réduisent leur texte s'il dépasse : plus de mot coupé au bord d'une enseigne.
 - `handle` dans `shots.json` : le nom de compte affiché sur le carton final. Le laisser vide (`""`) pour ne rien afficher.
