@@ -124,7 +124,17 @@ const FinishShader = {
       c.rgb += (h(vUv*vec2(1080.0,1920.0)) - 0.5) * grain; gl_FragColor = c; }`
 };
 
-export function finish({ renderer, scene, camera, W, H, bloom = [0.45, 0.6, 0.85], ao = true, aoRadius = 0.5, vig = 0.35, grain = 0.03, lift = [0, 0, 0], sat = 1.0, dof = null }) {
+// heat shimmer: the image wobbles like air above hot asphalt, mostly in the lower half (time set per frame)
+const HeatShader = {
+  uniforms: { tDiffuse: { value: null }, time: { value: 0 }, amp: { value: 0.0015 } },
+  vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+  fragmentShader: `uniform sampler2D tDiffuse; uniform float time; uniform float amp; varying vec2 vUv;
+    void main(){ vec2 uv = vUv; float w = smoothstep(0.95, 0.2, uv.y);
+      float n = sin(uv.y * 140.0 + time * 7.0) * 0.6 + sin(uv.y * 63.0 - time * 4.3 + uv.x * 9.0) * 0.4;
+      float m = sin(uv.x * 90.0 + time * 5.1 + uv.y * 30.0);
+      uv.x += n * amp * w; uv.y += m * amp * 0.45 * w; gl_FragColor = texture2D(tDiffuse, clamp(uv, 0.001, 0.999)); }`,
+};
+export function finish({ renderer, scene, camera, W, H, bloom = [0.45, 0.6, 0.85], ao = true, aoRadius = 0.5, vig = 0.35, grain = 0.03, lift = [0, 0, 0], sat = 1.0, dof = null, heat = 0 }) {
   const comp = new EffectComposer(renderer);
   comp.setPixelRatio(1); comp.setSize(W, H);
   comp.addPass(new RenderPass(scene, camera));
@@ -135,6 +145,7 @@ export function finish({ renderer, scene, camera, W, H, bloom = [0.45, 0.6, 0.85
       g.blendIntensity = 0.85; comp.addPass(g);
     } catch (e) { console.log('gtao fail ' + e.message); }
   }
+  if (heat) { const hp = new ShaderPass(HeatShader); hp.uniforms.amp.value = heat; comp.addPass(hp); comp.heatPass = hp; }
   if (dof) comp.addPass(new BokehPass(scene, camera, { focus: dof.focus, aperture: dof.aperture, maxblur: dof.maxblur ?? 0.008 }));
   if (bloom) comp.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), bloom[0], bloom[1], bloom[2]));
   comp.addPass(new OutputPass());

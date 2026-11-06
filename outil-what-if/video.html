@@ -93,6 +93,7 @@ try {
       camera.fov = c.fov; camera.position.set(...c.pos); if (c.up) camera.up.set(...c.up); camera.lookAt(...c.look); camera.updateProjectionMatrix();
       st = objAnim(id, ctx, t, shot.dur, i);
       grain.uniforms.seed.value = (i * 0.137) % 1;
+      if (comp.heatPass) comp.heatPass.uniforms.time.value = t;
       comp.render();
     }
     if (val) { const v = hudValue(id, T, t, shot.dur, st, shot); if (v !== null && v !== undefined) { if (typeof v === 'object') { val.textContent = v.value; if (v.tl && tlEl) tlEl.textContent = v.tl; } else val.textContent = v; } }

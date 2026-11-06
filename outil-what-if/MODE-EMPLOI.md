@@ -16,8 +16,8 @@ Puis, dans ce dossier, lancer le petit serveur local (à laisser ouvert) :
 |---|---|---|
 | `shots.json` | **Oui, toujours** | Le scénario : titre, compte, et pour chaque plan la durée, le décor, la caméra, le compteur, le sous-titre, l'action, le son. |
 | `scenes.js` | Oui si nouveaux décors | Les décors 3D (`SETS`) et les cadrages (`CAMS`). Personnages, vaches, tracteurs, maisons, immeubles, arbres sont réutilisables via `lib.js`. |
-| `anim.js`, `anim2.js` | Oui | Mouvements de caméra par plan (`CAMANIM`), objets animés (`objAnim`), compteurs qui défilent (`hudValue`). Le projet choisit son module avec `"anim"` dans `shots.json` (`anim.js` par défaut). |
-| `synth.py`, `synth2.py` | Oui | Bande-son synchronisée sur les temps de `shots.json` (ambiances, réveil, piano, clics). `synth2.py` est celle de l'épisode 2. |
+| `anim.js`, `anim2.js`, `anim3.js` | Oui | Mouvements de caméra par plan (`CAMANIM`), objets animés (`objAnim`), compteurs qui défilent (`hudValue`). Le projet choisit son module avec `"anim"` dans `shots.json` (`anim.js` par défaut). |
+| `synth.py`, `synth2.py`, `synth3.py` | Oui | Bande-son synchronisée sur les temps de `shots.json` (ambiances, réveil, piano, clics). `synth2.py` et `synth3.py` sont celles des épisodes 2 et 3. |
 | `lib.js` | Rarement | Boîte à outils 3D : personnage `person()`, `cow()`, `tractor()`, `truck()`, `farmhouse()`, `haussmann()`, lumières, post-traitement. |
 | `render.html`, `video.html` | Rarement | Mise en page des textes (compteur, sous-titres, carton final) : polices, tailles, zones de sécurité TikTok. |
 | `render-all.js` | Non | Images fixes du storyboard. |
@@ -57,6 +57,8 @@ Pour refaire un seul plan : modifier, relancer `render-video.js P05 0.75`, puis 
 - `person({ ..., shorts: true, sleeves: false })` habille un personnage pour l'été (short, débardeur).
 - `animPerson(perso, t, options)` (dans `lib.js`) anime un personnage créé par `person()` : respiration et regard par défaut, plus `walk` (pas par seconde), `stride`, `wave` (salut), `talk` (parle avec les mains), `sip` (boit), `nod`, `look`, `sway`, et `phase` pour décaler les personnages entre eux.
 - Pour faire marcher quelqu'un : déplacer `perso.position` à chaque image et appeler `animPerson(perso, t, { walk: 1.4 })`.
+- `heat: 0.0015` dans les options d'un cadrage ajoute l'ondulation de l'air chaud à l'image (plus fort près du sol) ; la vidéo la fait bouger à chaque image.
+- `flock(...)` dans `scenes3.js` fait voler des oiseaux ; `cloud(...)` fait passer des nuages sombres.
 - `flick(t, graine)` donne un scintillement naturel (bougies, néons qui grésillent, lampes torches).
 - Dans `scenes2.js`, chaque décor range ses animations dans `ctx.anim` (une fonction `(t, durée, image)` par élément animé) : fenêtres qui s'éteignent en vague, porte qui s'ouvre, piétons, voitures, gouttes d'eau, bougies. C'est le modèle à suivre pour un nouveau décor.
 
