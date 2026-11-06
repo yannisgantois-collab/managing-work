@@ -341,7 +341,7 @@ export function street(scene, { variant }) {
     const m2 = person({ ...medic, skin: 0x9c6a48, hair: 0x1b1b1b, rsh: [-0.6, -0.1], lsh: [-0.6, 0.1], rel: -0.4, lel: -0.4 }); m2.position.set(5.45, 0, -3.5); m2.rotation.y = 0.15; scene.add(m2);
     for (const m of [m1, m2]) for (const k of ['lSh', 'rSh']) m.userData.rig[k].add(box(0.14, 0.04, 0.14, E(0xd9ff3a, 0.5), 0, -0.2, 0));
     const door = box(2.4, 3.6, 0.2, M(0x2f4a3a, 0.6), 8.92, 1.8, -1.2); door.rotation.y = Math.PI / 2; scene.add(door);
-    const nbr = person({ ...SUMMER(), sleeves: true, top: 0x8a5a8f }); nbr.position.set(8.4, 6.6, -6.2); nbr.rotation.y = -Math.PI / 2 + 0.3; scene.add(nbr);
+    const nbr = person({ ...SUMMER(), sleeves: true, top: 0x8a5a8f }); nbr.position.set(8.4, 3.3, -6.2); nbr.rotation.y = -Math.PI / 2 + 0.3; scene.add(nbr);
     anim.push((t) => { const f = (Math.sin(t * 14) > 0 ? 1 : 0.15); A.blue.emissiveIntensity = 4 * f; b1.intensity = 9 * f; b2.intensity = 9 * (1.15 - f); [m1, m2].forEach((m, i) => animPerson(m, t, { walk: 0.9, stride: 0.22, armSwing: 0, look: 0.2, phase: i * 2 })); const dz = -1.1 * ease(t / 4); str.position.z = -1.7 + dz; m1.position.z = 0.0 + dz; m2.position.z = -3.5 + dz; animPerson(nbr, t, { breath: 1.2, look: 0.6, sway: 1, phase: 4 }); cross.userData.show(Math.floor(t / 1.6) % 2); });
   }
   return { anim };
@@ -454,9 +454,9 @@ export function school(scene, { variant }) {
     for (let i = 0; i < 8; i++) scene.add(box(0.9, 0.012, 0.9, M(0xf2f2ee, 0.7), -1.5 + (i % 2) * 1.0, 0.03, -4 - Math.floor(i / 2) * 1.0));
     const hoop = new THREE.Group(); hoop.position.set(10, 0, -16); hoop.add(box(0.15, 3.4, 0.15, M(0x2f3236, 0.5, 0.4), 0, 1.7, 0)); hoop.add(box(1.4, 1.0, 0.05, M(0xf2f2ee, 0.6), 0, 3.4, 0.3)); castAll(hoop); scene.add(hoop);
     // the notice on the gate (fix D03: clean text in the decor)
-    const notice = mesh(new THREE.PlaneGeometry(0.62, 0.86), new THREE.MeshStandardMaterial({ map: canvasTex(372, 516, (g, w, h) => { g.fillStyle = '#fbfaf6'; g.fillRect(0, 0, w, h); g.fillStyle = '#c62d24'; g.font = '800 52px Inter'; g.textAlign = 'center'; g.fillText('ÉCOLE', w / 2, 92); g.fillText('FERMÉE', w / 2, 152); g.fillStyle = '#1d1d1d'; g.font = '700 40px Inter'; g.fillText('CANICULE', w / 2, 240); g.fillRect(60, 278, w - 120, 4); g.font = '600 34px Inter'; g.fillText('BREVET', w / 2, 350); g.fillText('REPORTÉ', w / 2, 396); g.font = 'italic 500 24px Newsreader'; g.fillStyle = '#444'; g.fillText('La direction', w / 2, 470); }), roughness: 0.8 }), 0.85, 1.45, 0.08, false, false);
+    const notice = mesh(new THREE.PlaneGeometry(0.62, 0.86), new THREE.MeshStandardMaterial({ map: canvasTex(372, 516, (g, w, h) => { g.fillStyle = '#fbfaf6'; g.fillRect(0, 0, w, h); g.fillStyle = '#c62d24'; g.font = '800 52px Inter'; g.textAlign = 'center'; g.fillText('ÉCOLE', w / 2, 92); g.fillText('FERMÉE', w / 2, 152); g.fillStyle = '#1d1d1d'; g.font = '700 40px Inter'; g.fillText('CANICULE', w / 2, 240); g.fillRect(60, 278, w - 120, 4); g.font = '600 34px Inter'; g.fillText('BREVET', w / 2, 350); g.fillText('REPORTÉ', w / 2, 396); g.font = 'italic 500 24px Newsreader'; g.fillStyle = '#444'; g.fillText('La direction', w / 2, 470); }), roughness: 0.8 }), 0.85, 1.95, 0.08, false, false);
     notice.rotation.z = 0.03; scene.add(notice);
-    for (const [x, y] of [[0.57, 1.85], [1.13, 1.85], [0.57, 1.05], [1.13, 1.05]]) scene.add(box(0.07, 0.03, 0.005, M(0xd9cfa8, 0.9), x, y, 0.085));
+    for (const [x, y] of [[0.57, 2.35], [1.13, 2.35], [0.57, 1.55], [1.13, 1.55]]) scene.add(box(0.07, 0.03, 0.005, M(0xd9cfa8, 0.9), x, y, 0.085));
     const haze = dust(160, [-14, 0.2, -18, 14, 1.2, -2], 0xfff0d0, 0.7, 0.025); scene.add(haze);
     const leafy = box(0.12, 0.01, 0.08, M(0xb8862a, 0.8), -7, 0.1, -3); scene.add(leafy);
     anim.push((t) => { haze.position.x = Math.sin(t * 1.9) * 0.2; notice.rotation.x = Math.sin(t * 3.1) * 0.05; notice.rotation.y = Math.sin(t * 2.3) * 0.04; leafy.position.set(-7 + t * 2.4, 0.06 + Math.abs(Math.sin(t * 4.5)) * 0.35, -3 - t * 0.6); leafy.rotation.set(t * 7, t * 3, t * 5); });
